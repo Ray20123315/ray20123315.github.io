@@ -1,4 +1,5 @@
 name: Deploy Python Notes
+
 on:
   push:
     branches: [main]
@@ -20,27 +21,33 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout source and original theme
+      - name: Checkout forked template and Python notes
         uses: actions/checkout@v4
         with:
           sparse-checkout: |
-            .github
+            docs/.mkdocs/site.yml
             docs/md/python
             docs/logo/logo.png
-            theme
+            mkdocs.yml
             mkdocs.python.yml
+            theme
+            tools
+            setup.py
             requirements.txt
           sparse-checkout-cone-mode: false
           fetch-depth: 1
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install MkDocs Material
+
+      - name: Install forked template dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install 'mkdocs<2' 'mkdocs-material==9.7.1'
-      - name: Stage Python-only documentation
+          python -m pip install -r requirements.txt
+
+      - name: Stage Python-only pages
         run: |
           mkdir -p _python_docs/md/python _python_docs/assets _python_docs/logo
           find docs/md/python -maxdepth 1 -type f \( -name '*.md' -o -name '*.html' \) -exec cp -t _python_docs/md/python/ {} +
@@ -49,32 +56,39 @@ jobs:
           cp -a theme/assets/. _python_docs/assets/
           test "$(find _python_docs/md/python -type f -name '*.md' | wc -l)" -eq 20
           test "$(find _python_docs/md/python -type f -name '*.html' | wc -l)" -eq 32
-      - name: Build original Material template
+
+      - name: Build using inherited forked template
         run: python -m mkdocs build --config-file mkdocs.python.yml
-      - name: Verify published pages
+
+      - name: Verify Python pages and fork styling
         run: |
           test -f _python_public/index.html
           test -f _python_public/md/python/首頁.html
           test -f _python_public/md/python/輸出與資料存取.html
           test -f _python_public/md/python/f580_骰子.html
-          test -f _python_public/assets/pymdownx-extras/自定義.css
           test -f _python_public/search/search_index.json
           test ! -e _python_public/blog
           test ! -e _python_public/md/人工智慧
           test ! -e _python_public/md/演算法筆記
           python - <<'PY'
           from pathlib import Path
-          html = Path("_python_public/index.html").read_text(encoding="utf-8")
-          assert "md-header" in html, "MkDocs Material template not rendered"
-          assert "Python" in html
-          assert "peicd100.github.io/md/python" not in html, "An old-domain link remains on the homepage"
+          home = Path('_python_public/index.html').read_text(encoding='utf-8')
+          assert 'md-header' in home, 'Forked Material header not rendered'
+          assert 'Python' in home
+          assert 'peicd100.github.io/md/python' not in home
+          assets = Path('_python_public/assets/pymdownx-extras')
+          assert any(f.suffix == '.css' for f in assets.iterdir()), 'Original CSS missing'
+          assert (assets / 'material-extra-theme-2ek1P7jT.js').is_file(), 'Original theme script missing'
           PY
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
+
       - name: Upload Python-only site
         uses: actions/upload-pages-artifact@v3
         with:
           path: _python_public
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

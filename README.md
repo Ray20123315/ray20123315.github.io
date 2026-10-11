@@ -1,16 +1,16 @@
-# Python 筆記
+# Python 筆記網站
 
-公開網站：https://ray20123315.github.io/
+網站：https://ray20123315.github.io/
 
-這份網站使用本儲存庫**原有的 MkDocs Material 模板**，保留原先的深色 cyan 配色、側邊導覽、右側目錄、程式碼高亮與文章搜尋。網站內容只顯示 Python 語法筆記及 APCS 題目練習。
+此儲存庫 fork 自 [peicd100/peicd100.github.io](https://github.com/peicd100/peicd100.github.io)。網站**直接繼承 fork 來源原有的 MkDocs 設定與自訂模板**（`mkdocs.yml`、`docs/.mkdocs/site.yml`、`theme/`、`tools/`），而非另寫一套 Material 視覺設計。
 
-- `mkdocs.python.yml`：Python 專屬的 Material 主題設定與完整章節導覽
-- `docs/md/python/`：保留原有 20 份 Markdown（含原始首頁）與 32 份 HTML 題目
-- `theme/`：沿用原始的 Material 版型覆寫、CSS 和 JavaScript
-- `.github/workflows/deploy-python.yml`：GitHub Actions 建置與部署 Python-only 靜態網站
+## Python 專用發布
 
-**其他科目及原有 MkDocs 設定檔均沒有刪除。** 部署流程僅從 `docs/md/python/` 選取 Markdown 與 HTML 文件，加上模板資產，產生對外發布的網站。Python 資料夾下的其他備份或測試檔案不會發布。
+- `mkdocs.python.yml`：繼承原本 `mkdocs.yml` 的完整外觀、Markdown 擴充與主題覆寫，只替換站名、目錄與需要的插件
+- `.github/workflows/deploy-python.yml`：使用原 fork 專案的 `requirements.txt` 建置 Python-only 網站
+- `docs/md/python/`：原有 20 份 Markdown（包含首頁）及 32 份 HTML 練習
+- `theme/`：保留原 fork 專案的 CSS、JavaScript、頁首及頁尾覆寫
 
-如果 GitHub Pages 設定尚未切換，請在儲存庫 **Settings → Pages → Build and deployment → Source** 選 **GitHub Actions**，讓 `Deploy Python Notes` 成為網站的部署來源。
+除了 Python 以外的素材與來源仍存在 GitHub 儲存庫，但不複製到對外部署目錄；Python 頁面會使用原來的網址路徑 `/md/python/...`。
 
-原先的 `index.html`、`lesson.html`、`python.css` 和 `python.js` 作為既有檔案保留，但不是 MkDocs 網站使用的入口與樣式。
+GitHub Pages 請使用 **Settings → Pages → Build and deployment → Source: GitHub Actions**，避免分支部署重新覆蓋成不是 Python 專用的網站。

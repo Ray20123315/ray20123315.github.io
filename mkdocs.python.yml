@@ -1,71 +1,21 @@
-# Python-only deployment, based on the repository's original MkDocs Material theme.
-# All non-Python source files remain untouched and are excluded from the published artifact.
+# Reuse the forked repository's original PEICD100 MkDocs theme and extensions.
+# Only navigation, publishing scope and site identity differ from the upstream fork.
+INHERIT: mkdocs.yml
 site_name: Python 筆記
 site_url: https://ray20123315.github.io/
 site_description: Python 語法、資料結構與 APCS 練習筆記
-use_directory_urls: false
 docs_dir: _python_docs
 site_dir: _python_public
+use_directory_urls: false
+not_in_nav: []
 
-theme:
-  name: material
-  custom_dir: theme
-  language: zh
-  logo: logo/logo.png
-  favicon: logo/logo.png
-  font: false
-  palette:
-    scheme: slate
-    primary: cyan
-    accent: cyan
-  features:
-    - navigation.tabs
-    - navigation.sections
-    - navigation.indexes
-    - navigation.instant
-    - navigation.instant.progress
-    - navigation.top
-    - navigation.footer
-    - content.tabs.link
-    - content.code.copy
-    - content.code.annotations
-    - search.share
-
+# Restrict publication-specific plugins to Python content.
+# Theme, custom_dir, features, palette, markdown extensions and original hooks
+# are inherited from mkdocs.yml (which inherits docs/.mkdocs/site.yml).
 plugins:
+  - tags
   - search:
       separator: '[\\s\\u200b\\-]'
-
-extra_css:
-  - assets/pymdownx-extras/extra-8611f6c398.css
-  - assets/pymdownx-extras/自定義.css
-
-extra_javascript:
-  - assets/pymdownx-extras/conditional-loader.js
-
-markdown_extensions:
-  - admonition
-  - attr_list
-  - def_list
-  - footnotes
-  - tables
-  - md_in_html
-  - toc:
-      permalink: true
-  - pymdownx.details
-  - pymdownx.superfences
-  - pymdownx.highlight
-  - pymdownx.inlinehilite
-  - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.tilde
-  - pymdownx.caret
-  - pymdownx.arithmatex:
-      generic: true
-  - pymdownx.tasklist:
-      custom_checkbox: true
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 nav:
   - 首頁: index.md
