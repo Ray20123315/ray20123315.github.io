@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="zh-Hant-TW" data-theme="dark" data-ui-profile="commercial" data-dark-surface-profile="neutral-black" data-exam-profile="reading-mcq">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>APCS Python 程式識讀｜模擬考</title>
+<style>
+:root{
+  color-scheme:light;
+  --bg:#f4f4f5;--bg-elevated:#fafafa;--panel:#ffffff;--panel2:#f7f7f8;--panel3:#eeeeef;
+  --text:#18181b;--text-strong:#09090b;--muted:#71717a;--muted-2:#8a8a93;
+  --line:#e4e4e7;--line-strong:#d4d4d8;--line-soft:rgba(24,24,27,.08);
+  --accent:#0e7490;--accent-strong:#155e75;--accent-soft:#f1f1f2;
+  --good:#167449;--good-soft:#f4f4f5;--bad:#b33a3a;--bad-soft:#f4f4f5;--warn:#8b5c00;--warn-soft:#f4f4f5;
+  --code:#0a0a0a;--code-line:#1f1f1f;--code-text:#e5e7eb;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.06);--shadow:0 8px 24px rgba(0,0,0,.08);--shadow-lg:0 18px 52px rgba(0,0,0,.14);
+  --radius-sm:10px;--radius:16px;--radius-lg:22px;
+}
+html[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#000000;--bg-elevated:#030303;--panel:#070707;--panel2:#0c0c0c;--panel3:#121212;
+  --text:#f4f4f5;--text-strong:#ffffff;--muted:#a1a1aa;--muted-2:#7f7f88;
+  --line:#262626;--line-strong:#3a3a3a;--line-soft:rgba(255,255,255,.07);
+  --accent:#67e8f9;--accent-strong:#22d3ee;--accent-soft:#151515;
+  --good:#86efac;--good-soft:#101010;--bad:#fca5a5;--bad-soft:#101010;--warn:#fde68a;--warn-soft:#101010;
+  --code:#030303;--code-line:#1a1a1a;--code-text:#e5e7eb;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.32);--shadow:0 8px 24px rgba(0,0,0,.34);--shadow-lg:0 18px 52px rgba(0,0,0,.46);
+}
+*{box-sizing:border-box} [hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI Variable","Segoe UI","Noto Sans TC","Microsoft JhengHei",sans-serif;line-height:1.65;font-size:16px}
+button,input{font:inherit} button{cursor:pointer}button:disabled{cursor:default;opacity:.45}
+button,a,input{touch-action:manipulation}button:focus-visible,input:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+a{color:var(--accent)}button{border:1px solid var(--line-strong);background:var(--panel2);color:var(--text);border-radius:var(--radius-sm);padding:9px 14px;min-height:42px;transition:background .15s,border-color .15s}
+button:hover:not(:disabled){background:var(--panel3);border-color:var(--muted)}button.primary{border-color:var(--accent);color:var(--accent);background:var(--panel2);font-weight:650}button.quiet{border-color:transparent;background:transparent;color:var(--muted)}button.danger{color:var(--bad);border-color:var(--bad)}
+.skip-link{position:fixed;z-index:100;top:-80px;left:12px;padding:10px;background:var(--panel);border:1px solid var(--accent)}.skip-link:focus{top:12px}
+.topbar{height:82px;position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 30px;background:var(--bg-elevated);border-bottom:1px solid var(--line)}
+.brand{min-width:0;display:flex;align-items:center;gap:16px}.brand-mark{font-family:"Cascadia Mono",Consolas,monospace;color:var(--accent);font-size:14px;letter-spacing:.1em;font-weight:700;border:1px solid var(--line-strong);border-radius:10px;padding:8px 10px}.brand-title{font-size:17px;font-weight:650;letter-spacing:.025em;margin:0;line-height:1.35}.brand-sub{font-size:12px;color:var(--muted);margin-top:3px;letter-spacing:.06em}.top-actions{display:flex;align-items:center;gap:14px;flex-shrink:0}.appearance-controls,.record-controls{display:flex;align-items:center;gap:8px}.record-controls{flex-shrink:0}.top-actions button{font-size:13px;min-height:38px;padding:7px 11px}.mode-key-wrap{position:relative;width:38px;height:38px;display:inline-flex;align-items:center;justify-content:flex-end;flex:0 0 38px;border-radius:8px;transition:width .16s ease,flex-basis .16s ease}
+.mode-key-wrap.has-value{width:88px;flex-basis:88px}
+.mode-key-input{position:absolute;inset:0;width:100%;height:100%;opacity:0;border:0;padding:0;margin:0;cursor:text}
+.mode-key-input:focus,.mode-key-input:focus-visible{outline:none;box-shadow:none}
+.mode-key-mask{pointer-events:none;min-width:1ch;min-height:1em;font-size:13px;font-weight:800;letter-spacing:.02em;color:var(--muted);text-align:right;white-space:nowrap}
+.layout{max-width:1560px;margin:0 auto;display:grid;grid-template-columns:248px minmax(0,1fr);min-height:calc(100vh - 82px)}
+.sidebar{position:sticky;top:82px;height:calc(100vh - 82px);height:calc(100dvh - 82px);background:var(--bg-elevated);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0;z-index:25}
+.sidebar-top{padding:26px 20px 18px;border-bottom:1px solid var(--line)}.sidebar-title-row{display:flex;align-items:center;justify-content:space-between;gap:10px}h2.menu-title{font-size:16px;letter-spacing:.08em;margin:0;font-weight:650}.progress-text{font-size:12px;color:var(--muted);margin:13px 0 8px}.progress-track{height:3px;border-radius:2px;background:var(--line);overflow:hidden}.progress-fill{height:100%;width:0;background:var(--accent);transition:width .18s}
+.question-menu{overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;flex:1;padding:10px 10px 16px;display:flex;flex-direction:column;gap:5px;scrollbar-width:thin;scrollbar-color:var(--line-strong) transparent}
+.menu-item{border:1px solid transparent;min-height:55px;flex-shrink:0;border-radius:9px;padding:9px 10px;display:grid;grid-template-columns:33px minmax(0,1fr);gap:8px;width:100%;text-align:left;background:transparent;align-items:center}
+.menu-item:hover:not(:disabled){background:var(--panel2);border-color:var(--line)}.menu-item.answered{border-color:transparent;background:transparent;box-shadow:inset 3px 0 0 var(--accent)}.menu-item.answered .menu-main{color:var(--text);font-weight:600}.menu-item.answered .menu-main::before{content:"";display:inline-block;width:6px;height:6px;margin-right:7px;border-radius:50%;background:var(--accent);vertical-align:1px}.menu-item[aria-current="true"]{background:var(--panel3);border-color:var(--accent)}.menu-item.answered[aria-current="true"]{box-shadow:inset 3px 0 0 var(--accent)}.menu-no{font-family:"Cascadia Mono",Consolas,monospace;font-size:15px;color:var(--muted)}.menu-item[aria-current="true"] .menu-no{color:var(--accent);font-weight:700}.menu-main{font-size:13px;color:var(--muted);display:block;line-height:1.5}.menu-sub{font-size:11px;color:var(--muted);display:block;line-height:1.5;margin-top:2px}.menu-item.correct .menu-main{color:var(--good)}.menu-item.wrong .menu-main,.menu-item.unanswered .menu-main{color:var(--bad)}
+.sidebar-bottom{padding:16px 18px;border-top:1px solid var(--line)}.grade-button{width:100%;font-size:14px}.save-indicator{font-size:11px;color:var(--muted);margin:9px 0 0;line-height:1.55}.sidebar-bottom .save-indicator:first-child{margin-top:0}
+.main{min-width:0;padding:36px 42px 60px;max-width:1140px;width:100%;margin:0 auto}.exam-strip{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:22px;color:var(--muted);font-size:12px;letter-spacing:.025em}.exam-status{display:flex;align-items:center;gap:8px}.status-dot{height:6px;width:6px;background:var(--accent);border-radius:50%}.storage-warning{border:1px solid var(--warn);border-radius:10px;padding:11px 14px;color:var(--warn);font-size:13px;margin-bottom:18px}.record-feedback{border:1px solid var(--line-strong);border-radius:10px;padding:11px 14px;color:var(--muted);font-size:13px;margin-bottom:18px;overflow-wrap:anywhere}.record-feedback[data-kind="error"]{border-color:var(--bad);color:var(--bad)}.result-summary{padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--panel);margin-bottom:22px}.score-value{font-family:"Cascadia Mono",Consolas,monospace;font-size:34px;color:var(--text-strong);line-height:1.2;letter-spacing:-.04em}.score-denominator{font-size:18px;color:var(--muted);letter-spacing:0}.summary-caption{font-size:12px;color:var(--muted);margin-top:6px}.summary-detail{font-size:13px;color:var(--muted);text-align:right;line-height:1.85}
+.question-card{border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--panel);overflow:hidden;box-shadow:var(--shadow-sm)}.question-top{padding:26px 30px 20px;display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid var(--line-soft)}.question-heading{font-size:23px;letter-spacing:.015em;line-height:1.2;margin:0;font-weight:650;color:var(--text-strong)}.question-heading:focus{outline:none}.question-position{font-family:"Cascadia Mono",Consolas,monospace;font-size:12px;color:var(--muted)}.question-body{padding:25px 30px 30px}.stem p{margin:0 0 18px;line-height:1.9;font-size:16px}.stem p:last-child{margin-bottom:0}.codebox{background:var(--code);border:1px solid var(--code-line);border-radius:12px;color:var(--code-text);overflow-x:auto;scrollbar-width:thin;margin:17px 0 22px;padding:18px 20px;font-family:"Cascadia Mono","Cascadia Code",Consolas,monospace;font-size:14px;line-height:1.75;tab-size:4;max-width:100%;white-space:pre;letter-spacing:0}.codebox code{font:inherit}.stem>.codebox:last-child{margin-bottom:26px}
+fieldset{margin:0;padding:0;border:0;min-width:0}.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.choices{display:flex;flex-direction:column;gap:11px}.option{position:relative;display:grid;grid-template-columns:22px 30px minmax(0,1fr);gap:11px;align-items:start;padding:15px 17px;min-height:60px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;cursor:pointer;transition:background .15s,border-color .15s}.option:hover{border-color:var(--line-strong);background:var(--panel3)}.option.selected{border-color:var(--accent);background:var(--panel3)}.option.correct-choice{border-color:var(--good)}.option.wrong-choice{border-color:var(--bad)}.option.locked{cursor:default}.option input{accent-color:var(--accent);width:18px;height:18px;margin:3px 0 0;cursor:inherit}.option input:disabled{opacity:.9}.option-letter{font-family:"Cascadia Mono",Consolas,monospace;font-size:14px;font-weight:700;color:var(--muted);line-height:25px}.option.selected .option-letter{color:var(--accent)}.option.correct-choice .option-letter{color:var(--good)}.option.wrong-choice .option-letter{color:var(--bad)}.option-content{font-size:14px;line-height:1.8;min-width:0;overflow-wrap:anywhere}.choice-code{font-family:"Cascadia Mono","Cascadia Code",Consolas,monospace;white-space:pre;overflow-x:auto;overflow-wrap:normal;max-width:100%;line-height:1.8;font-size:13px;margin:0;color:var(--text)}.option-note{font-size:11px;font-weight:650;margin-top:7px;display:block}.option.correct-choice .option-note{color:var(--good)}.option.wrong-choice .option-note{color:var(--bad)}
+.answer-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:17px;min-height:32px}.selection-status{font-size:12px;color:var(--muted)}.clear-choice{font-size:12px;padding:4px 9px;min-height:32px}.review-panel{margin-top:23px;border-top:1px solid var(--line);padding-top:20px}.review-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.review-verdict{font-size:14px;font-weight:650}.review-detail{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-top:3px}.correct-text{color:var(--good)}.wrong-text{color:var(--bad)}.explain-toggle{font-size:13px;min-height:38px;flex-shrink:0}.explanation{margin-top:21px;padding:22px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;font-size:14px}.explanation p{margin:0 0 16px;line-height:1.9}.explanation p:last-child{margin-bottom:0}.explanation .codebox{font-size:13px;margin:14px 0}.table-wrap{overflow-x:auto;max-width:100%;margin:16px 0}table{border-collapse:collapse;width:100%;font-size:12px}th,td{border:1px solid var(--line-strong);padding:9px 11px;text-align:left;vertical-align:top;min-width:72px}th{font-weight:650;background:var(--panel3)}
+.question-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px}.nav-hint{font-size:11px;color:var(--muted)}.nav-buttons{display:flex;gap:9px}.nav-buttons button{font-size:13px;min-width:88px}.footnote{color:var(--muted-2);font-size:11px;margin-top:29px;text-align:center}
+dialog{padding:0;border:1px solid var(--line-strong);border-radius:var(--radius-lg);background:var(--panel);color:var(--text);max-width:min(480px,calc(100vw - 30px));width:480px;box-shadow:var(--shadow-lg)}dialog::backdrop{background:rgba(0,0,0,.72)}.dialog-inner{padding:27px}.dialog-title{font-size:20px;margin:0 0 12px;line-height:1.4}.dialog-copy{font-size:14px;color:var(--muted);line-height:1.85;margin:0 0 20px}.field-label{font-size:13px;display:block;margin-bottom:8px}.password-input{width:100%;border:1px solid var(--line-strong);border-radius:10px;min-height:46px;padding:9px 12px;color:var(--text);background:var(--panel2);letter-spacing:.12em}.dialog-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:23px}.dialog-actions button{font-size:13px}.dialog-error{font-size:13px;color:var(--bad);min-height:22px;margin:10px 0 0}.records-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.records-actions button{font-size:13px}.records-separator{border:0;border-top:1px solid var(--line);margin:22px 0}.record-note{font-size:12px;color:var(--muted);margin:12px 0}.mobile-menu-toggle,.sidebar-close{display:none}.toast{pointer-events:none;position:fixed;z-index:80;bottom:22px;left:50%;transform:translateX(-50%);background:var(--panel3);color:var(--text);border:1px solid var(--line-strong);border-radius:10px;padding:11px 18px;font-size:13px;box-shadow:var(--shadow);max-width:calc(100vw - 30px);text-align:center}.sidebar-backdrop{display:none}
+@media(min-width:1561px){.layout{border-left:1px solid var(--line);border-right:1px solid var(--line)}}
+@media(max-width:1050px){.topbar{padding:0 20px}.main{padding:28px 25px 50px}.layout{grid-template-columns:220px minmax(0,1fr)}.brand-mark{display:none}.question-body{padding:22px}.question-top{padding:22px}.codebox{font-size:13px;padding:16px}.option{padding:13px;gap:8px;grid-template-columns:20px 25px minmax(0,1fr)}}
+@media(max-width:720px){.topbar{height:auto;min-height:88px;padding:13px 15px;flex-wrap:wrap;gap:11px}.brand{width:100%;justify-content:space-between}.brand-title{font-size:15px}.brand-sub{display:none}.top-actions{width:100%;justify-content:flex-end;flex-wrap:wrap;gap:8px}.appearance-controls{gap:6px}.record-controls{width:100%;justify-content:flex-end;gap:6px}.top-actions button{font-size:12px;padding:6px 9px;min-height:35px}.mobile-menu-toggle{display:inline-flex;align-items:center;font-size:12px;min-height:35px;padding:6px 9px}.layout{display:block;min-height:calc(100vh - 100px)}.sidebar{position:fixed;left:0;top:0;height:100vh;height:100dvh;width:min(290px,86vw);z-index:60;visibility:hidden;transform:translateX(-100%);transition:transform .18s,visibility .18s;box-shadow:var(--shadow-lg)}.sidebar.open{visibility:visible;transform:translateX(0)}.sidebar-close{display:block;min-height:34px;padding:4px 9px;font-size:12px}.sidebar-backdrop.open{display:block;position:fixed;inset:0;border:0;border-radius:0;background:rgba(0,0,0,.65);z-index:50;padding:0}.main{padding:21px 14px 40px}.exam-strip{margin-bottom:16px;font-size:11px;gap:8px}.question-top{padding:20px 19px 17px}.question-heading{font-size:21px}.question-body{padding:19px 17px 22px}.stem p{font-size:14px;line-height:1.9}.codebox{font-size:12px;line-height:1.8;margin:15px 0 20px;padding:14px 13px;border-radius:9px}.question-card{border-radius:16px}.option{grid-template-columns:18px 22px minmax(0,1fr);padding:12px 10px;gap:7px;border-radius:10px}.option input{width:16px;height:16px;margin-top:4px}.option-letter{font-size:13px}.option-content{font-size:13px}.choice-code{font-size:12px}.review-head{align-items:flex-start}.explanation{padding:15px;font-size:13px}.explanation .codebox{font-size:12px}.nav-hint{max-width:100px;line-height:1.6}.nav-buttons button{min-width:75px;padding:8px 10px}.result-summary{padding:16px 18px;gap:12px}.score-value{font-size:29px}.summary-detail{font-size:11px}.summary-caption{font-size:11px}.dialog-inner{padding:23px}.dialog-title{font-size:18px}.dialog-copy{font-size:13px}}
+.session-panel{border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;background:var(--panel);margin-bottom:22px;display:flex;gap:20px;align-items:center;justify-content:space-between}
+.session-info{min-width:0}.session-title{margin:0;font-size:17px;font-weight:650}.session-copy{font-size:12px;color:var(--muted);margin:7px 0 0;line-height:1.9;overflow-wrap:anywhere}.session-actions{display:flex;align-items:center;gap:12px;flex-shrink:0}.session-clock{font-family:"Cascadia Mono",Consolas,monospace;font-size:24px;font-variant-numeric:tabular-nums;letter-spacing:.03em}.session-actions button{white-space:nowrap;font-size:13px}.awaiting-exam .layout{grid-template-columns:minmax(0,1fr)}
+@media(max-width:720px){.session-panel{padding:17px;gap:12px;flex-wrap:wrap}.session-actions{width:100%;justify-content:space-between}.session-title{font-size:16px}.session-copy{font-size:12px}.session-clock{font-size:23px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+@media print{.topbar,.sidebar,.question-footer,.answer-bar,.footnote,.toast,.explain-toggle,.skip-link{display:none!important}.layout{display:block}.main{padding:0;max-width:none}.question-card{box-shadow:none;border:1px solid #aaa}.question-body{padding:18px}.codebox{white-space:pre-wrap}.option{break-inside:avoid}body{background:#fff;color:#111}dialog:not([open]){display:none}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">跳至題目</a>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">APCS</span>
+    <div><h1 class="brand-title">Python 程式識讀</h1><div class="brand-sub">模擬考</div></div>
+    <button id="menu-toggle" class="mobile-menu-toggle" type="button" aria-controls="sidebar" aria-expanded="false">題目選單</button>
+  </div>
+  <div class="top-actions">
+    <div class="appearance-controls">
+    <label class="mode-key-wrap has-value" aria-label="模式切換">
+      <input id="modeKeyInput" class="mode-key-input" type="text" inputmode="numeric" autocomplete="off" maxlength="32" spellcheck="false" aria-label="模式切換" aria-describedby="mode-key-help">
+      <span id="modeKeyMask" class="mode-key-mask" aria-hidden="true"></span>
+    </label>
+    <button id="theme-toggle" type="button" aria-label="切換為淺色外觀">淺色外觀</button>
+    </div>
+    <div class="record-controls" role="group" aria-label="作答紀錄">
+      <button id="export-answers" type="button">匯出紀錄</button>
+      <button id="import-answers" type="button">匯入紀錄</button>
+      <button id="reset-exam" class="danger" type="button">清空紀錄</button>
+    </div>
+  </div>
+</header>
+<span id="mode-key-help" class="sr-only">清空欄位切換為考試模式；輸入批改密碼切換為批改模式。</span>
+<button id="sidebar-backdrop" class="sidebar-backdrop" type="button" aria-label="關閉題目選單" tabindex="-1"></button>
+<div class="layout">
+  <aside class="sidebar" id="sidebar" aria-labelledby="menu-title">
+    <div class="sidebar-top">
+      <div class="sidebar-title-row"><h2 id="menu-title" class="menu-title">題目選單</h2><button id="sidebar-close" class="sidebar-close" type="button">關閉</button></div>
+      <p id="progress-text" class="progress-text">已作答 0 / 30</p>
+      <div id="progress-bar" class="progress-track" role="progressbar" aria-label="作答進度" aria-valuemin="0" aria-valuemax="30" aria-valuenow="0"><div id="progress-fill" class="progress-fill"></div></div>
+    </div>
+    <nav class="question-menu" id="question-menu" aria-label="30 題題目選單"></nav>
+    <div class="sidebar-bottom">
+      <button id="grade-all" class="primary grade-button" type="button" hidden>批改全部題目</button>
+      <button id="ungrade" class="grade-button" type="button" hidden>取消批改，繼續作答</button>
+      <p id="save-indicator" class="save-indicator">作答將儲存於此瀏覽器。</p>
+    </div>
+  </aside>
+  <main class="main" id="main">
+    <div class="exam-strip"><span class="exam-status"><span class="status-dot" aria-hidden="true"></span><span id="exam-status">作答中</span></span><span id="exam-progress">共 30 題・每題單選</span></div>
+    <div id="storage-warning" class="storage-warning" role="status" hidden>瀏覽器目前無法儲存紀錄。作答仍可繼續；關閉前請按上方「匯出紀錄」備份。</div>
+    <div id="record-feedback" class="record-feedback" role="status" aria-live="polite" hidden></div>
+    <section id="session-panel" class="session-panel" aria-labelledby="session-title" hidden>
+      <div class="session-info"><h2 id="session-title" class="session-title">尚未開始考試</h2><p id="session-copy" class="session-copy"></p></div>
+      <div class="session-actions"><span id="session-clock" class="session-clock" aria-label="剩餘作答時間">90:00</span><button id="start-exam" class="primary" type="button">開始考試</button><button id="finish-exam" type="button" hidden>結束考試</button></div>
+    </section>
+    <section id="result-summary" class="result-summary" aria-label="整卷批改結果" hidden></section>
+    <article class="question-card" aria-labelledby="question-heading">
+      <div class="question-top"><h2 id="question-heading" class="question-heading" tabindex="-1">第 1 題</h2><span id="question-position" class="question-position">01 / 30</span></div>
+      <div class="question-body">
+        <div id="stem" class="stem"></div>
+        <fieldset id="choice-fieldset"><legend class="sr-only" id="choice-legend">第 1 題，選擇一個答案</legend><div id="choices" class="choices"></div></fieldset>
+        <div class="answer-bar"><span id="selection-status" class="selection-status" aria-live="polite">尚未作答</span><button id="clear-choice" class="quiet clear-choice" type="button">清除本題選答</button></div>
+        <section id="review-panel" class="review-panel" aria-label="本題批改結果" hidden></section>
+      </div>
+    </article>
+    <div class="question-footer"><span id="nav-hint" class="nav-hint">可由題目選單切換題目。</span><div class="nav-buttons"><button id="previous" type="button">上一題</button><button id="next" type="button">下一題</button></div></div>
+    <p class="footnote">Python 程式識讀・模擬考</p>
+  </main>
+</div>
+<dialog id="confirm-dialog" aria-labelledby="confirm-title">
+  <div class="dialog-inner">
+    <h2 id="confirm-title" class="dialog-title"></h2>
+    <p id="confirm-copy" class="dialog-copy"></p>
+    <div class="dialog-actions"><button id="confirm-cancel" type="button">取消</button><button id="confirm-accept" class="primary" type="button">確認</button></div>
+  </div>
+</dialog>
+<input id="import-file" type="file" accept="application/json,.json" aria-label="匯入作答紀錄" hidden>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<noscript><p>請啟用瀏覽器的 JavaScript 才能作答與批改。</p></noscript>
+<script id="exam-data" type="application/json">{"schema":"peicd.apcs-reading-mock.exam","schema_version":1,"exam_id":"apcs-python-reading-comprehensive-20261001","version":"0.0.2","title":"APCS Python 程式識讀｜全考點模擬考","short_title":"Python 程式識讀","questions":[{"id":"q01","number":1,"stem":[{"kind":"text","text":"下列程式執行後，輸出結果為何？"},{"kind":"code","text":"x, y = 17, 5\nx, y = y, x % y\nvalue = x // y + y\n\nif value \u003e= 4:\n    value += 1\n\nif value % 2 == 0:\n    value = 0\nelif value \u003e 3:\n    value -= 5\nelse:\n    value = 7\n\nif value:\n    print(value)\nelse:\n    print(x + y)"}],"choices":[{"kind":"code","text":"0"},{"kind":"code","text":"7"},{"kind":"code","text":"5"},{"kind":"code","text":"9"}],"answer":"B","explanation":[{"kind":"text","text":"多重指定先用舊值計算右側：x、y 變成 5、2。整數除法 5 // 2 得到 2，所以 value 先是 4。"},{"kind":"table","headers":["步驟","value"],"rows":[["初始化","4"],["第一個 if 成立","5"],["偶數條件不成立，進入 elif","0"]]},{"kind":"text","text":"最後 if value 遇到整數 0，視為假，因此印出 x + y = 5 + 2 = 7。第一個 if 與後面的 if–elif–else 是兩組不同的判斷，不會因第一組已成立就跳過第二組。"}],"points":3},{"id":"q02","number":2,"stem":[{"kind":"text","text":"下列程式執行後，輸出結果為何？"},{"kind":"code","text":"calls = 0\n\ndef check(x):\n    global calls\n    calls += 1\n    return x % 3 == 0\n\nresult = check(4) and check(6) or check(9) and not check(12)\nprint(result, calls)"}],"choices":[{"kind":"code","text":"True 2"},{"kind":"code","text":"False 4"},{"kind":"code","text":"True 3"},{"kind":"code","text":"False 3"}],"answer":"D","explanation":[{"kind":"text","text":"not 的優先順序高於 and，and 又高於 or。式子分為左側的 check(4) and check(6)，以及右側的 check(9) and not check(12)。"},{"kind":"table","headers":["呼叫","結果","是否執行"],"rows":[["check(4)","False","是，第 1 次"],["check(6)","—","否，左側 and 已短路"],["check(9)","True","是，第 2 次"],["check(12)","True","是，第 3 次"]]},{"kind":"text","text":"左側為 False，必須計算 or 右側。右側為 True and not True，也就是 False。最後印出 False 3。短路會省略函式呼叫，而不只是省略回傳值。"}],"points":3},{"id":"q03","number":3,"stem":[{"kind":"text","text":"要讓下列程式恰好輸出所示的四行圖形，行首空白也必須相同。（甲）應填入何者？\n目標圖形："},{"kind":"code","text":"********\n ******\n  ****\n   **"},{"kind":"text","text":"程式："},{"kind":"code","text":"for width in （甲）:\n    print(\" \" * ((8 - width) // 2) + \"*\" * width)"}],"choices":[{"kind":"code","text":"range(8, 0, -2)"},{"kind":"code","text":"range(8, -1, -2)"},{"kind":"code","text":"range(8, 1, -1)"},{"kind":"code","text":"range(6, 0, -2)"}],"answer":"A","explanation":[{"kind":"text","text":"四行星號數必須依序是 8、6、4、2。range 的 stop 不會被包含，因此 range(8, 0, -2) 正好產生這四個值。"},{"kind":"table","headers":["width","(8 - width) // 2","輸出"],"rows":[["8","0","********"],["6","1"," ******"],["4","2","  ****"],["2","3","   **"]]},{"kind":"text","text":"stop 改成 -1 會額外產生 width = 0，仍會印出一行空白與換行；步長 -1 則會產生 7 行。題目要求完整輸出恰好四行，不能忽略多出來的空白行。"}],"points":3},{"id":"q04","number":4,"stem":[{"kind":"text","text":"n 為正整數。下列函式回傳值的正確公式為何？其中 ⌊x⌋ 表示不大於 x 的最大整數。"},{"kind":"code","text":"def count_steps(n):\n    total = 0\n    for i in range(1, n + 1):\n        for j in range(i, n + 1):\n            k = 1\n            while k \u003c= n:\n                total += 1\n                k *= 2\n    return total"}],"choices":[{"kind":"code","text":"n(n + 1)⌊log₂ n⌋ / 2"},{"kind":"code","text":"n²(⌊log₂ n⌋ + 1)"},{"kind":"code","text":"n(n + 1)(⌊log₂ n⌋ + 1) / 2"},{"kind":"code","text":"n(n + 1) / 2"}],"answer":"C","explanation":[{"kind":"text","text":"固定 i 時，j 從 i 到 n，包含兩端，共 n - i + 1 次。前兩層迴圈總共有 n + (n - 1) + ⋯ + 1 = n(n + 1) / 2 組。"},{"kind":"text","text":"每組的 k 都重新從 1 開始，依序取 1、2、4、8、⋯，直到超過 n。最大的指數是 ⌊log₂ n⌋，但還包含指數 0，因此次數要加 1。"},{"kind":"code","text":"總次數 = n(n + 1) / 2 × (⌊log₂ n⌋ + 1)"},{"kind":"text","text":"例如 n = 5，前兩層共 15 組，每組 k = 1、2、4，共 3 次，所以回傳 45。成長量級為 Θ(n² log n)；這和題目問的精確次數不是同一件事。"}],"points":3},{"id":"q05","number":5,"stem":[{"kind":"text","text":"n、b 均為非負整數。fact(n) 應正確計算 n!，且 0! = 1。下列哪一組「（甲）的條件、最後一行的輸出」正確？"},{"kind":"code","text":"def fact(n):\n    value = 1\n    if （甲）:\n        value = n * fact(n - 1)\n    return value\n\ndef power(a, b):\n    if b == 0:\n        return 1\n    return a * power(a, b - 1)\n\nprint(fact(4), power(2, 5))"}],"choices":[{"kind":"text","text":"n \u003e= 0；輸出 24 32"},{"kind":"text","text":"n \u003e 0；輸出 24 32"},{"kind":"text","text":"n \u003e 0；輸出 24 16"},{"kind":"text","text":"n \u003c 0；輸出 24 32"}],"answer":"B","explanation":[{"kind":"text","text":"fact 必須在 n = 0 時直接回傳 1，不能再乘上 0。因此應在 n \u003e 0 時才展開遞迴。"},{"kind":"code","text":"fact(4) = 4 × 3 × 2 × 1 × fact(0) = 24\npower(2, 5) = 2 × 2 × 2 × 2 × 2 × power(2, 0) = 32"},{"kind":"text","text":"若填 n \u003e= 0，fact(0) 會得到 0 × fact(-1) = 0，並使上層結果全部變成 0。這個版本會在 n = -1 停止，錯誤不是無窮遞迴，而是錯把 0 乘進乘積。"}],"points":3},{"id":"q06","number":6,"stem":[{"kind":"text","text":"下列程式執行後，完整的一行輸出為何？"},{"kind":"code","text":"calls = 0\n\ndef f(n):\n    global calls\n    calls += 1\n    if n \u003c= 0:\n        return 1\n    print(n, end=\" \")\n    value = g(n - 1) + 2 * g(n - 2)\n    print(n, end=\" \")\n    return value\n\ndef g(n):\n    global calls\n    calls += 1\n    if n \u003c= 1:\n        return 2\n    return 1 + f(n - 2)\n\nanswer = f(4)\nprint(answer, calls)"}],"choices":[{"kind":"code","text":"4 1 1 4 11 7"},{"kind":"code","text":"4 1 4 1 11 7"},{"kind":"code","text":"4 1 1 4 11 8"},{"kind":"code","text":"4 1 1 4 15 7"}],"answer":"A","explanation":[{"kind":"text","text":"依序實際進入的函式是 f(4)、g(3)、f(1)、g(0)、g(-1)、g(2)、f(0)，共 7 次。乘上 2 是放大一次呼叫的回傳值，不會呼叫兩次。"},{"kind":"table","headers":["函式","計算","回傳"],"rows":[["f(1)","g(0) + 2 × g(-1) = 2 + 4","6"],["g(3)","1 + f(1)","7"],["g(2)","1 + f(0)","2"],["f(4)","g(3) + 2 × g(2) = 7 + 4","11"]]},{"kind":"text","text":"f(4) 先印 4；它呼叫到的 f(1) 在遞迴前後各印 1；回到 f(4) 後再印 4。最後一行 print 接著印回傳值 11 和 calls = 7，合成 4 1 1 4 11 7。"}],"points":3},{"id":"q07","number":7,"stem":[{"kind":"text","text":"下列程式執行後，依序輸出的兩行內容為何？"},{"kind":"code","text":"a = [[0, 1]] * 2\nb = a[:]\nc = a\n\nb[0][1] = 7\nb[1] = [8, 9]\nc.append([2, 3])\n\nprint(a)\nprint(b)"}],"choices":[{"kind":"code","text":"[[0, 7], [8, 9], [2, 3]]\n[[0, 7], [8, 9], [2, 3]]"},{"kind":"code","text":"[[0, 1], [0, 1], [2, 3]]\n[[0, 7], [8, 9]]"},{"kind":"code","text":"[[0, 7], [0, 7], [2, 3]]\n[[0, 7], [0, 7]]"},{"kind":"code","text":"[[0, 7], [0, 7], [2, 3]]\n[[0, 7], [8, 9]]"}],"answer":"D","explanation":[{"kind":"text","text":"a 的兩格一開始參照同一個內層串列。b = a[:] 只複製外層，內層仍共用；c = a 則連外層都沒有複製。"},{"kind":"table","headers":["操作","對 a 的影響","對 b 的影響"],"rows":[["b[0][1] = 7","兩列都看到 [0, 7]","兩列都看到 [0, 7]"],["b[1] = [8, 9]","不變","只替換 b 的第二格"],["c.append([2, 3])","外層增加第三列","外層不同，不增加"]]},{"kind":"text","text":"修改內層物件、替換外層的一格、重新指定名稱，是三種不同的操作。不能把淺層複製當成連內層都複製。"}],"points":3},{"id":"q08","number":8,"stem":[{"kind":"text","text":"下列程式執行後，輸出結果為何？Record 的 __init__ 在建立物件時執行，self 表示該物件本身。"},{"kind":"code","text":"class Record:\n    def __init__(self, score):\n        self.score = score\n        self.items = [score]\n\ndef change(x, record):\n    x += 2\n    record.score += 3\n    record.items[0] += 4\n    record = Record(99)\n    record.items.append(7)\n\nn = 10\nr = Record(n)\nchange(n, r)\nprint(n, r.score, r.items)"}],"choices":[{"kind":"code","text":"12 13 [14]"},{"kind":"code","text":"10 99 [99, 7]"},{"kind":"code","text":"10 13 [14]"},{"kind":"code","text":"10 13 [14, 7]"}],"answer":"C","explanation":[{"kind":"text","text":"r 是 Record 類別建立的物件。初始的 score 為 10，items 是 [10]。呼叫函式後，參數 record 與外部 r 先參照同一個物件。"},{"kind":"text","text":"x += 2 只重新指定區域整數名稱，不改外部 n。record.score += 3 與 record.items[0] += 4 則真的修改外部物件的欄位與串列，得到 13 和 [14]。"},{"kind":"text","text":"record = Record(99) 建立另一個物件並只改綁區域名稱 record。之後的 append(7) 作用在新物件，不影響外部 r。因此輸出 10 13 [14]。"}],"points":3},{"id":"q09","number":9,"stem":[{"kind":"text","text":"下列程式執行後，輸出結果為何？"},{"kind":"code","text":"a = [3, 6, 9, 12, 15]\nfor i in range(len(a)):\n    a[i], a[-1 - i] = a[-1 - i], a[i]\n\ns = \"HIKLMNOP\"\nprint(a[-2], a[1:5:2], s[-2::-2])"}],"choices":[{"kind":"code","text":"12 [6, 12] OMKH"},{"kind":"code","text":"6 [12, 6] OMKH"},{"kind":"code","text":"12 [6, 12] PNLI"},{"kind":"code","text":"6 [12, 6] HKMO"}],"answer":"A","explanation":[{"kind":"text","text":"交換迴圈跑完整個串列，每一對左右對稱的元素會交換兩次，因此最後回到原順序；中間元素只是和自己交換。"},{"kind":"code","text":"a[-2] → 12\na[1:5:2] → 索引 1、3 → [6, 12]\ns[-2::-2] → 索引 6、4、2、0 → O、M、K、H"},{"kind":"text","text":"負步長切片會往左走，省略停止位置時可以走到索引 0。這和把停止位置明寫為 -1 不同，不能任意替換。"}],"points":3},{"id":"q10","number":10,"stem":[{"kind":"text","text":"下列程式執行後，依序輸出的三行內容為何？"},{"kind":"code","text":"a = [4, 2, 2, 2, 1, 3]\nb = a\n\nfor x in a:\n    if x == 2:\n        a.remove(x)\n\nc = sorted(a)\nresult = b.sort(reverse=True)\nprint(a)\nprint(c)\nprint(result)"}],"choices":[{"kind":"code","text":"[4, 3, 1]\n[1, 3, 4]\nNone"},{"kind":"code","text":"[4, 3, 2, 1]\n[1, 2, 3, 4]\nNone"},{"kind":"code","text":"[4, 2, 1, 3]\n[1, 2, 3, 4]\n[4, 3, 2, 1]"},{"kind":"code","text":"[1, 2, 3, 4]\n[4, 3, 2, 1]\nNone"}],"answer":"B","explanation":[{"kind":"text","text":"for 迭代串列時，讀取索引會繼續增加；remove(x) 則刪除當時串列中第一個等於 x 的元素，不一定是剛剛讀到的那一格。刪除元素會讓後方資料左移，因此不能假設這段迴圈會刪除所有的 2。"},{"kind":"table","headers":["for 讀取的索引","讀到的 x","該回合結束後的 a"],"rows":[["0","4","[4, 2, 2, 2, 1, 3]"],["1","2","[4, 2, 2, 1, 3]"],["2","2","[4, 2, 1, 3]"],["3","3","[4, 2, 1, 3]"]]},{"kind":"text","text":"sorted(a) 建立新的遞增串列 c，不修改 a。b 與 a 是同一個串列，b.sort(reverse=True) 會把它原地改為 [4, 3, 2, 1]。"},{"kind":"text","text":"list.sort() 回傳 None，所以 result 是 None，不是排好序的串列。c 是先前建立的新串列，仍為 [1, 2, 3, 4]。"}],"points":3},{"id":"q11","number":11,"stem":[{"kind":"text","text":"下列程式執行後，輸出結果為何？"},{"kind":"code","text":"a = [0] * 6\nfor i in range(6):\n    a[(i + 2) % 6] = i + 1\n\nprefix = [0] * 7\nfor i in range(6):\n    prefix[i + 1] = prefix[i] + a[i]\n\nprint(a, prefix[5] - prefix[2])"}],"choices":[{"kind":"code","text":"[3, 4, 5, 6, 1, 2] 12"},{"kind":"code","text":"[5, 6, 1, 2, 3, 4] 12"},{"kind":"code","text":"[5, 6, 1, 2, 3, 4] 17"},{"kind":"code","text":"[5, 6, 1, 2, 3, 4] 6"}],"answer":"D","explanation":[{"kind":"text","text":"寫入位置 (i + 2) % 6 依序為 2、3、4、5、0、1，因此 a 變成 [5, 6, 1, 2, 3, 4]。"},{"kind":"code","text":"prefix = [0, 5, 11, 12, 14, 17, 21]"},{"kind":"text","text":"prefix[k] 包含 a 的前 k 個元素，不含索引 k。prefix[5] - prefix[2] 只留下索引 2、3、4，也就是 1 + 2 + 3 = 6。"}],"points":3},{"id":"q12","number":12,"stem":[{"kind":"text","text":"費氏數列定義為 F(0) = 0、F(1) = 1；n ≥ 2 時，F(n) = F(n - 1) + F(n - 2)。下列 g(n) 要對所有 0 ≤ n ≤ 10 的整數正確回傳 F(n)，（甲）應填入哪一行？"},{"kind":"code","text":"def g(n):\n    a, b = 0, 1\n    for _ in range(n):\n        （甲）\n    return a"}],"choices":[{"kind":"code","text":"a, b = a, a + b"},{"kind":"code","text":"a, b = b, b + b"},{"kind":"code","text":"a, b = b, a + b"},{"kind":"code","text":"a, b = a + b, b"}],"answer":"C","explanation":[{"kind":"text","text":"第 k 輪結束時維持 a = F(k)、b = F(k + 1)。初始 k = 0 時正好是 0、1，這個不變量已成立。"},{"kind":"text","text":"下一輪要把 a 改為舊 b，並把 b 改為舊 a + 舊 b，因此使用 a, b = b, a + b。多重指定右側先算完，才一起寫回左側。"},{"kind":"table","headers":["輪數 k","a = F(k)","b = F(k+1)"],"rows":[["0","0","1"],["1","1","1"],["2","1","2"],["3","2","3"],["4","3","5"],["5","5","8"],["6","8","13"],["7","13","21"]]},{"kind":"text","text":"n = 0 時不進迴圈，直接回傳 0。明確的索引定義很重要，不能僅以「第 n 項」猜要印 a 還是 b。"}],"points":3},{"id":"q13","number":13,"stem":[{"kind":"text","text":"下列程式執行後，輸出結果為何？"},{"kind":"code","text":"def find(a):\n    high, low = 0, 100\n    for x in a:\n        if x \u003e high:\n            high = x\n        elif x \u003c low:\n            low = x\n    return high, low\n\nprint(find([-8, -3, -5]), find([2, 4, 6]), find([5, 5, 5]))"}],"choices":[{"kind":"code","text":"(-3, -8) (6, 2) (5, 5)"},{"kind":"code","text":"(0, -8) (6, 100) (5, 5)"},{"kind":"code","text":"(0, -8) (6, 2) (5, 100)"},{"kind":"code","text":"(-3, -8) (6, 100) (5, 100)"}],"answer":"B","explanation":[{"kind":"table","headers":["輸入","追蹤重點","實際回傳"],"rows":[["[-8, -3, -5]","沒有元素大於初值 0；low 最後為 -8","(0, -8)"],["[2, 4, 6]","每次都更新 high，elif 全被略過","(6, 100)"],["[5, 5, 5]","第一次更新 high；第二次更新 low","(5, 5)"]]},{"kind":"text","text":"前兩組分別揭露不適當的初始化，以及把最大、最小更新寫成互斥分支的問題。對非空串列，可先以首元素初始化，再各自用獨立 if 更新。"},{"kind":"text","text":"第三組也說明最大值和最小值可能相等；不能認為任何非空串列都一定有 low \u003c high。"}],"points":3},{"id":"q14","number":14,"stem":[{"kind":"text","text":"下列程式執行後，輸出結果為何？兩個計數器都在各次檢查資料之前加 1。"},{"kind":"code","text":"a = [3 * i + 2 for i in range(16)]\ntarget = 35\nc1 = 0\nfor x in a:\n    c1 += 1\n    if x == target:\n        break\n\nleft, right = 0, len(a) - 1\nc2 = 0\nwhile left \u003c= right:\n    c2 += 1\n    mid = (left + right) // 2\n    if a[mid] == target:\n        break\n    if a[mid] \u003c target:\n        left = mid + 1\n    else:\n        right = mid - 1\n\nprint(c1, c2)"}],"choices":[{"kind":"code","text":"11 2"},{"kind":"code","text":"12 3"},{"kind":"code","text":"11 3"},{"kind":"code","text":"12 2"}],"answer":"D","explanation":[{"kind":"text","text":"由 3i + 2 = 35 得到索引 i = 11。線性搜尋從索引 0 檢查到 11，包含找到的這一次，共 12 次。"},{"kind":"table","headers":["二分搜尋回合","left","right","mid","a[mid]"],"rows":[["1","0","15","7","23"],["2","8","15","11","35"]]},{"kind":"text","text":"第一次中點值 23 小於 35，排除到索引 7 為止的部分；第二次就找到 35，因此 c2 = 2。索引值與比較次數不能混為一談。"}],"points":3},{"id":"q15","number":15,"stem":[{"kind":"text","text":"target 為整數。first_pos 應回傳 target 第一次出現的索引；不存在時回傳 -1。哪一組「資料前提、（甲）」可保證對所有符合該前提的非空整數串列正確？"},{"kind":"code","text":"def first_pos(a, target):\n    left, right = 0, len(a) - 1\n    answer = -1\n    while left \u003c= right:\n        mid = (left + right) // 2\n        if a[mid] == target:\n            answer = mid\n            （甲）\n        elif a[mid] \u003c target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return answer"}],"choices":[{"kind":"text","text":"由小到大排序（可重複）；right = mid - 1"},{"kind":"text","text":"不必排序；right = mid - 1"},{"kind":"text","text":"由小到大排序（可重複）；left = mid + 1"},{"kind":"text","text":"由大到小排序（可重複）；right = mid - 1"}],"answer":"A","explanation":[{"kind":"text","text":"a[mid] \u003c target 時向右找，這個方向只和由小到大排序的資料一致。未排序資料不能保證被排除的一半沒有答案。"},{"kind":"text","text":"找到一個相等值後，answer 暫存其位置，但還可能有更左邊的相同值，因此將 right 改成 mid - 1。搜尋區間是左右端點都包含的閉區間，left == right 時仍要檢查。"},{"kind":"code","text":"a = [1, 3, 3, 3, 8], target = 3\nmid = 2，記錄 answer = 2，改向左找\n最後找到索引 1，才是第一次出現的位置"},{"kind":"text","text":"改向右找會偏向最後一次出現。二分搜尋的前提與每次縮小區間的規則，必須一起檢查。"}],"points":3},{"id":"q16","number":16,"stem":[{"kind":"text","text":"search(x) 預期回傳 a 中嚴格大於 x 的最小值；若不存在，應回傳 None。下列哪個呼叫會得到不符合規則的結果？"},{"kind":"code","text":"a = [2, 6, 10, 14, 18]\n\ndef search(x):\n    low, high = 0, len(a) - 1\n    while low \u003c high:\n        mid = (low + high) // 2\n        if a[mid] \u003c= x:\n            low = mid + 1\n        else:\n            high = mid\n    return a[high]"}],"choices":[{"kind":"code","text":"search(-2)"},{"kind":"code","text":"search(6)"},{"kind":"code","text":"search(18)"},{"kind":"code","text":"search(17)"}],"answer":"C","explanation":[{"kind":"table","headers":["呼叫","應有結果","實際結果"],"rows":[["search(-2)","2","2"],["search(6)","10","10"],["search(17)","18","18"],["search(18)","None","18"]]},{"kind":"text","text":"當 x 已等於最大元素 18，串列中沒有任何元素嚴格大於它。程式卻一定回傳某一個 a[high]，沒有處理不存在的情況。"},{"kind":"text","text":"測試必須包含邊界和沒有答案的輸入，不能只用答案確實存在的普通案例。"}],"points":3},{"id":"q17","number":17,"stem":[{"kind":"text","text":"下列程式執行後，輸出結果為何？"},{"kind":"code","text":"a = [2, 5, 1, 4]\ncount = 0\nfor i in range(len(a) - 1):\n    for j in range(len(a) - i - 1):\n        if a[j] \u003c a[j + 1]:\n            a[j] = a[j] + a[j + 1]\n            a[j + 1] = a[j] - a[j + 1]\n            a[j] = a[j] - a[j + 1]\n            count += 1\n\nprint(a, count)"}],"choices":[{"kind":"code","text":"[5, 4, 2, 1] 3"},{"kind":"code","text":"[1, 2, 4, 5] 3"},{"kind":"code","text":"[5, 4, 2, 1] 6"},{"kind":"code","text":"[5, 4, 2, 1] 2"}],"answer":"A","explanation":[{"kind":"text","text":"交換前左、右值若為 x、y，三行指定依序得到 (x+y, y)、(x+y, x)、(y, x)，確實完成交換。"},{"kind":"table","headers":["外層回合","回合後串列","本回合交換次數"],"rows":[["1","[5, 2, 4, 1]","2"],["2","[5, 4, 2, 1]","1"],["3","[5, 4, 2, 1]","0"]]},{"kind":"text","text":"左邊較小才交換，所以大值往左走，最後是遞減排序。count 計交換次數，不是相鄰比較總次數；總共交換 3 次。"}],"points":3},{"id":"q18","number":18,"stem":[{"kind":"text","text":"下列程式只執行兩輪外層迴圈。執行後輸出結果為何？"},{"kind":"code","text":"a = [9, 6, 8, 2, 5]\nswaps = 0\nfor i in range(2):\n    pos = i\n    for j in range(i + 1, len(a)):\n        if a[j] \u003c a[pos]:\n            pos = j\n    a[i], a[pos] = a[pos], a[i]\n    swaps += 1\n\nprint(a, swaps)"}],"choices":[{"kind":"code","text":"[2, 5, 6, 8, 9] 2"},{"kind":"code","text":"[2, 5, 8, 9, 6] 4"},{"kind":"code","text":"[6, 2, 8, 9, 5] 2"},{"kind":"code","text":"[2, 5, 8, 9, 6] 2"}],"answer":"D","explanation":[{"kind":"text","text":"Selection Sort（選擇排序）每輪先找剩餘區域的最小值位置，找完才交換，不是在每次更新 pos 時交換。"},{"kind":"table","headers":["i","選出的最小值","交換後"],"rows":[["0","2","[2, 6, 8, 9, 5]"],["1","5","[2, 5, 8, 9, 6]"]]},{"kind":"text","text":"只有前兩個位置已確定，後三個位置不保證排序完成。程式中 swaps += 1 每輪只執行一次，總共 2 次。"}],"points":3},{"id":"q19","number":19,"stem":[{"kind":"text","text":"程式要將索引 3 的元素插入前方已排序區域。哪一組「（甲）、對應排序方法」正確？"},{"kind":"code","text":"a = [1, 5, 8, 3, 9]\nkey = a[3]\nj = 2\nwhile j \u003e= 0 and a[j] \u003e key:\n    a[j + 1] = a[j]\n    j -= 1\n（甲）"}],"choices":[{"kind":"text","text":"a[j] = key；Insertion Sort（插入排序）"},{"kind":"text","text":"a[j + 1] = key；Insertion Sort（插入排序）"},{"kind":"text","text":"a[j + 1] = key；Selection Sort（選擇排序）"},{"kind":"text","text":"a[j] = key；Bubble Sort（氣泡排序）"}],"answer":"B","explanation":[{"kind":"text","text":"key 為 3。先將 8 移到索引 3，再將 5 移到索引 2；遇到不大於 key 的 1 時停止，此時 j = 0。"},{"kind":"code","text":"搬移後：[1, 5, 5, 8, 9]\n把 key 放入 j + 1 = 1\n結果：[1, 3, 5, 8, 9]"},{"kind":"text","text":"這是把新元素插入左側已排序區域的 Insertion Sort（插入排序）。key 已暫存原值，所以搬移中出現重複值不代表原本的 3 遺失。"}],"points":3},{"id":"q20","number":20,"stem":[{"kind":"text","text":"數字 1 到 6 只能依序放入 Stack（堆疊），但可在任意時機取出頂端元素。下列哪個 order 會使 possible(order) 回傳 True？"},{"kind":"code","text":"def possible(order):\n    stack = []\n    next_value = 1\n    for x in order:\n        while next_value \u003c= 6 and (not stack or stack[-1] != x):\n            stack.append(next_value)\n            next_value += 1\n        if stack and stack[-1] == x:\n            stack.pop()\n        else:\n            return False\n    return True"}],"choices":[{"kind":"code","text":"[3, 1, 2, 4, 5, 6]"},{"kind":"code","text":"[4, 2, 3, 1, 6, 5]"},{"kind":"code","text":"[2, 1, 4, 3, 6, 5]"},{"kind":"code","text":"[2, 5, 3, 4, 6, 1]"}],"answer":"C","explanation":[{"kind":"text","text":"堆疊採後進先出，只能取頂端，不能跨過仍在上面的元素。可行順序能分成三組操作："},{"kind":"code","text":"放入 1、2 → 取出 2、1\n放入 3、4 → 取出 4、3\n放入 5、6 → 取出 6、5"},{"kind":"text","text":"其他三個順序分別在想取出 1、2、3 時，頂端仍被 2、3、4 擋住。已經放入又尚未取出的資料，不能為了配合答案而重排。"}],"points":3},{"id":"q21","number":21,"stem":[{"kind":"text","text":"先執行下列程式。另一個獨立測試會把 storage、top 重設為最上方的初值，再依序呼叫 push(10)、push(20)、push(30)、push(40)，中間不呼叫 pop。哪一組「下列程式的輸出、獨立測試第四次 push 的結果」正確？"},{"kind":"code","text":"storage = [None] * 3\ntop = 0\n\ndef push(x):\n    global top\n    storage[top] = x\n    top += 1\n\ndef pop():\n    global top\n    top -= 1\n    return storage[top]\n\npush(8)\npush(5)\na = pop()\npush(9)\nb = pop()\nc = pop()\nd = pop()\nprint(a, b, c, d, top)"}],"choices":[{"kind":"text","text":"5 9 8 None 0；第四次 push 發生 IndexError"},{"kind":"text","text":"5 9 8 None -1；第四次 push 自動擴充 storage"},{"kind":"text","text":"第四次 pop 就發生 IndexError；第四次 push 自動擴充 storage"},{"kind":"text","text":"5 9 8 None -1；第四次 push 發生 IndexError"}],"answer":"D","explanation":[{"kind":"text","text":"前三次取出依序得到 5、9、8，這時堆疊已空、top = 0。第四次 pop 先讓 top 變成 -1，接著讀 storage[-1]，讀到最後一格的 None，不會立即發生 IndexError。"},{"kind":"text","text":"top 指向下一個可寫入位置，不是永遠指向頂端元素。空堆疊取出未被檢查，會讓狀態變成 -1，這是下溢錯誤。"},{"kind":"text","text":"獨立測試重新開始，三次 push 後 top = 3；第四次要寫 storage[3]，超出合法索引 0～2，會發生 IndexError。以索引指定不會自動擴充串列。"}],"points":4},{"id":"q22","number":22,"stem":[{"kind":"text","text":"依序執行程式末尾操作後，準備再加入 60。哪個敘述正確？取餘數的敘述只針對「這一次寫入」，不代表已完成滿佇列與空佇列的檢查。"},{"kind":"code","text":"Q = [None] * 5\nfront = rear = 0\n\ndef enqueue(x):\n    global rear\n    Q[rear] = x\n    rear += 1\n\ndef dequeue():\n    global front\n    x = Q[front]\n    front += 1\n    return x\n\nenqueue(10)\nenqueue(20)\nenqueue(30)\ndequeue()\ndequeue()\nenqueue(40)\nenqueue(50)"}],"choices":[{"kind":"text","text":"有效佇列為 [30, 40, 50]；原 enqueue(60) 會越界；這次用 rear % 5 可寫入已空出的索引 0"},{"kind":"text","text":"有效佇列為 [10, 20, 30, 40, 50]，五個元素都尚未取出"},{"kind":"text","text":"原 enqueue(60) 會自動回到索引 0，不需修改"},{"kind":"text","text":"dequeue() 會從尾端取出，因此有效佇列為 [10, 40, 50]"}],"answer":"A","explanation":[{"kind":"text","text":"取出兩次後 front = 2。又加入 40、50 後 rear = 5，有效區間 Q[front:rear] 是 [30, 40, 50]；前兩格只是留有舊值，已不是有效佇列成員。"},{"kind":"text","text":"原 enqueue 會寫 Q[5]，所以越界。這一次 rear % 5 = 0，索引 0 確實已空出，改用循環索引可以重用它。"},{"kind":"text","text":"完整循環佇列還需要追蹤有效元素數或其他滿／空判斷，不能只加上 % 5 就允許無限制加入，否則仍可能覆寫尚未取出的元素。"}],"points":4},{"id":"q23","number":23,"stem":[{"kind":"text","text":"下列程式從佇列前端取出元素，每取出第三個時，將其加 1 後放回尾端。count 只在程式所示位置重設。執行後輸出為何？"},{"kind":"code","text":"q = list(range(1, 13))\nfront = 0\ncount = 0\n\nwhile len(q) - front \u003e 1:\n    x = q[front]\n    front += 1\n    count += 1\n    if count == 3:\n        count = 0\n        q.append(x + 1)\n\nprint(q[front], count)"}],"choices":[{"kind":"code","text":"10 1"},{"kind":"code","text":"13 0"},{"kind":"code","text":"11 1"},{"kind":"code","text":"11 0"}],"answer":"C","explanation":[{"kind":"text","text":"第一次處理原始 1～12 時，只把 3、6、9、12 各加 1 後放回，所以有效佇列變成 [4, 7, 10, 13]，count = 0。"},{"kind":"table","headers":["取出 x","處理後有效佇列","count"],"rows":[["4","[7, 10, 13]","1"],["7","[10, 13]","2"],["10","[13, 11]","0"],["13","[11]","1"]]},{"kind":"text","text":"最後只剩一個有效元素，while 不再執行；留下 11，count 為 1。陣列長度不是佇列有效長度，必須扣掉 front 之前已取出的資料。"}],"points":4},{"id":"q24","number":24,"stem":[{"kind":"text","text":"將下列中序運算式轉成保持原本運算結構的後序運算式，哪個結果正確？"},{"kind":"code","text":"(9 - 4) * (7 + 1) - 12 / 3"}],"choices":[{"kind":"code","text":"9 4 7 1 + * - 12 3 / -"},{"kind":"code","text":"9 4 - 7 1 + * 12 3 / -"},{"kind":"code","text":"9 4 - 7 1 + 12 3 / - *"},{"kind":"code","text":"9 4 - 7 1 + * 12 3 - /"}],"answer":"B","explanation":[{"kind":"text","text":"括號中的兩段先處理，分別是 9 4 - 與 7 1 +，兩段算完後才接乘號。右邊 12 / 3 轉成 12 3 /。"},{"kind":"code","text":"左側乘積：9 4 - 7 1 + *\n右側商：  12 3 /\n最後相減：9 4 - 7 1 + * 12 3 / -"},{"kind":"text","text":"後序表示法把運算子放在兩個運算元之後，因此最後一個運算子必須是整個式子最外層的減號。不能只刪括號而保留中序運算子位置。"}],"points":4},{"id":"q25","number":25,"stem":[{"kind":"text","text":"下列程式使用堆疊計算後序運算式。字元 \"/\" 在本程式中以整數除法 // 執行。輸出結果為何？"},{"kind":"code","text":"tokens = [20, 3, \"/\", 2, \"-\", 5, \"*\"]\nstack = []\nfor token in tokens:\n    if isinstance(token, int):\n        stack.append(token)\n    else:\n        b = stack.pop()\n        a = stack.pop()\n        if token == \"+\":\n            stack.append(a + b)\n        elif token == \"-\":\n            stack.append(a - b)\n        elif token == \"*\":\n            stack.append(a * b)\n        else:\n            stack.append(a // b)\n\nprint(stack[-1])"}],"choices":[{"kind":"code","text":"35"},{"kind":"code","text":"10"},{"kind":"code","text":"20"},{"kind":"code","text":"-20"}],"answer":"C","explanation":[{"kind":"text","text":"運算子出現時，先取出的 b 是右運算元，後取出的 a 是左運算元。減法與除法不能顛倒。"},{"kind":"table","headers":["處理片段","運算","結果"],"rows":[["20 3 /","20 // 3","6"],["2 -","6 - 2","4"],["5 *","4 × 5","20"]]},{"kind":"text","text":"等價算式是 ((20 // 3) - 2) * 5。這裡的 / 是 tokens 內的標記，真正執行哪種除法仍由程式 a // b 決定。"}],"points":4},{"id":"q26","number":26,"stem":[{"kind":"text","text":"下列程式執行後，完整的一行輸出為何？本題傳入 compress 的字串皆非空。"},{"kind":"code","text":"def check(s):\n    count = 0\n    for i in range(len(s) // 2):\n        count += 1\n        if s[i] != s[-1 - i]:\n            return False, count\n    return True, count\n\ndef compress(s):\n    result = \"\"\n    count = 1\n    for i in range(1, len(s)):\n        if s[i] == s[i - 1]:\n            count += 1\n        else:\n            result += s[i - 1] + str(count)\n            count = 1\n    result += s[-1] + str(count)\n    return result\n\ns = \"AABBBAA\"\nprint(check(s), check(\"AABBBAB\"), compress(s))"}],"choices":[{"kind":"code","text":"(True, 3) (False, 1) A2B3A2"},{"kind":"code","text":"(True, 4) (False, 1) A2B3A2"},{"kind":"code","text":"(True, 3) (False, 3) A2B3A2"},{"kind":"code","text":"(True, 3) (False, 1) A2B3"}],"answer":"A","explanation":[{"kind":"text","text":"AABBBAA 的左右對稱字元依序是 A/A、A/A、B/B，長度 7 的中心字元不必和自己比較，因此回傳 (True, 3)。AABBBAB 的第一組 A/B 已不同，立即回傳 (False, 1)。"},{"kind":"table","headers":["壓縮區段","累計數量","輸出時機"],"rows":[["AA","2","遇到第一個 B 時加入 A2"],["BBB","3","遇到下一個 A 時加入 B3"],["AA","2","迴圈結束後補入 A2"]]},{"kind":"text","text":"迴圈只有遇到字元改變才輸出前一組，最後一組必須在迴圈外補上。字串分組計數與迴文判斷是不同用途，不能把它們的 count 混在一起。"}],"points":4},{"id":"q27","number":27,"stem":[{"kind":"text","text":"下列程式執行後，輸出結果為何？nr、nc 分別表示候選位置的列、欄索引。"},{"kind":"code","text":"grid = [\n    [1, 1, 0],\n    [0, 1, 1],\n    [1, 0, 1]\n]\ndr = [-1, 0, 1, 0]\ndc = [0, 1, 0, -1]\ndiagonal = 0\nneighbors = 0\n\nfor r in range(3):\n    for c in range(3):\n        if r == c or r + c == 2:\n            diagonal += grid[r][c]\n            for d in range(4):\n                nr = r + dr[d]\n                nc = c + dc[d]\n                if 0 \u003c= nr \u003c 3 and 0 \u003c= nc \u003c 3:\n                    if grid[nr][nc] == 1:\n                        neighbors += 1\n\nprint(diagonal, neighbors)"}],"choices":[{"kind":"code","text":"5 8"},{"kind":"code","text":"4 12"},{"kind":"code","text":"5 6"},{"kind":"code","text":"4 6"}],"answer":"D","explanation":[{"kind":"text","text":"外層兩個 for 迴圈會走訪全部九格；只有符合兩條對角線聯集條件的五格，才會執行 diagonal 的累加與四鄰居檢查。中心 (1, 1) 雖同時符合兩個條件，但同一次 if 的主體仍只執行一次。"},{"kind":"table","headers":["位置","grid 值","值為 1 的四鄰居數"],"rows":[["(0, 0)","1","1"],["(0, 2)","0","2"],["(1, 1)","1","2"],["(2, 0)","1","0"],["(2, 2)","1","1"]]},{"kind":"text","text":"diagonal = 1 + 0 + 1 + 1 + 1 = 4；neighbors = 1 + 2 + 2 + 0 + 1 = 6。不同中心看到同一個鄰居時會分別計數；程式沒有把鄰居位置去重。越界的候選位置先被排除，不會讀取負索引。"}],"points":4},{"id":"q28","number":28,"stem":[{"kind":"text","text":"下列程式執行後，輸出結果為何？"},{"kind":"code","text":"def rec(a, b):\n    if b == 0:\n        return a\n    return rec(b, a % b)\n\na, b = 84, 30\ncount = 0\nwhile b != 0:\n    a, b = b, a % b\n    count += 1\n\nprint(a, count, rec(84, 30))"}],"choices":[{"kind":"code","text":"6 2 6"},{"kind":"code","text":"6 3 6"},{"kind":"code","text":"6 3 0"},{"kind":"code","text":"12 3 6"}],"answer":"B","explanation":[{"kind":"text","text":"迴圈與 rec 都使用同一個最大公因數關係：gcd(a, b) = gcd(b, a % b)。當第二個數變成 0，第一個數就是答案。"},{"kind":"table","headers":["回合","更新前 (a, b)","餘數","更新後 (a, b)"],"rows":[["1","(84, 30)","24","(30, 24)"],["2","(30, 24)","6","(24, 6)"],["3","(24, 6)","0","(6, 0)"]]},{"kind":"text","text":"while 主體共執行 3 次。多重指定使用舊 a、b 算完右側才更新；rec 也依相同狀態順序走到 rec(6, 0)，回傳 6。"}],"points":4},{"id":"q29","number":29,"stem":[{"kind":"text","text":"下列程式執行後，輸出結果為何？"},{"kind":"code","text":"def f(n):\n    if n \u003c 2:\n        return n\n    if n % 2 == 0:\n        return n + f(n // 2)\n    return -n + f(n // 2)\n\ndef g(n):\n    total = 0\n    for i in range(1, n):\n        total += f(i)\n    return total\n\nprint(f(14), g(6))"}],"choices":[{"kind":"code","text":"5 7"},{"kind":"code","text":"7 7"},{"kind":"code","text":"5 5"},{"kind":"code","text":"7 5"}],"answer":"A","explanation":[{"kind":"text","text":"每次遞迴把參數整除 2，最後會到 0 或 1。n 的正負貢獻由該層的奇偶決定，不能只看最外層 14 是偶數。"},{"kind":"code","text":"f(14) = 14 + f(7)\n      = 14 - 7 + f(3)\n      = 14 - 7 - 3 + f(1)\n      = 5"},{"kind":"table","headers":["i","f(i)"],"rows":[["1","1"],["2","3"],["3","-2"],["4","7"],["5","-2"]]},{"kind":"text","text":"g(6) 的 range(1, 6) 不包含 6，所以總和是 1 + 3 - 2 + 7 - 2 = 7。函式回傳值與呼叫次數是不同的量。"}],"points":4},{"id":"q30","number":30,"stem":[{"kind":"text","text":"a 為整數。函式在所示程式後沒有其他敘述，也不對外回傳 a。哪一組依序指出「永遠不會執行的指定敘述」與「每次都會執行，但刪除後不影響印出結果的指定敘述」？"},{"kind":"code","text":"def pay(a):\n    while a \u003c 10:\n        a = a + 4      # 甲\n    if a \u003c 12:\n        a = a + 2      # 乙\n    if a \u003c 11:\n        a = 1          # 丙\n    print(a // 5, a % 5)\n    a = 0              # 丁"}],"choices":[{"kind":"text","text":"乙、丁"},{"kind":"text","text":"丙、甲"},{"kind":"text","text":"丙、丁"},{"kind":"text","text":"丁、丙"}],"answer":"C","explanation":[{"kind":"text","text":"while 每輪加 4，對任何整數起點最後都會停止，離開時必有 a ≥ 10。若 a 是 10 或 11，下一個 if 會加 2；若 a 已至少 12，則維持不變。"},{"kind":"text","text":"所以走到 a \u003c 11 之前，必有 a ≥ 12，丙永遠不可達。這是由不變量推導的結論，不只是測了幾個輸入都沒看到丙。"},{"kind":"text","text":"丁位於 print 之後，確實每次都會執行，但之後不再讀 a，也不回傳它，刪除丁不影響輸出。不可達程式與有執行卻沒有後續用途的指定，是兩種不同概念。"}],"points":4}],"exam_options":{"grading_password":"1112","subtitle":"全考點模擬考 · 30 題","notice":"原創模擬試卷，非 APCS 官方試卷。以 Python 3 語意作答。","duration_minutes":90,"default_mode":"general","show_point_values":false},"compatible_content_sha256":["80fb75dff2b39bbbaaddb2bf427a5690461d2c0b20132245cdb92dc0a7ea8d78"],"content_sha256":"118d37c4398fc73c05985e45fee0149de48800bcb5afa80a64f36f8491bf3942"}</script>
+<script>
+'use strict';
+(() => {
+  const EXAM = JSON.parse(document.getElementById('exam-data').textContent);
+  const QUESTIONS = EXAM.questions;
+  const LETTERS = ['A', 'B', 'C', 'D'];
+  const IDS = QUESTIONS.map(q => q.id);
+  const STORAGE_KEY = `peicd:reading-mock:${EXAM.exam_id}:${EXAM.content_sha256}:v1`;
+  const THEME_KEY = 'step_oj_framework:theme:v1';
+  // Offline convenience gate, not server authentication. Never persist or export this value.
+  const SETTINGS = EXAM.exam_options || {};
+  const GRADING_PASSWORD = SETTINGS.grading_password || '0000';
+  const TIMED = Number.isInteger(SETTINGS.duration_minutes) && SETTINGS.duration_minutes > 0;
+  const DURATION_MS = TIMED ? SETTINGS.duration_minutes * 60000 : 0;
+  const WEIGHTED = QUESTIONS.some(q => Number.isInteger(q.points));
+  const TOTAL_POINTS = QUESTIONS.reduce((sum, q) => sum + (q.points || 1), 0);
+  const $ = id => document.getElementById(id);
+  const MODE_GENERAL = 'general';
+  const MODE_GRADING = 'grading';
+  const MODE_KEY_PROXY = '批改模式';
+  const DEFAULT_MODE = SETTINGS.default_mode === MODE_GENERAL ? MODE_GENERAL : MODE_GRADING;
+  const SHOW_POINT_VALUES = SETTINGS.show_point_values !== false;
+  const RECORD_CONTENT_HASHES = new Set([EXAM.content_sha256, ...(EXAM.compatible_content_sha256 || [])]);
+  const MODE_PREFERENCE_KEY = STORAGE_KEY + ':mode';
+  let modeKeyValue = DEFAULT_MODE === MODE_GENERAL ? '' : GRADING_PASSWORD;
+  let storageReady = true;
+  let confirmation = null;
+  let importing = false;
+  let toastTimer = null;
+  const own = (o, key) => Object.prototype.hasOwnProperty.call(o, key);
+  const isObject = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+  const emptySession = (status = 'not_started') => ({status, started_at:null, deadline_at:null, finished_at:null});
+  const fresh = () => ({answers:Object.fromEntries(IDS.map(id => [id, null])), current_id:IDS[0], graded_at:null,
+                         ...(TIMED ? {session:emptySession()} : {})});
+  let state = fresh();
+
+  function validSession(session) {
+    if (!isObject(session) || Object.keys(session).length !== 4 ||
+        !['status','started_at','deadline_at','finished_at'].every(k => own(session, k))) return false;
+    if (session.status === 'not_started' || session.status === 'practice') {
+      return session.started_at === null && session.deadline_at === null && session.finished_at === null;
+    }
+    if (!['running','finished'].includes(session.status) || !validTimestamp(session.started_at) || !validTimestamp(session.deadline_at)) return false;
+    const start = Date.parse(session.started_at), deadline = Date.parse(session.deadline_at);
+    if (deadline - start !== DURATION_MS) return false;
+    if (session.status === 'running') return session.finished_at === null;
+    return validTimestamp(session.finished_at) && Date.parse(session.finished_at) >= start && Date.parse(session.finished_at) <= deadline;
+  }
+  function compatibleSession(session, answers, gradedAt) {
+    if (!validSession(session)) return false;
+    if (session.status === 'not_started' && (gradedAt || Object.values(answers).some(Boolean))) return false;
+    return !gradedAt || session.status === 'finished' || session.status === 'practice';
+  }
+  function legacySession(answers, gradedAt) {
+    return emptySession(gradedAt || Object.values(answers).some(Boolean) ? 'practice' : 'not_started');
+  }
+  function canAnswer() {
+    return !importing && !state.graded_at && (!TIMED || ['running','practice'].includes(state.session.status));
+  }
+  function finishExam(expired = false) {
+    if (!TIMED || state.session.status !== 'running') return;
+    const deadline = Date.parse(state.session.deadline_at);
+    const now = Math.max(Date.parse(state.session.started_at), Math.min(Date.now(), deadline));
+    state.session = {...state.session, status:'finished', finished_at:new Date(expired ? deadline : now).toISOString()};
+    if ($('confirm-dialog').open) {confirmation = null; $('confirm-dialog').close();}
+    persist(); redraw(); closeMenu();
+    notify(expired ? '考試時間已到，選答已鎖定。' : '已結束考試並鎖定選答；可在批改模式批改。');
+  }
+  function expireSession() {
+    if (TIMED && state.session.status === 'running' && Date.now() >= Date.parse(state.session.deadline_at)) {
+      finishExam(true); return true;
+    }
+    return false;
+  }
+  function updateClock() {
+    if (!TIMED) return;
+    const status = state.session.status;
+    let ms = status === 'not_started' ? DURATION_MS : 0;
+    if (status === 'running') ms = Math.max(0, Date.parse(state.session.deadline_at) - Date.now());
+    const seconds = Math.ceil(ms / 1000);
+    $('session-clock').textContent = status === 'practice' ? '不計時' : `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
+  }
+  function updateSessionUI() {
+    $('session-panel').hidden = !TIMED;
+    if (!TIMED) return;
+    const status = state.session.status, pending = status === 'not_started';
+    document.body.classList.toggle('awaiting-exam', pending);
+    $('sidebar').hidden = pending; $('menu-toggle').hidden = pending;
+    document.querySelector('.question-card').hidden = pending;
+    document.querySelector('.question-footer').hidden = pending;
+    $('start-exam').hidden = !pending; $('start-exam').disabled = importing;
+    $('finish-exam').hidden = status !== 'running'; $('finish-exam').disabled = importing;
+    const labels = {not_started:'尚未開始考試', running:'考試進行中', finished:'考試已結束', practice:'檢討練習（不計時）'};
+    $('session-title').textContent = labels[status];
+    const copy = {
+      not_started:`按下開始後才顯示題目與題目選單，作答時間 ${SETTINGS.duration_minutes} 分鐘。`,
+      running:'時間到會自動結束並鎖定選答；關閉頁面或切換模式不會暫停倒數。',
+      finished:'選答已鎖定；請在批改模式批改，或匯出紀錄交給教師。',
+      practice:'選答保留，可修改後重新批改；重新模擬完整考試請先清空本卷紀錄。'
+    };
+    $('session-copy').textContent = copy[status] + ' ' + (SETTINGS.notice || '');
+    updateClock();
+  }
+
+  function currentMode() {
+    return modeKeyValue === GRADING_PASSWORD ? MODE_GRADING : MODE_GENERAL;
+  }
+  function canReview() {
+    return currentMode() === MODE_GRADING && Boolean(state.graded_at);
+  }
+  function renderModeKey() {
+    const input = $('modeKeyInput');
+    input.value = modeKeyValue;
+    $('modeKeyMask').textContent = MODE_KEY_PROXY.slice(0, Math.min(modeKeyValue.length, 4));
+    input.parentElement.classList.toggle('has-value', Boolean(modeKeyValue.length));
+  }
+  function saveModePreference() {
+    if (!storageReady) return;
+    try { localStorage.setItem(MODE_PREFERENCE_KEY, currentMode()); }
+    catch (_) { storageFailed(); }
+  }
+  function applyModePreference(mode, persistMode = true) {
+    modeKeyValue = mode === MODE_GENERAL ? '' : GRADING_PASSWORD;
+    renderModeKey();
+    if (persistMode) saveModePreference();
+  }
+  function initModePreference() {
+    let mode = DEFAULT_MODE;
+    if (storageReady) {
+      try {
+        const saved = localStorage.getItem(MODE_PREFERENCE_KEY);
+        if (saved === MODE_GENERAL || saved === MODE_GRADING) mode = saved;
+      } catch (_) { storageFailed(); }
+    }
+    applyModePreference(mode);
+  }
+  function syncModeKey() {
+    const previous = currentMode();
+    // Compare the exact value; do not trim or normalize invalid input into the key.
+    modeKeyValue = $('modeKeyInput').value;
+    renderModeKey(); saveModePreference();
+    if (currentMode() !== previous) redraw();
+  }
+  function validAnswers(answers) {
+    return isObject(answers) && Object.keys(answers).length === IDS.length && IDS.every(id => own(answers, id) && (answers[id] === null || LETTERS.includes(answers[id])));
+  }
+  function validTimestamp(value) {
+    return typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(value)
+      && Number.isFinite(Date.parse(value)) && new Date(value).toISOString() === value;
+  }
+  function recordFeedback(message = '', kind = 'info') {
+    const box = $('record-feedback');
+    box.textContent = message; box.hidden = !message; box.dataset.kind = kind;
+  }
+  function validIdentity(data, format) {
+    return isObject(data) && data.format === format && (data.schema_version === 1 || (TIMED && format === 'peicd.reading-mock.records' && data.schema_version === 2)) && data.exam_id === EXAM.exam_id && RECORD_CONTENT_HASHES.has(data.content_sha256);
+  }
+  function storageFailed() {
+    storageReady = false;
+    $('storage-warning').hidden = false;
+    $('save-indicator').textContent = '暫存於本頁；請匯出紀錄備份。';
+  }
+  function load() {
+    try {
+      const probe = STORAGE_KEY + ':probe';
+      localStorage.setItem(probe, '1');
+      localStorage.removeItem(probe);
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw);
+      if (!validIdentity(saved, 'peicd.reading-mock.local-state') || !validAnswers(saved.answers) || !IDS.includes(saved.current_id) || !(saved.graded_at === null || (typeof saved.graded_at === 'string' && /^\d{4}-\d{2}-\d{2}T/.test(saved.graded_at) && Number.isFinite(Date.parse(saved.graded_at))))) {
+        notify('既有紀錄與本卷不相容，已開啟空白作答；未覆寫舊紀錄。');
+        return;
+      }
+      let session;
+      if (TIMED) {
+        session = own(saved, 'session') ? saved.session : legacySession(saved.answers, saved.graded_at);
+        if (!compatibleSession(session, saved.answers, saved.graded_at)) {
+          notify('既有紀錄的計時狀態不正確，已開啟空白作答；未覆寫舊紀錄。'); return;
+        }
+      }
+      state = {answers:{...saved.answers}, current_id:saved.current_id, graded_at:saved.graded_at,
+               ...(TIMED ? {session:{...session}} : {})};
+    } catch (err) {
+      if (err instanceof SyntaxError) notify('既有紀錄格式損壞，已開啟空白作答。');
+      else storageFailed();
+    }
+  }
+  function persist() {
+    if (!storageReady) return;
+    const saved = {format:'peicd.reading-mock.local-state', schema_version:1, exam_id:EXAM.exam_id, content_sha256:EXAM.content_sha256, ...state};
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+      $('save-indicator').textContent = '已儲存於此瀏覽器。';
+    } catch (_) { storageFailed(); }
+  }
+  function notify(text) {
+    clearTimeout(toastTimer);
+    $('toast').textContent = text;
+    $('toast').hidden = false;
+    toastTimer = setTimeout(() => { $('toast').hidden = true; }, 4200);
+  }
+  function el(tag, cls, text) {
+    const node = document.createElement(tag);
+    if (cls) node.className = cls;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+  function renderBlocks(container, blocks) {
+    container.replaceChildren();
+    for (const block of blocks) {
+      if (block.kind === 'text') container.append(el('p', '', block.text));
+      else if (block.kind === 'code') {
+        const pre = el('pre', 'codebox');
+        pre.tabIndex = 0;
+        pre.setAttribute('aria-label', '程式或輸出內容，可水平捲動');
+        pre.append(el('code', '', block.text));
+        container.append(pre);
+      } else if (block.kind === 'table') {
+        const wrap = el('div', 'table-wrap');
+        const table = el('table');
+        const thead = el('thead');
+        const head = el('tr');
+        block.headers.forEach(h => {const th = el('th', '', h); th.scope = 'col'; head.append(th);});
+        thead.append(head); table.append(thead);
+        const tbody = el('tbody');
+        block.rows.forEach(row => {const tr = el('tr'); row.forEach(v => tr.append(el('td', '', v))); tbody.append(tr);});
+        table.append(tbody); wrap.append(table); container.append(wrap);
+      }
+    }
+  }
+  function totals() {
+    let correct = 0, answered = 0, points = 0;
+    for (const q of QUESTIONS) {
+      if (state.answers[q.id] !== null) answered++;
+      if (state.answers[q.id] === q.answer) {correct++; points += q.points || 1;}
+    }
+    return {correct, answered, points, wrong:answered - correct, blank:QUESTIONS.length - answered};
+  }
+  function updateMenu() {
+    for (const q of QUESTIONS) {
+      const button = $('nav-' + q.id);
+      const chosen = state.answers[q.id];
+      button.className = 'menu-item';
+      button.setAttribute('aria-current', String(q.id === state.current_id));
+      const main = button.querySelector('.menu-main');
+      const sub = button.querySelector('.menu-sub');
+      if (canReview()) {
+        const status = chosen === null ? '未作答' : (chosen === q.answer ? '答對' : '答錯');
+        button.classList.add(chosen === null ? 'unanswered' : (chosen === q.answer ? 'correct' : 'wrong'));
+        main.textContent = status + (chosen ? ` · 已選 ${chosen}` : ' · 計為錯誤');
+        sub.textContent = `正確答案 ${q.answer}`;
+        sub.hidden = false;
+        button.setAttribute('aria-label', `第 ${q.number} 題，${main.textContent}，正確答案 ${q.answer}`);
+      } else {
+        if (chosen) button.classList.add('answered');
+        main.textContent = chosen ? `已選 ${chosen}` : '未作答';
+        sub.textContent = ''; sub.hidden = true;
+        button.setAttribute('aria-label', `第 ${q.number} 題，${main.textContent}`);
+      }
+    }
+    const {answered} = totals();
+    $('progress-text').textContent = `已作答 ${answered} / ${QUESTIONS.length}`;
+    $('progress-bar').setAttribute('aria-valuenow', String(answered));
+    $('progress-fill').style.width = `${answered / QUESTIONS.length * 100}%`;
+  }
+  function updateControls() {
+    updateSessionUI();
+    const grading = currentMode() === MODE_GRADING;
+    $('grade-all').hidden = !grading || Boolean(state.graded_at) || (TIMED && state.session.status === 'not_started');
+    $('grade-all').disabled = importing;
+    $('ungrade').hidden = !grading || !state.graded_at;
+    $('ungrade').disabled = importing;
+    $('import-answers').disabled = importing;
+    $('reset-exam').disabled = importing;
+    $('exam-status').textContent = grading
+      ? (state.graded_at ? '批改模式 · 已批改' : '批改模式 · 尚未批改')
+      : (state.graded_at ? '考試模式 · 選答已鎖定' : '考試模式');
+    const summary = $('result-summary');
+    summary.hidden = !canReview();
+    summary.replaceChildren();
+    if (canReview()) {
+      const t = totals();
+      const score = el('div');
+      const value = el('div', 'score-value', String(WEIGHTED ? t.points : t.correct));
+      value.append(el('span', 'score-denominator', WEIGHTED ? ` / ${TOTAL_POINTS}` : ' / 30'));
+      score.append(value, el('div', 'summary-caption', WEIGHTED ? '本卷得分' : '答對題數'));
+      const detail = el('div', 'summary-detail');
+      detail.append(el('div', '', `答對 ${t.correct} · 答錯 ${t.wrong} · 未答 ${t.blank}`), el('div', '', '選答暫時鎖定；可取消批改後繼續作答。'));
+      summary.append(score, detail);
+    }
+  }
+  function refreshSelection() {
+    const q = QUESTIONS.find(x => x.id === state.current_id);
+    const chosen = state.answers[q.id];
+    $('selection-status').textContent = chosen ? `目前選答：${chosen}` : '尚未作答';
+    $('clear-choice').hidden = !canAnswer();
+    $('clear-choice').disabled = !chosen;
+    document.querySelectorAll('#choices .option').forEach(label => {
+      const input = label.querySelector('input');
+      input.disabled = !canAnswer();
+      label.classList.toggle('locked', !canAnswer());
+      input.checked = input.value === chosen;
+      label.classList.toggle('selected', input.checked);
+    });
+  }
+  function renderReview(q) {
+    const panel = $('review-panel');
+    panel.replaceChildren();
+    panel.hidden = !canReview();
+    if (!canReview()) return;
+    const chosen = state.answers[q.id];
+    const correct = chosen === q.answer;
+    const head = el('div', 'review-head');
+    const verdict = el('div', 'review-verdict ' + (correct ? 'correct-text' : 'wrong-text'), chosen === null ? '未作答，計為錯誤' : (correct ? '答對' : '答錯'));
+    verdict.append(el('span', 'review-detail', `你的答案：${chosen || '未作答'}　正確答案：${q.answer}`));
+    const toggle = el('button', 'explain-toggle', '顯示詳解');
+    toggle.type = 'button';
+    toggle.id = 'explain-toggle';
+    toggle.dataset.explanation = q.id;
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-controls', 'explanation');
+    const explanation = el('div', 'explanation');
+    explanation.id = 'explanation'; explanation.hidden = true;
+    toggle.addEventListener('click', () => {
+      // Guard actual state in addition to controlling button visibility.
+      if (!canReview()) return;
+      if (explanation.hidden) {
+        renderBlocks(explanation, q.explanation);
+        explanation.hidden = false;
+        toggle.textContent = '收合詳解'; toggle.setAttribute('aria-expanded', 'true');
+      } else {
+        explanation.hidden = true; toggle.textContent = '顯示詳解'; toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+    head.append(verdict, toggle); panel.append(head, explanation);
+  }
+  function renderQuestion() {
+    const index = IDS.indexOf(state.current_id);
+    const q = QUESTIONS[index];
+    $('question-heading').textContent = `第 ${q.number} 題`;
+    $('question-position').textContent = `${String(q.number).padStart(2, '0')} / 30` + (WEIGHTED && SHOW_POINT_VALUES ? ` · ${q.points} 分` : '');
+    $('choice-legend').textContent = `第 ${q.number} 題，選擇一個答案`;
+    renderBlocks($('stem'), q.stem);
+    const choices = $('choices'); choices.replaceChildren();
+    q.choices.forEach((choice, i) => {
+      const letter = LETTERS[i];
+      const label = el('label', 'option');
+      label.dataset.letter = letter;
+      const input = el('input'); input.type = 'radio'; input.name = 'answer-' + q.id; input.value = letter;
+      input.id = `option-${q.id}-${letter}`;
+      input.disabled = !canAnswer();
+      label.htmlFor = input.id;
+      input.addEventListener('change', () => {
+        if (expireSession() || !canAnswer() || !input.checked) return;
+        state.answers[q.id] = letter;
+        persist(); updateMenu(); refreshSelection();
+      });
+      const content = el('div', 'option-content');
+      content.append(el(choice.kind === 'code' ? 'pre' : 'span', choice.kind === 'code' ? 'choice-code' : '', choice.text));
+      if (!canAnswer()) label.classList.add('locked');
+      if (canReview()) {
+        if (letter === q.answer) {
+          label.classList.add('correct-choice');
+          content.append(el('span', 'option-note', letter === state.answers[q.id] ? '你的選答 · 正確答案' : '正確答案'));
+        } else if (letter === state.answers[q.id]) {
+          label.classList.add('wrong-choice');
+          content.append(el('span', 'option-note', '你的選答'));
+        }
+      }
+      label.append(input, el('span', 'option-letter', letter), content);
+      choices.append(label);
+    });
+    refreshSelection(); renderReview(q);
+    $('previous').disabled = index === 0;
+    $('next').disabled = index === QUESTIONS.length - 1;
+    $('nav-hint').textContent = state.graded_at
+      ? (currentMode() === MODE_GRADING ? '可按左側「取消批改，繼續作答」。' : '切回批改模式後可取消批改繼續作答。')
+      : '可由題目選單切換題目。';
+  }
+  function openMenu() {
+    if (TIMED && state.session.status === 'not_started') return;
+    $('sidebar').classList.add('open'); $('sidebar-backdrop').classList.add('open');
+    $('menu-toggle').setAttribute('aria-expanded', 'true');
+    $('sidebar').setAttribute('role', 'dialog'); $('sidebar').setAttribute('aria-modal', 'true');
+    document.querySelector('.topbar').inert = true; $('main').inert = true;
+    document.body.style.overflow = 'hidden'; $('sidebar-close').focus();
+  }
+  function closeMenu(returnFocus = false) {
+    $('sidebar').classList.remove('open'); $('sidebar-backdrop').classList.remove('open');
+    $('menu-toggle').setAttribute('aria-expanded', 'false');
+    $('sidebar').removeAttribute('role'); $('sidebar').removeAttribute('aria-modal');
+    document.querySelector('.topbar').inert = false; $('main').inert = false;
+    document.body.style.overflow = '';
+    if (returnFocus) $('menu-toggle').focus();
+  }
+  function goTo(id, focus = true) {
+    if (!IDS.includes(id) || (TIMED && state.session.status === 'not_started')) return;
+    state.current_id = id; persist(); updateMenu(); renderQuestion(); closeMenu();
+    window.scrollTo({top:0, behavior:'instant'});
+    if (focus) $('question-heading').focus({preventScroll:true});
+    const button = $('nav-' + id);
+    if (window.matchMedia('(min-width: 721px)').matches) button.scrollIntoView({block:'nearest', inline:'nearest'});
+  }
+  function redraw() {updateMenu(); updateControls(); renderQuestion();}
+  function confirmAction(title, copy, label, action) {
+    confirmation = action;
+    $('confirm-title').textContent = title;
+    $('confirm-copy').textContent = copy;
+    $('confirm-accept').textContent = label;
+    $('confirm-dialog').showModal();
+    $('confirm-cancel').focus();
+  }
+  function gradeAll() {
+    if (importing || currentMode() !== MODE_GRADING || state.graded_at || (TIMED && state.session.status === 'not_started')) return;
+    if (TIMED && state.session.status === 'running') finishExam(Date.now() >= Date.parse(state.session.deadline_at));
+    state.graded_at = new Date().toISOString();
+    persist(); redraw();
+    notify('整卷批改完成。題目選單已標示正誤與正確答案。');
+  }
+  function ungrade() {
+    if (importing || currentMode() !== MODE_GRADING || !state.graded_at) return;
+    state.graded_at = null;
+    if (TIMED) state.session = emptySession('practice');
+    persist(); redraw();
+    notify('已取消批改。原選答全部保留，可以繼續修改後再次批改。');
+  }
+  function setTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    const label = theme === 'dark' ? '淺色外觀' : '深色外觀';
+    $('theme-toggle').textContent = label;
+    $('theme-toggle').setAttribute('aria-label', '切換為' + label);
+  }
+  function initTheme() {
+    let theme = 'dark';
+    try {const saved = localStorage.getItem(THEME_KEY); if (saved === 'light' || saved === 'dark') theme = saved;} catch (_) {}
+    setTheme(theme);
+  }
+  function exportAnswers() {
+    // Save user state only. Results are recomputed from this exam when restored.
+    expireSession();
+    const data = {format:'peicd.reading-mock.records', schema_version:TIMED ? 2 : 1, exam_id:EXAM.exam_id,
+                  content_sha256:EXAM.content_sha256, answers:{...state.answers},
+                  current_id:state.current_id, graded_at:state.graded_at,
+                  ...(TIMED ? {session:{...state.session}} : {}),
+                  exported_at:new Date().toISOString()};
+    try {
+      const blob = new Blob([JSON.stringify(data, null, 2) + '\n'], {type:'application/json;charset=utf-8'});
+      const url = URL.createObjectURL(blob);
+      const anchor = el('a'); anchor.href = url;
+      anchor.download = 'Python_APCS_模擬考_作答紀錄_' + new Date().toISOString().replace(/[:.]/g, '-') + '.json';
+      document.body.append(anchor); anchor.click(); anchor.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+      recordFeedback(); notify('已產生紀錄備份並送出下載要求。');
+    } catch (_) { recordFeedback('無法產生紀錄備份，請確認瀏覽器允許下載。目前作答仍保留。', 'error'); }
+  }
+  async function importAnswers(file) {
+    if (!file || importing || $('confirm-dialog').open) return;
+    recordFeedback();
+    if (file.size > 131072) {recordFeedback('檔案過大，未匯入。上限為 128 KiB。', 'error'); return;}
+    importing = true; updateControls();
+    try {
+      const data = JSON.parse(await file.text());
+      const legacy = validIdentity(data, 'peicd.reading-mock.answers');
+      if (!legacy && !validIdentity(data, 'peicd.reading-mock.records')) throw new Error('試卷或紀錄版本不符，未變更目前紀錄。');
+      if (!validAnswers(data.answers) || !IDS.includes(data.current_id)) throw new Error('選答格式不正確，未變更目前紀錄。');
+      const fields = ['format','schema_version','exam_id','content_sha256','answers','current_id','exported_at'];
+      if (!legacy) fields.push('graded_at');
+      const timedRecord = !legacy && data.schema_version === 2;
+      if (timedRecord) fields.push('session');
+      const allowed = new Set(fields);
+      if (Object.keys(data).some(k => !allowed.has(k))) throw new Error('紀錄含有不支援的欄位，未變更目前紀錄。');
+      if ((!legacy || own(data, 'exported_at')) && !validTimestamp(data.exported_at)) throw new Error('紀錄的匯出時間不正確，未變更目前紀錄。');
+      if (!legacy && !(data.graded_at === null || validTimestamp(data.graded_at))) throw new Error('紀錄的批改狀態不正確，未變更目前紀錄。');
+      const gradedAt = legacy ? null : data.graded_at;
+      const session = TIMED ? (timedRecord ? data.session : legacySession(data.answers, gradedAt)) : null;
+      if (TIMED && !compatibleSession(session, data.answers, gradedAt)) throw new Error('紀錄的計時狀態不正確，未變更目前紀錄。');
+      const incoming = {answers:{...data.answers}, current_id:data.current_id, graded_at:gradedAt,
+                        ...(TIMED ? {session:{...session}} : {})};
+      const answered = Object.values(incoming.answers).filter(Boolean).length;
+      const status = incoming.graded_at ? '已批改；可在批改模式取消批改後繼續作答' : '尚未批改，可繼續作答';
+      confirmAction('匯入作答紀錄？', `這份紀錄已作答 ${answered} 題，${status}。匯入會取代本卷目前的選答、題號與批改狀態；目前模式、外觀與其他試卷不變。`, '確認匯入', () => {
+        state = incoming; persist(); redraw(); closeMenu(); expireSession();
+        window.scrollTo({top:0, behavior:'instant'});
+        recordFeedback(); notify(TIMED && !timedRecord ? '舊紀錄沒有計時資料；已保留選答並還原為不計時練習。' : state.graded_at ? '已還原作答與批改紀錄；可在批改模式取消批改後繼續作答。' : '已還原選答，可繼續作答；模式保持不變。');
+      });
+    } catch (err) {
+      recordFeedback(err instanceof SyntaxError ? '無法讀取 JSON 紀錄，未變更目前紀錄。' : (err.message || '匯入失敗，未變更目前紀錄。'), 'error');
+    } finally { importing = false; updateControls(); }
+  }
+
+  // Build the 30 single-column navigation entries once; later updates preserve focus.
+  for (const q of QUESTIONS) {
+    const button = el('button', 'menu-item'); button.type = 'button'; button.id = 'nav-' + q.id;
+    const text = el('span'); text.append(el('span', 'menu-main', '未作答'), el('span', 'menu-sub'));
+    button.append(el('span', 'menu-no', String(q.number).padStart(2, '0')), text);
+    button.addEventListener('click', () => goTo(q.id)); $('question-menu').append(button);
+  }
+  $('start-exam').addEventListener('click', () => {
+    if (!TIMED || importing || state.graded_at || state.session.status !== 'not_started' || $('confirm-dialog').open) return;
+    const now = Date.now();
+    state.session = {status:'running', started_at:new Date(now).toISOString(), deadline_at:new Date(now + DURATION_MS).toISOString(), finished_at:null};
+    persist(); redraw(); $('question-heading').focus({preventScroll:true});
+  });
+  $('finish-exam').addEventListener('click', () => {
+    if (expireSession() || !TIMED || importing || state.session.status !== 'running' || $('confirm-dialog').open) return;
+    const before = state.session.started_at;
+    confirmAction('結束考試？', `目前已作答 ${totals().answered} 題；結束後選答將鎖定，不會自動顯示正解。`, '結束考試', () => {
+      if (!TIMED || importing || state.session.status !== 'running' || state.session.started_at !== before) return;
+      finishExam(Date.now() >= Date.parse(state.session.deadline_at));
+    });
+  });
+  $('theme-toggle').addEventListener('click', () => {
+    const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; setTheme(theme);
+    try {localStorage.setItem(THEME_KEY, theme);} catch (_) {}
+  });
+  $('modeKeyInput').addEventListener('input', syncModeKey);
+  $('grade-all').addEventListener('click', () => {
+    if (importing || currentMode() !== MODE_GRADING || state.graded_at || (TIMED && state.session.status === 'not_started')) return;
+    const t = totals();
+    confirmAction('批改全部 30 題？', `目前已作答 ${t.answered} 題，未作答 ${t.blank} 題。未作答計為錯誤；批改後會暫時鎖定選答，並顯示正確答案與詳解按鈕。之後可取消批改繼續作答。`, '確認批改', gradeAll);
+  });
+  $('ungrade').addEventListener('click', () => {
+    if (importing || currentMode() !== MODE_GRADING || !state.graded_at || $('confirm-dialog').open) return;
+    confirmAction('取消批改並繼續作答？', '目前選答會完整保留；成績、正確答案與詳解會先隱藏，所有題目重新開放修改。修改後可再次批改。', '取消批改', ungrade);
+  });
+  $('confirm-accept').addEventListener('click', () => {
+    const action = confirmation; confirmation = null; $('confirm-dialog').close(); if (action) action();
+  });
+  $('confirm-cancel').addEventListener('click', () => {confirmation = null; $('confirm-dialog').close();});
+  $('confirm-dialog').addEventListener('cancel', () => {confirmation = null;});
+  $('clear-choice').addEventListener('click', () => {
+    if (expireSession() || !canAnswer()) return;
+    state.answers[state.current_id] = null; persist(); refreshSelection(); updateMenu();
+  });
+  $('previous').addEventListener('click', () => {const index = IDS.indexOf(state.current_id); if (index > 0) goTo(IDS[index - 1]);});
+  $('next').addEventListener('click', () => {const index = IDS.indexOf(state.current_id); if (index < IDS.length - 1) goTo(IDS[index + 1]);});
+  $('export-answers').addEventListener('click', exportAnswers);
+  $('import-answers').addEventListener('click', () => $('import-file').click());
+  $('import-file').addEventListener('change', async () => {
+    const file = $('import-file').files[0]; $('import-file').value = ''; await importAnswers(file);
+  });
+  $('reset-exam').addEventListener('click', () => {
+    if (importing || $('confirm-dialog').open) return;
+    confirmAction('清空本卷紀錄？', `這會清除本卷 30 題的選答與批改結果，並回到預設的${DEFAULT_MODE === MODE_GENERAL ? '考試模式' : '批改模式'}。外觀偏好與其他試卷的紀錄不會受到影響。`, '確認清空', () => {
+      state = fresh();
+      if (storageReady) {
+        try {localStorage.removeItem(STORAGE_KEY);} catch (_) {storageFailed();}
+      }
+      applyModePreference(DEFAULT_MODE); recordFeedback(); redraw(); closeMenu();
+      if (storageReady) $('save-indicator').textContent = '已清空本卷紀錄。';
+      window.scrollTo({top:0, behavior:'instant'}); notify(`已清空本卷，回到${DEFAULT_MODE === MODE_GENERAL ? '考試模式' : '批改模式'}，可重新作答。`);
+    });
+  });
+  $('menu-toggle').addEventListener('click', () => {
+    const open = !$('sidebar').classList.contains('open');
+    if (open) openMenu(); else closeMenu(true);
+  });
+  $('sidebar-close').addEventListener('click', () => closeMenu(true));
+  $('sidebar-backdrop').addEventListener('click', () => closeMenu(true));
+  document.addEventListener('keydown', event => {
+    if (!$('sidebar').classList.contains('open') || document.querySelector('dialog[open]')) return;
+    if (event.key === 'Escape') closeMenu(true);
+    if (event.key === 'Tab') {
+      const nodes = [...$('sidebar').querySelectorAll('button:not(:disabled)')].filter(n => !n.hidden && n.getClientRects().length);
+      const first = nodes[0], last = nodes[nodes.length - 1];
+      if (event.shiftKey && document.activeElement === first) {event.preventDefault(); last.focus();}
+      else if (!event.shiftKey && document.activeElement === last) {event.preventDefault(); first.focus();}
+    }
+  });
+  window.matchMedia('(min-width:721px)').addEventListener('change', event => {if (event.matches) closeMenu();});
+  document.title = EXAM.title;
+  if (SETTINGS.subtitle) document.querySelector('.brand-sub').textContent = SETTINGS.subtitle;
+  if (SETTINGS.notice) document.querySelector('.footnote').textContent = SETTINGS.notice;
+  if (WEIGHTED) $('exam-progress').textContent = SHOW_POINT_VALUES ? `30 題單選 · ${TOTAL_POINTS} 分` : '30 題單選';
+  initTheme(); load(); initModePreference(); redraw();
+  if (TIMED) {
+    expireSession();
+    setInterval(() => {if (!expireSession()) updateClock();}, 1000);
+    document.addEventListener('visibilitychange', () => {if (!document.hidden) {expireSession(); updateClock();}});
+    window.addEventListener('focus', () => {expireSession(); updateClock();});
+  }
+})();
+</script>
+</body>
+</html>

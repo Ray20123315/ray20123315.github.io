@@ -1,0 +1,50 @@
+name: Deploy Python Notes
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: python-pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout Python site files
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            index.html
+            lesson.html
+            python.css
+            python.js
+            md/python
+            md/images
+            images
+            .nojekyll
+          sparse-checkout-cone-mode: false
+          fetch-depth: 1
+      - name: Prepare Python-only public directory
+        run: |
+          mkdir -p _public/md
+          cp index.html lesson.html python.css python.js _public/
+          cp -r md/python _public/md/python
+          if [ -d md/images ]; then cp -r md/images _public/md/images; fi
+          if [ -d images ]; then cp -r images _public/images; fi
+          touch _public/.nojekyll
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _public
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

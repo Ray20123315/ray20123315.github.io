@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="zh-Hant" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0a1423"><meta name="description" content="Python 程式筆記及 APCS 題目練習，全部存放在本站。"><title>Python 學習筆記</title><link rel="stylesheet" href="./python.css"><script src="./python.js" defer></script></head>
+<body><a class="skip" href="#main">跳到主要內容</a><header class="header"><div class="header-inner">
+<a class="brand" href="./index.html"><span class="brand-icon">Py</span><span>Python 學習筆記<small>PERSONAL LEARNING LIBRARY</small></span></a>
+<nav class="nav" aria-label="主要導覽"><a href="./index.html#core">語法筆記</a><a href="./index.html#exercises">練習題</a><button type="button" class="theme-button" id="theme-toggle" aria-label="切換淺色">切換淺色</button></nav></div></header>
+<main class="wrap" id="main"><section class="hero">
+<div><span class="eyebrow">LEARN PYTHON · NOTES & PRACTICE</span><h1>專注學習<br><span>Python.</span></h1><p>整理 Python 語法筆記、資料結構與 APCS 練習。所有教學頁面均在本網站閱讀，不會將課程導往其他筆記網站。</p><a href="#core" class="cta">開始閱讀筆記 ↗</a></div>
+<div class="code-display"><div class="code-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span>hello.py</span></div>
+<pre><code># Your Python journey
+numbers = [1, 2, 3, 4]
+total = sum(numbers)
+print("Hello, Python!")
+print(total)  # 10</code></pre></div></section>
+<div class="stat-row"><div class="stat"><b>19</b><span>Python 語法筆記</span></div><div class="stat"><b>32</b><span>APCS 與實作練習</span></div><div class="stat"><b>100%</b><span>本站內閱讀</span></div></div>
+<div class="reveal"><span class="eyebrow">EXPLORE THE LIBRARY</span><h2>筆記與練習</h2><p style="color:var(--muted);font-size:13px">目前僅顯示 Python 相關內容，其他資料仍保存在儲存庫中。</p>
+<label class="search-box"><input id="search" class="search-input" type="search" placeholder="搜尋 Python、List、排序、APCS、題號…" aria-label="搜尋筆記主題"></label>
+<p class="search-status" id="search-status" role="status" aria-live="polite"></p></div>
+
+<section id="core" class="section reveal">
+<div class="section-heading">
+  <div><span class="eyebrow">01 / PYTHON COLLECTION</span><h2>Python 基礎筆記</h2><p>從語法、控制流程到資料結構，保留原有的完整筆記。</p></div>
+  <span class="section-count">19 篇</span>
+</div>
+<div class="cards">
+<a class="note-card" data-note href="./lesson.html?file=Else%E8%AE%8A%E6%95%B8.md" aria-label="開啟Else變數">
+<div class="card-top"><span class="card-kind">PYTHON NOTES</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>Else變數</strong>
+<span class="card-bottom">閱讀筆記 <span>·</span> 01</span>
+</a>
+<a class="note-card" data-note href="./lesson.html?file=dict(map).md" aria-label="開啟dict(map)">
+<div class="card-top"><span class="card-kind">PYTHON NOTES</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>dict(map)</strong>
+<span class="card-bottom">閱讀筆記 <span>·</span> 02</span>
+</a>
+<a class="note-card" data-note href="./lesson.html?file=list%20of%20list%20%E5%AF%A6%E4%BD%9C%E4%BA%8C%E7%B6%AD%E9%99%A3%E5%88%97.md" aria-label="開啟list of list 實作二維陣列">
+<div class="card-top"><span class="card-kind">PYTHON NOTES</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>list of list 實作二維陣列</strong>
+<span class="card-bottom">閱讀筆記 <span>·</span> 03</span>
+</a>
+<a class="note-card" data-note href="./lesson.html?file=set.md" aria-label="開啟set">
+<div class="card-top"><span class="card-kind">PYTHON NOTES</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>set</strong>
+<span class="card-bottom">閱讀筆記 <span>·</span> 04</span>
+</a>
+<a class="note-card" data-note href="./lesson.html?file=%E4%B8%80%E4%BA%9B%E8%AC%9B%E7%BE%A9%E4%B8%AD%E6%B2%92%E8%AC%9B%E7%9A%84%E6%9D%B1%E8%A5%BF.md" aria-label="開啟一些講義中沒講的東西">
+<div class="card-top"><span class="card-kind">PYTHON NOTES</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>一些講義中沒講的東西</strong>
+<span class="card-bottom">閱讀筆記 <span>·</span> 05</span>
+</a>
+<a class="note-card" data-note href="./lesson.html?file=%E5%86%8D%E6%8E%A2%20List(%E4%B8%B2%E5%88%97)%E8%88%87%E5%AD%97%E4%B8%B2%E6%93%8D%E4%BD%9C.md" aria-label="開啟再探 List(串列)與字串操作">
+<div class="card-top"><span class="card-kind">PYTHON NOTES</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>再探 List(串列)與字串操作</strong>
+<span class="card-bottom">閱讀筆記 <span>·</span> 06</span>
+</a>
+<a class="note-card" data-note href="./lesson.html?file=%E5%88%87%E7%89%87%E5%92%8C_range_%E7%9A%84%E8%A8%98%E6%B3%95.md" aria-label="開啟切片和 range 的記法">
+<div class="card-top"><span class="card-kind">PYTHON NOTES</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>切片和 range 的記法</strong>
+<span class="card-bottom">閱讀筆記 <span>·</span> 07</span>
+</a>
+<a class="note-card" data-note href="./lesson.html?file=%E5%B8%B8%E7%94%A8%E7%9A%84%E8%BC%B8%E5%85%A5%E6%96%B9%E5%BC%8F.md" aria-label="開啟常用的輸入方式">
+<div class="card-top"><span class="card-kind">PYTHON NOTES</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>常用的輸入方式</strong>
+<span class="card-bottom">閱讀筆記 <span>·</span> 08</span>
+</a>
+<a class="note-card" data-note href="./lesson.html?file=%E6%8E%92%E5%BA%8F%E8%88%87%E6%90%9C%E5%B0%8B.md" aria-label="開啟排序與搜尋">
+<div class="card-top"><span class="card-kind">PYTHON NOTES</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>排序與搜尋</strong>
+<span class="card-bottom">閱讀筆記 <span>·</span> 09</span>
+</a>
+<a class="note-card" data-note href="./lesson.html?file=%E6%8E%A7%E5%88%B6%E7%A8%8B%E5%BC%8F%E6%B5%81%E7%A8%8B%E2%80%94for%20%E8%BF%B4%E5%9C%88.md" aria-label="開啟控制程式流程—for 迴圈">
+<div class="card-top"><span class="card-kind">PYTHON NOTES</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>控制程式流程—for 迴圈</strong>
+<span class="card-bottom">閱讀筆記 <span>·</span> 10</span>
+</a>
+<a class="note-card" data-note href="./lesson.html?file=%E6%8E%A7%E5%88%B6%E7%A8%8B%E5%BC%8F%E6%B5%81%E7%A8%8B%E2%80%94while%20%E8%BF%B4%E5%9C%88.md" aria-label="開啟控制程式流程—while 迴圈">
+<div class="card-top"><span class="card-kind">PYTHON NOTES</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>控制程式流程—while 迴圈</strong>
+<span class="card-bottom">閱讀筆記 <span>·</span> 11</span>
+</a>
+<a class="note-card" data-note href="./lesson.html?file=%E6%8E%A7%E5%88%B6%E7%A8%8B%E5%BC%8F%E6%B5%81%E7%A8%8B%E2%80%94%E5%88%86%E6%94%AF%E9%81%B8%E6%93%87%E6%8C%87%E4%BB%A4.md" aria-label="開啟控制程式流程—分支選擇指令">
+<div class="card-top"><span class="card-kind">PYTHON NOTES</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>控制程式流程—分支選擇指令</strong>
+<span class="card-bottom">閱讀筆記 <span>·</span> 12</span>
+</a>
+<a class="note-card" data-note href="./lesson.html?file=%E6%8E%A7%E5%88%B6%E7%A8%8B%E5%BC%8F%E6%B5%81%E7%A8%8B%E2%80%94%E8%87%AA%E8%A8%82%E5%87%BD%E6%95%B8.md" aria-label="開啟控制程式流程—自訂函數">
+<div class="card-top"><span class="card-kind">PYTHON NOTES</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>控制程式流程—自訂函數</strong>
+<span class="card-bottom">閱讀筆記 <span>·</span> 13</span>
+</a>
+<a class="note-card" data-note href="./lesson.html?file=%E6%95%B4%E6%95%B8%E7%9A%84%E7%AE%97%E8%A1%93%E9%81%8B%E7%AE%97.md" aria-label="開啟整數的算術運算">
+<div class="card-top"><span class="card-kind">PYTHON NOTES</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>整數的算術運算</strong>
+<span class="card-bottom">閱讀筆記 <span>·</span> 14</span>
+</a>
+<a class="note-card" data-note href="./lesson.html?file=%E7%89%A9%E4%BB%B6%E7%9A%84%E5%8F%83%E7%85%A7.md" aria-label="開啟物件的參照">
+<div class="card-top"><span class="card-kind">PYTHON NOTES</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>物件的參照</strong>
+<span class="card-bottom">閱讀筆記 <span>·</span> 15</span>
+</a>
+<a class="note-card" data-note href="./lesson.html?file=%E7%AB%B6%E7%A8%8B%E5%B8%B8%E7%94%A8%E7%9A%84%E3%80%8C%E9%AB%98%E9%80%9F%E8%BC%B8%E5%85%A5%20%E3%80%81%E9%9B%86%E4%B8%AD%E8%BC%B8%E5%87%BA%E3%80%8D.md" aria-label="開啟競程常用的「高速輸入 、集中輸出」">
+<div class="card-top"><span class="card-kind">PYTHON NOTES</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>競程常用的「高速輸入 、集中輸出」</strong>
+<span class="card-bottom">閱讀筆記 <span>·</span> 16</span>
+</a>
+<a class="note-card" data-note href="./lesson.html?file=%E7%AB%B6%E8%B3%BD%E5%81%B7%E6%87%B6%E8%BC%B8%E5%85%A5%E6%B3%95.md" aria-label="開啟競賽偷懶輸入法">
+<div class="card-top"><span class="card-kind">PYTHON NOTES</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>競賽偷懶輸入法</strong>
+<span class="card-bottom">閱讀筆記 <span>·</span> 17</span>
+</a>
+<a class="note-card" data-note href="./lesson.html?file=%E8%BC%B8%E5%87%BA%E8%88%87%E8%B3%87%E6%96%99%E5%AD%98%E5%8F%96.md" aria-label="開啟輸出與資料存取">
+<div class="card-top"><span class="card-kind">PYTHON NOTES</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>輸出與資料存取</strong>
+<span class="card-bottom">閱讀筆記 <span>·</span> 18</span>
+</a>
+<a class="note-card" data-note href="./lesson.html?file=%E9%82%8F%E8%BC%AF%E9%81%8B%E7%AE%97.md" aria-label="開啟邏輯運算">
+<div class="card-top"><span class="card-kind">PYTHON NOTES</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>邏輯運算</strong>
+<span class="card-bottom">閱讀筆記 <span>·</span> 19</span>
+</a>
+</div></section>
+
+<section id="exercises" class="section reveal">
+<div class="section-heading">
+  <div><span class="eyebrow">02 / PYTHON COLLECTION</span><h2>APCS 與實作練習</h2><p>程式識讀、模擬考與實作題目，直接於本站開啟。</p></div>
+  <span class="section-count">32 篇</span>
+</div>
+<div class="cards">
+<a class="note-card" data-note href="./md/python/APCS_%E4%B8%AD%E7%B4%9A%E6%A8%A1%E6%93%AC%E8%80%83.html" aria-label="開啟APCS 中級模擬考">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>APCS 中級模擬考</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 01</span>
+</a>
+<a class="note-card" data-note href="./md/python/APCS_%E6%8A%80%E5%B7%A7%E7%B8%BD%E8%A4%87%E7%BF%92.html" aria-label="開啟APCS 技巧總複習">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>APCS 技巧總複習</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 02</span>
+</a>
+<a class="note-card" data-note href="./md/python/APCS_%E6%A8%A1%E6%93%AC%E8%80%83_01.html" aria-label="開啟APCS 模擬考 01">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>APCS 模擬考 01</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 03</span>
+</a>
+<a class="note-card" data-note href="./md/python/APCS_%E6%A8%A1%E6%93%AC%E8%80%83_02.html" aria-label="開啟APCS 模擬考 02">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>APCS 模擬考 02</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 04</span>
+</a>
+<a class="note-card" data-note href="./md/python/APCS_%E8%AD%98%E8%AE%80%E6%A8%A1%E6%93%AC%E8%80%83.html" aria-label="開啟APCS 識讀模擬考">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>APCS 識讀模擬考</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 05</span>
+</a>
+<a class="note-card" data-note href="./md/python/Python_APCS_%E5%AE%98%E6%96%B9%E8%AD%98%E8%AE%80%E4%BE%8B%E9%A1%8C%E8%BD%89_HTML.html" aria-label="開啟Python APCS 官方識讀例題轉 HTML">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>Python APCS 官方識讀例題轉 HTML</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 06</span>
+</a>
+<a class="note-card" data-note href="./md/python/Python_APCS_%E7%A8%8B%E5%BC%8F%E8%AD%98%E8%AE%80_30%E9%A1%8C%E6%A8%A1%E6%93%AC%E8%80%83.html" aria-label="開啟Python APCS 程式識讀 30題模擬考">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>Python APCS 程式識讀 30題模擬考</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 07</span>
+</a>
+<a class="note-card" data-note href="./md/python/Python_APCS_%E8%87%AA%E7%B7%A8%E8%AD%98%E8%AE%80%E4%BE%8B%E9%A1%8C%E8%BD%89_HTML.html" aria-label="開啟Python APCS 自編識讀例題轉 HTML">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>Python APCS 自編識讀例題轉 HTML</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 08</span>
+</a>
+<a class="note-card" data-note href="./md/python/b965_%E7%9F%A9%E9%99%A3%E8%BD%89%E6%8F%9B.html" aria-label="開啟b965 · 矩陣轉換">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>b965 · 矩陣轉換</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 09</span>
+</a>
+<a class="note-card" data-note href="./md/python/c291_%E5%B0%8F%E7%BE%A4%E9%AB%94.html" aria-label="開啟c291 · 小群體">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>c291 · 小群體</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 10</span>
+</a>
+<a class="note-card" data-note href="./md/python/c295_%E6%9C%80%E5%A4%A7%E5%92%8C.html" aria-label="開啟c295 · 最大和">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>c295 · 最大和</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 11</span>
+</a>
+<a class="note-card" data-note href="./md/python/e287_%E6%A9%9F%E5%99%A8%E4%BA%BA%E7%9A%84%E8%B7%AF%E5%BE%91.html" aria-label="開啟e287 · 機器人的路徑">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>e287 · 機器人的路徑</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 12</span>
+</a>
+<a class="note-card" data-note href="./md/python/f313_%E4%BA%BA%E5%8F%A3%E9%81%B7%E7%A7%BB.html" aria-label="開啟f313 · 人口遷移">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>f313 · 人口遷移</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 13</span>
+</a>
+<a class="note-card" data-note href="./md/python/f580_%E9%AA%B0%E5%AD%90.html" aria-label="開啟f580 · 骰子">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>f580 · 骰子</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 14</span>
+</a>
+<a class="note-card" data-note href="./md/python/f606_%E6%B5%81%E9%87%8F.html" aria-label="開啟f606 · 流量">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>f606 · 流量</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 15</span>
+</a>
+<a class="note-card" data-note href="./md/python/g276_%E9%AD%94%E7%8E%8B%E8%BF%B7%E5%AE%AE.html" aria-label="開啟g276 · 魔王迷宮">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>g276 · 魔王迷宮</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 16</span>
+</a>
+<a class="note-card" data-note href="./md/python/h027_%E7%9F%A9%E9%99%A3%E7%B8%BD%E5%92%8C.html" aria-label="開啟h027 · 矩陣總和">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>h027 · 矩陣總和</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 17</span>
+</a>
+<a class="note-card" data-note href="./md/python/h082_%E8%B4%8F%E5%AE%B6%E9%A0%90%E6%B8%AC.html" aria-label="開啟h082 · 贏家預測">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>h082 · 贏家預測</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 18</span>
+</a>
+<a class="note-card" data-note href="./md/python/i400_%E5%AD%97%E4%B8%B2%E8%A7%A3%E7%A2%BC.html" aria-label="開啟i400 · 字串解碼">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>i400 · 字串解碼</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 19</span>
+</a>
+<a class="note-card" data-note href="./md/python/j123_%E9%81%8B%E8%B2%A8%E7%AB%99.html" aria-label="開啟j123 · 運貨站">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>j123 · 運貨站</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 20</span>
+</a>
+<a class="note-card" data-note href="./md/python/j606_%E9%80%A0%E5%AD%97%E7%A8%8B%E5%BC%8F.html" aria-label="開啟j606 · 造字程式">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>j606 · 造字程式</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 21</span>
+</a>
+<a class="note-card" data-note href="./md/python/k732_%E7%89%B9%E6%AE%8A%E4%BD%8D%E7%BD%AE.html" aria-label="開啟k732 · 特殊位置">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>k732 · 特殊位置</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 22</span>
+</a>
+<a class="note-card" data-note href="./md/python/m371_%E5%8D%A1%E7%89%8C%E9%81%8A%E6%88%B2.html" aria-label="開啟m371 · 卡牌遊戲">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>m371 · 卡牌遊戲</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 23</span>
+</a>
+<a class="note-card" data-note href="./md/python/m932_%E8%9C%9C%E8%9C%82%E8%A7%80%E5%AF%9F.html" aria-label="開啟m932 · 蜜蜂觀察">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>m932 · 蜜蜂觀察</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 24</span>
+</a>
+<a class="note-card" data-note href="./md/python/o077_%E9%9B%BB%E5%AD%90%E7%95%AB%E5%B8%83.html" aria-label="開啟o077 · 電子畫布">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>o077 · 電子畫布</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 25</span>
+</a>
+<a class="note-card" data-note href="./md/python/o712_%E8%92%90%E9%9B%86%E5%AF%B6%E7%9F%B3.html" aria-label="開啟o712 · 蒐集寶石">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>o712 · 蒐集寶石</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 26</span>
+</a>
+<a class="note-card" data-note href="./md/python/q182_%E5%AD%97%E4%B8%B2%E6%93%8D%E4%BD%9C.html" aria-label="開啟q182 · 字串操作">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>q182 · 字串操作</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 27</span>
+</a>
+<a class="note-card" data-note href="./md/python/q837_%E8%BD%89%E7%9B%A4%E5%BE%97%E5%88%86.html" aria-label="開啟q837 · 轉盤得分">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>q837 · 轉盤得分</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 28</span>
+</a>
+<a class="note-card" data-note href="./md/python/r488_%E5%BD%97%E6%98%9F%E6%92%9E%E6%93%8A.html" aria-label="開啟r488 · 彗星撞擊">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>r488 · 彗星撞擊</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 29</span>
+</a>
+<a class="note-card" data-note href="./md/python/r489_%E8%88%AA%E7%A9%BA%E6%8B%8D%E7%85%A7%E5%9C%96.html" aria-label="開啟r489 · 航空拍照圖">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>r489 · 航空拍照圖</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 30</span>
+</a>
+<a class="note-card" data-note href="./md/python/r490_%E5%95%86%E5%93%81%E5%8C%85%E8%A3%9D%E5%9C%B0.html" aria-label="開啟r490 · 商品包裝地">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>r490 · 商品包裝地</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 31</span>
+</a>
+<a class="note-card" data-note href="./md/python/%E4%BA%8C%E7%B6%AD%E9%99%A3%E5%88%97%E6%97%8B%E8%BD%89%E8%88%87%E7%BF%BB%E8%BD%89_4%E9%A1%8C%E9%A1%8C%E5%96%AE.html" aria-label="開啟二維陣列旋轉與翻轉 4題題單">
+<div class="card-top"><span class="card-kind">APCS / PRACTICE</span><span class="card-arrow" aria-hidden="true">↗</span></div>
+<strong>二維陣列旋轉與翻轉 4題題單</strong>
+<span class="card-bottom">開啟練習 <span>·</span> 32</span>
+</a>
+</div></section>
+<footer class="footer"><span>Python 學習筆記 · 保留原筆記內容</span><a href="#main">回到頂部 ↑</a></footer></main></body></html>

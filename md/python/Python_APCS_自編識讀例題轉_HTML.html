@@ -1,0 +1,1598 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>APCS Python 程式識讀｜自訂題目試作 30 題</title>
+<style>
+:root {
+  --bg:#f5f5f3;
+  --paper:#ffffff;
+  --ink:#161616;
+  --muted:#666;
+  --line:#d8d8d4;
+  --soft:#f0f0ed;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+  line-height:1.7;
+}
+header {
+  position:sticky;
+  top:0;
+  z-index:10;
+  border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(8px);
+}
+.toolbar {
+  max-width:980px;
+  margin:auto;
+  padding:14px 20px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.toolbar strong { margin-right:auto; }
+button {
+  border:1px solid #999;
+  background:#fff;
+  color:#111;
+  border-radius:7px;
+  padding:8px 12px;
+  cursor:pointer;
+}
+button:hover { background:#eee; }
+main {
+  max-width:980px;
+  margin:28px auto 80px;
+  padding:0 18px;
+}
+.intro, .card {
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:24px;
+  margin-bottom:20px;
+}
+.intro h1 { margin:0 0 8px; font-size:1.65rem; }
+.intro p { margin:.35rem 0; color:#444; }
+.qhead {
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  padding-bottom:12px;
+  border-bottom:1px solid var(--line);
+}
+.qnum { font-size:1.25rem; font-weight:800; }
+.qtitle { color:var(--muted); }
+h3 { font-size:1.05rem; margin:20px 0 10px; }
+pre {
+  overflow:auto;
+  background:#f7f7f5;
+  border:1px solid #deded9;
+  border-radius:8px;
+  padding:14px;
+  font-family:"Cascadia Mono","Consolas",monospace;
+  font-size:.93rem;
+  line-height:1.55;
+}
+code {
+  font-family:"Cascadia Mono","Consolas",monospace;
+  background:#f1f1ee;
+  border-radius:4px;
+  padding:.08em .3em;
+}
+pre code { background:transparent; padding:0; }
+.choices {
+  padding-left:2rem;
+  margin-bottom:8px;
+}
+.choices > li { margin:.35rem 0; padding-left:.35rem; }
+.choices pre { margin:.4rem 0 1rem; }
+details {
+  margin-top:22px;
+  border-top:1px dashed #aaa;
+  padding-top:14px;
+}
+summary {
+  cursor:pointer;
+  font-weight:800;
+  padding:9px 0;
+  user-select:none;
+}
+.analysis {
+  margin-top:10px;
+  padding:18px;
+  background:var(--soft);
+  border-radius:8px;
+}
+.answer {
+  margin-top:18px;
+  padding-top:12px;
+  border-top:1px solid #b8b8b3;
+  font-weight:800;
+}
+table {
+  width:100%;
+  border-collapse:collapse;
+  margin:12px 0;
+}
+th,td {
+  border:1px solid #ccc;
+  padding:8px 10px;
+  text-align:left;
+}
+.index {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(58px,1fr));
+  gap:6px;
+  margin-top:15px;
+}
+.index a {
+  text-decoration:none;
+  color:#111;
+  border:1px solid #ccc;
+  border-radius:6px;
+  text-align:center;
+  padding:6px;
+  background:#fafafa;
+}
+.index a:hover { background:#e8e8e5; }
+.note {
+  margin-top:14px;
+  padding:12px 14px;
+  border-left:4px solid #999;
+  background:#f8f8f6;
+}
+@media (max-width:640px) {
+  .intro,.card { padding:17px; }
+  .qhead { display:block; }
+  .qtitle { display:block; margin-top:3px; }
+}
+@media print {
+  header { display:none; }
+  body { background:#fff; }
+  main { max-width:none; margin:0; }
+  .card { break-inside:avoid; border:1px solid #aaa; }
+  details:not([open]) .analysis { display:none; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="toolbar">
+    <strong>APCS Python 程式識讀｜自訂題目試作</strong>
+    <button onclick="document.querySelectorAll('details').forEach(x=>x.open=false)">全部收合</button>
+    <button onclick="document.querySelectorAll('details').forEach(x=>x.open=true)">全部展開</button>
+  </div>
+</header>
+<main>
+  <section class="intro">
+    <h1>APCS Python 程式識讀｜自訂題目試作 30 題</h1>
+    <p>本版本將既有自訂題目與補強題合併，作為 APCS Python 程式識讀的試作題庫。</p>
+    <p>題目涵蓋程式追蹤、填空、測試除錯與演算法辨識，並加入 Python 串列參照、切片及可變物件等特性。</p>
+    <p>每題分為「1. 題目」與「2. 解析」；解析預設收合，作答後再點開。</p>
+    <div class="note">題型分布：迴圈與遞迴、搜尋與排序、字串與串列、函式參數、Stack、Queue、後序運算式、測試除錯、布林短路求值、二維串列走訪與輾轉相除法。</div>
+    <div class="index">
+      <a href="#q1">1</a><a href="#q2">2</a><a href="#q3">3</a><a href="#q4">4</a><a href="#q5">5</a><a href="#q6">6</a><a href="#q7">7</a><a href="#q8">8</a><a href="#q9">9</a><a href="#q10">10</a><a href="#q11">11</a><a href="#q12">12</a><a href="#q13">13</a><a href="#q14">14</a><a href="#q15">15</a><a href="#q16">16</a><a href="#q17">17</a><a href="#q18">18</a><a href="#q19">19</a><a href="#q20">20</a><a href="#q21">21</a><a href="#q22">22</a><a href="#q23">23</a><a href="#q24">24</a><a href="#q25">25</a><a href="#q26">26</a><a href="#q27">27</a><a href="#q28">28</a><a href="#q29">29</a><a href="#q30">30</a>
+    </div>
+  </section>
+
+<section class="card" id="q1">
+  <div class="qhead"><span class="qnum">第 1 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式執行後，輸出結果為何？</p>
+<pre><code>total = 0
+
+for i in range(3):
+    for j in range(i, 4, 2):
+        for k in range(j, 5):
+            total += 1
+
+print(total)</code></pre>
+<ol class="choices" type="A">
+<li>12</li>
+<li>14</li>
+<li>17</li>
+<li>20</li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>最內層迴圈的執行次數取決於 <code>j</code>，因為 <code>range(j, 5)</code> 會產生 <code>5-j</code> 個整數。</p>
+<table>
+<thead><tr><th>i</th><th>j 的值</th><th>各次 k 迴圈次數</th><th>小計</th></tr></thead>
+<tbody>
+<tr><td>0</td><td>0、2</td><td>5、3</td><td>8</td></tr>
+<tr><td>1</td><td>1、3</td><td>4、2</td><td>6</td></tr>
+<tr><td>2</td><td>2</td><td>3</td><td>3</td></tr>
+</tbody>
+</table>
+<pre><code>total = 8 + 6 + 3 = 17</code></pre>
+<p class="answer">答案：C，17。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q2">
+  <div class="qhead"><span class="qnum">第 2 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式執行後，輸出結果為何？</p>
+<pre><code>t = 0
+
+def g(x, y):
+    global t
+    if x == 0 and y == 1:
+        t += 1
+    if x &lt;= 0 or y &lt;= 0:
+        return 3
+    return 5 + f(x, y - 1)
+
+def f(x, y):
+    if x &lt;= 0 or y &lt;= 0:
+        return 2
+    return g(x - 1, y) + 2 * g(x - 2, y - 1)
+
+print(f(5, 5), t)</code></pre>
+<ol class="choices" type="A">
+<li><code>229 8</code></li>
+<li><code>229 16</code></li>
+<li><code>226 8</code></li>
+<li><code>226 16</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>先計算回傳值。對正整數參數而言：</p>
+<pre><code>g(x, y) = 5 + f(x, y - 1)
+f(x, y) = g(x - 1, y) + 2 * g(x - 2, y - 1)</code></pre>
+<p>由較小狀態往上計算，可得：</p>
+<pre><code>f(2, 2) = 20
+f(3, 3) = 53
+f(4, 4) = 108
+
+f(5, 5)
+= g(4, 5) + 2 * g(3, 4)
+= (5 + f(4, 4)) + 2 * (5 + f(3, 3))
+= 113 + 2 * 58
+= 229</code></pre>
+<p><code>t</code> 只在實際呼叫到 <code>g(0, 1)</code> 時增加。注意 <code>2 * g(...)</code> 是把回傳值乘以 2，不是呼叫函式兩次。</p>
+<pre><code>到達 g(0, 1) 的次數：
+1 → 2 → 3 → 5 → 8</code></pre>
+<p>因此 <code>t=8</code>。</p>
+<p class="answer">答案：A，<code>229 8</code>。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q3">
+  <div class="qhead"><span class="qnum">第 3 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列函式使用「左右端點都包含」的區間進行二分搜尋。空格（甲）、（乙）、（丙）應填入哪一組，才能正確搜尋？</p>
+<pre><code>def binary_search(values, target):
+    left = 0
+    right = len(values) - 1
+
+    while （甲）:
+        mid = (left + right) // 2
+        if values[mid] == target:
+            return mid
+        elif values[mid] &lt; target:
+            left = （乙）
+        else:
+            right = （丙）
+
+    return -1
+
+values = [1, 3, 4, 7, 8, 10, 12, 15]
+print(binary_search(values, 10),
+      binary_search(values, 9))</code></pre>
+<ol class="choices" type="A">
+<li><code>left &lt;= right</code>、<code>mid + 1</code>、<code>mid - 1</code></li>
+<li><code>left &lt; right</code>、<code>mid + 1</code>、<code>mid - 1</code></li>
+<li><code>left &lt;= right</code>、<code>mid</code>、<code>mid</code></li>
+<li><code>left &lt; right</code>、<code>mid</code>、<code>mid</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>目前的搜尋區間是閉區間 <code>[left, right]</code>，左右端點都仍可能是答案，因此只要 <code>left &lt;= right</code> 就要繼續搜尋。</p>
+<p>若 <code>values[mid] &lt; target</code>，索引 <code>mid</code> 已確定不是答案，下一個區間應從 <code>mid + 1</code> 開始；反方向同理，右端點應改為 <code>mid - 1</code>。</p>
+<pre><code>while left &lt;= right:
+    ...
+    left = mid + 1
+    ...
+    right = mid - 1</code></pre>
+<p>完成後輸出為 <code>5 -1</code>。</p>
+<p class="answer">答案：A。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q4">
+  <div class="qhead"><span class="qnum">第 4 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式執行後，輸出結果為何？</p>
+<pre><code>data = [95, 27, 90, 49, 80, 58, 6, 9, 18, 50]
+count = 0
+n = len(data)
+
+for i in range(n - 1):
+    for j in range(n - i - 1):
+        if data[j] &lt; data[j + 1]:
+            data[j], data[j + 1] = data[j + 1], data[j]
+            count += 1
+
+print(count, data[0], data[-1])</code></pre>
+<ol class="choices" type="A">
+<li><code>14 95 6</code></li>
+<li><code>31 95 6</code></li>
+<li><code>14 6 95</code></li>
+<li><code>24 95 6</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>條件 <code>data[j] &lt; data[j + 1]</code> 會在左邊元素較小時交換，讓較大的數往左移，因此最後是由大到小排序。</p>
+<p>各輪發生的交換次數依序為：</p>
+<pre><code>7、4、1、1、1、0、0、0、0</code></pre>
+<p>總交換次數為：</p>
+<pre><code>7 + 4 + 1 + 1 + 1 = 14</code></pre>
+<p>排序結果為：</p>
+<pre><code>[95, 90, 80, 58, 50, 49, 27, 18, 9, 6]</code></pre>
+<p>因此第一個元素是 95，最後一個元素是 6。</p>
+<p class="answer">答案：A，<code>14 95 6</code>。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q5">
+  <div class="qhead"><span class="qnum">第 5 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>數字 <code>1、2、3、4、5</code> 只能依此順序放入 Stack(堆疊)，但可在任意時機取出頂端元素。下列程式會判斷指定的取出順序是否可能發生。哪一個選項會使函式回傳 <code>True</code>？</p>
+<pre><code>def possible(order):
+    stack = []
+    next_value = 1
+
+    for x in order:
+        while next_value &lt;= 5 and \
+              (not stack or stack[-1] != x):
+            stack.append(next_value)
+            next_value += 1
+
+        if stack and stack[-1] == x:
+            stack.pop()
+        else:
+            return False
+
+    return True</code></pre>
+<ol class="choices" type="A">
+<li><code>[3, 2, 5, 4, 1]</code></li>
+<li><code>[3, 1, 2, 5, 4]</code></li>
+<li><code>[2, 4, 1, 5, 3]</code></li>
+<li><code>[4, 2, 5, 3, 1]</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>Stack 採用 LIFO(後進先出)：最後放入的元素必須最先取出。</p>
+<p>選項 A 可依下列步驟完成：</p>
+<pre><code>push 1、2、3 → pop 3、2
+push 4、5   → pop 5、4、1</code></pre>
+<p>實際取出順序正是：</p>
+<pre><code>3、2、5、4、1</code></pre>
+<p>其他選項都曾嘗試略過仍壓在目標元素上方的數字。例如選項 B 取出 3 後，堆疊頂端是 2，不可能直接取出位於下方的 1。</p>
+<p class="answer">答案：A，<code>[3, 2, 5, 4, 1]</code>。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q6">
+  <div class="qhead"><span class="qnum">第 6 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式以列表搭配 <code>front</code> 模擬 Queue(佇列)。每次從佇列前端取出一個數字，轉換後再加入尾端。程式執行後輸出為何？</p>
+<pre><code>q = [2, 5, 1, 4]
+front = 0
+
+for _ in range(5):
+    x = q[front]
+    front += 1
+
+    if x % 2 == 0:
+        q.append(x // 2)
+    else:
+        q.append(x + 3)
+
+print(q[front:])</code></pre>
+<ol class="choices" type="A">
+<li><code>[1, 8, 4, 2]</code></li>
+<li><code>[8, 4, 2, 4]</code></li>
+<li><code>[4, 2, 4, 8]</code></li>
+<li><code>[2, 5, 1, 4]</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>Queue 採用 FIFO(先進先出)。<code>front</code> 左側的資料雖然仍留在列表內，但已經視為離開佇列。</p>
+<table>
+<thead><tr><th>次數</th><th>取出 x</th><th>加入尾端</th><th>處理後的有效佇列</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>2</td><td>1</td><td><code>[5, 1, 4, 1]</code></td></tr>
+<tr><td>2</td><td>5</td><td>8</td><td><code>[1, 4, 1, 8]</code></td></tr>
+<tr><td>3</td><td>1</td><td>4</td><td><code>[4, 1, 8, 4]</code></td></tr>
+<tr><td>4</td><td>4</td><td>2</td><td><code>[1, 8, 4, 2]</code></td></tr>
+<tr><td>5</td><td>1</td><td>4</td><td><code>[8, 4, 2, 4]</code></td></tr>
+</tbody>
+</table>
+<p>最後 <code>front=5</code>，所以切片 <code>q[front:]</code> 只保留尚未出隊的四個元素。</p>
+<p class="answer">答案：B，<code>[8, 4, 2, 4]</code>。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q7">
+  <div class="qhead"><span class="qnum">第 7 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式使用 Stack(堆疊)計算 Postfix Expression(後序運算式)。其中除法使用整數除法。程式執行後輸出為何？</p>
+<pre><code>tokens = [9, 2, '-', 4, 3, '+', '*', 5, '/']
+stack = []
+
+for token in tokens:
+    if isinstance(token, int):
+        stack.append(token)
+    else:
+        b = stack.pop()
+        a = stack.pop()
+
+        if token == '+':
+            stack.append(a + b)
+        elif token == '-':
+            stack.append(a - b)
+        elif token == '*':
+            stack.append(a * b)
+        else:
+            stack.append(a // b)
+
+print(stack[-1])</code></pre>
+<ol class="choices" type="A">
+<li>7</li>
+<li>9</li>
+<li>10</li>
+<li>49</li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>遇到數字就推入堆疊；遇到運算子時，先取出的值是右運算元 <code>b</code>，後取出的值是左運算元 <code>a</code>。</p>
+<table>
+<thead><tr><th>讀到的片段</th><th>完成的運算</th><th>堆疊的重要結果</th></tr></thead>
+<tbody>
+<tr><td><code>9 2 -</code></td><td><code>9 - 2</code></td><td>7</td></tr>
+<tr><td><code>4 3 +</code></td><td><code>4 + 3</code></td><td>7</td></tr>
+<tr><td><code>*</code></td><td><code>7 × 7</code></td><td>49</td></tr>
+<tr><td><code>5 /</code></td><td><code>49 // 5</code></td><td>9</td></tr>
+</tbody>
+</table>
+<p>這串後序運算式等價於：</p>
+<pre><code>((9 - 2) * (4 + 3)) // 5</code></pre>
+<p>因為使用整數除法，所以 <code>49 // 5 = 9</code>。</p>
+<p class="answer">答案：B，9。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q8">
+  <div class="qhead"><span class="qnum">第 8 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列函式使用 Binary Search(二分搜尋)尋找數字 <code>3</code>。四個數列都包含 <code>3</code>，但哪一個數列會使函式錯誤地回傳 <code>-1</code>？</p>
+<pre><code>def binary_search(values, target):
+    left = 0
+    right = len(values) - 1
+
+    while left &lt;= right:
+        mid = (left + right) // 2
+
+        if values[mid] == target:
+            return mid
+        elif values[mid] &lt; target:
+            left = mid + 1
+        else:
+            right = mid - 1
+
+    return -1</code></pre>
+<ol class="choices" type="A">
+<li><code>[1, 2, 3, 4, 5, 6]</code></li>
+<li><code>[1, 4, 5, 2, 3, 6]</code></li>
+<li><code>[2, 2, 3, 4, 4, 5]</code></li>
+<li><code>[1, 1, 2, 3, 3, 3]</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>這個版本的二分搜尋假設數列已按照「由小到大」排列。它根據中間值與目標值的大小關係，直接排除左半邊或右半邊。</p>
+<p>選項 B 並未依照由小到大的順序排列。追蹤搜尋過程：</p>
+<pre><code>values = [1, 4, 5, 2, 3, 6]
+
+left=0, right=5, mid=2
+values[2]=5 &gt; 3
+→ right=1
+
+left=0, right=1, mid=0
+values[0]=1 &lt; 3
+→ left=1
+
+left=1, right=1, mid=1
+values[1]=4 &gt; 3
+→ right=0</code></pre>
+<p>搜尋區間因此變空，函式回傳 <code>-1</code>，但數字 3 實際位於索引 4。</p>
+<p>二分搜尋每次都會根據中間值排除一半資料；只有資料已依照搜尋規則排序時，被排除的一半才保證不含目標值。本題因為資料順序混亂，第一次比較後就把真正含有 3 的右半邊排除了。</p>
+<p class="answer">答案：B，<code>[1, 4, 5, 2, 3, 6]</code>。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q9">
+  <div class="qhead"><span class="qnum">第 9 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列 Bubble Sort(氣泡排序)不使用暫存變數，也不使用 Python 的多重指定，而是利用加減法交換相鄰元素。空格（甲）、（乙）應填入哪一組，才能正確完成由小到大排序？</p>
+<pre><code>def bubble_sort(data):
+    n = len(data)
+
+    for i in range(n - 1):
+        for j in range(n - i - 1):
+            if data[j] &gt; data[j + 1]:
+                data[j] = data[j] + data[j + 1]
+                data[j + 1] = data[j] - （甲）
+                data[j] = data[j] - （乙）
+
+data = [7, 2, 5, 1]
+bubble_sort(data)
+print(data)</code></pre>
+<ol class="choices" type="A">
+<li><code>（甲）data[j + 1]　（乙）data[j + 1]</code></li>
+<li><code>（甲）data[j]　　　（乙）data[j + 1]</code></li>
+<li><code>（甲）data[j + 1]　（乙）data[j]</code></li>
+<li><code>（甲）data[j]　　　（乙）data[j]</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>假設交換前：</p>
+<pre><code>data[j]     = x
+data[j + 1] = y</code></pre>
+<p>第一行先把兩數總和存到左邊：</p>
+<pre><code>data[j] = x + y
+data[j + 1] = y</code></pre>
+<p>接著用總和減去右邊原本的 <code>y</code>，即可把右邊改成原本的 <code>x</code>：</p>
+<pre><code>data[j + 1] = (x + y) - y = x</code></pre>
+<p>最後再用總和減去目前右邊的 <code>x</code>，即可把左邊改成原本的 <code>y</code>：</p>
+<pre><code>data[j] = (x + y) - x = y</code></pre>
+<p>因此兩個空格都必須填入 <code>data[j + 1]</code>。排序完成後輸出：</p>
+<pre><code>[1, 2, 5, 7]</code></pre>
+<p class="answer">答案：A。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q10">
+  <div class="qhead"><span class="qnum">第 10 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>將下列 Infix Expression(中序運算式)轉換成 Postfix Expression(後序運算式)，哪一個結果正確？</p>
+<pre><code>3 * 5 + 6 * 8 - 8 / 9</code></pre>
+<ol class="choices" type="A">
+<li><code>3 5 * 6 8 * + 8 9 / -</code></li>
+<li><code>3 5 6 8 * + * 8 9 / -</code></li>
+<li><code>3 5 * 6 8 * 8 9 / - +</code></li>
+<li><code>3 5 * 6 8 * + 8 9 - /</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>乘法與除法的優先順序高於加法與減法，因此可以先看成：</p>
+<pre><code>(3 * 5) + (6 * 8) - (8 / 9)</code></pre>
+<p>三個乘除子運算式轉成後序後分別為：</p>
+<pre><code>3 5 *
+6 8 *
+8 9 /</code></pre>
+<p>原式的加法與減法具有相同優先順序，依由左到右結合，所以先把前兩段相加，再減去最後一段：</p>
+<pre><code>3 5 * 6 8 * + 8 9 / -</code></pre>
+<p>後序運算式不需要括號，因為運算子的出現位置已經完整表示運算順序。</p>
+<p class="answer">答案：A，<code>3 5 * 6 8 * + 8 9 / -</code>。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q11">
+  <div class="qhead"><span class="qnum">第 11 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式執行後輸出為何？</p>
+<pre><code>a = [1, 2, 3]
+b = a
+
+b[1] = 9
+b.append(4)
+
+print(a)</code></pre>
+<ol class="choices" type="A">
+<li><code>[1, 2, 3]</code></li>
+<li><code>[1, 9, 3]</code></li>
+<li><code>[1, 2, 3, 4]</code></li>
+<li><code>[1, 9, 3, 4]</code></li>
+</ol>
+</div>
+  <details><summary>2. 解析（點擊後顯示）</summary><div class="analysis">
+<p><code>b = a</code> 沒有建立新的串列；<code>a</code> 與 <code>b</code> 指向同一個 List(串列)物件。</p>
+<p>因此透過 <code>b</code> 修改元素或加入資料，也會從 <code>a</code> 觀察到相同結果。</p>
+<p class="answer">答案：D，<code>[1, 9, 3, 4]</code>。</p>
+</div></details>
+</section>
+
+<section class="card" id="q12">
+  <div class="qhead"><span class="qnum">第 12 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式執行後，<code>a</code> 與 <code>b</code> 分別為何？</p>
+<pre><code>a = [[1, 2], [3, 4]]
+b = a[:]
+
+b[0][0] = 9
+b[1] = [7, 8]
+
+print(a)
+print(b)</code></pre>
+<ol class="choices" type="A">
+<li><pre><code>[[1, 2], [3, 4]]
+[[9, 2], [7, 8]]</code></pre></li>
+<li><pre><code>[[9, 2], [3, 4]]
+[[9, 2], [7, 8]]</code></pre></li>
+<li><pre><code>[[9, 2], [7, 8]]
+[[9, 2], [7, 8]]</code></pre></li>
+<li><pre><code>[[1, 2], [7, 8]]
+[[9, 2], [7, 8]]</code></pre></li>
+</ol>
+</div>
+  <details><summary>2. 解析（點擊後顯示）</summary><div class="analysis">
+<p>先用 <code>L1～L5</code> 為串列物件命名，方便追蹤參照關係：</p>
+<pre><code>L1 = [1, 2]
+L2 = [3, 4]
+L3 = [L1, L2]
+
+a → L3</code></pre>
+
+<p>執行 <code>b = a[:]</code> 時，完整切片會建立一個新的外層串列 <code>L4</code>；但 <code>L4</code> 裡放入的仍是原本對 <code>L1</code>、<code>L2</code> 的參照：</p>
+<pre><code>L3 = [L1, L2]
+L4 = [L1, L2]
+
+a → L3
+b → L4</code></pre>
+<p>所以 <code>a</code>、<code>b</code> 的外層串列不同，但 <code>a[0]</code> 與 <code>b[0]</code> 共同參照 <code>L1</code>，<code>a[1]</code> 與 <code>b[1]</code> 共同參照 <code>L2</code>。這就是 Shallow Copy(淺層複製)。</p>
+
+<h3><code>=</code> 到底做了什麼？</h3>
+<p><code>=</code> 本身不保證「建立新物件」。指定敘述會先計算右側運算式，取得某個物件，再把左側指定目標改成參照該物件。</p>
+<ul>
+<li><code>x = y</code>：通常只是讓 <code>x</code> 參照 <code>y</code> 已經參照的物件，不會自動複製。</li>
+<li><code>b = a[:]</code>：是右側的切片運算建立新串列 <code>L4</code>，再讓 <code>b</code> 參照 <code>L4</code>。</li>
+<li><code>b[1] = [7, 8]</code>：是右側的串列常值建立新串列 <code>L5</code>，再把 <code>b[1]</code> 改成參照 <code>L5</code>。</li>
+</ul>
+
+<h3>第一個操作：<code>b[0][0] = 9</code></h3>
+<p>先沿著參照找到真正要修改的格子：</p>
+<pre><code>b → L4
+b[0] → L1
+b[0][0] → L1[0]</code></pre>
+<p>因此這行真正修改的是 <code>L1[0]</code>：把它原本指向整數 <code>1</code> 的參照，換成指向整數 <code>9</code> 的參照。</p>
+<pre><code>修改前：L1 = [1, 2]
+修改後：L1 = [9, 2]</code></pre>
+<p>整數 <code>1</code> 本身沒有被改成 <code>9</code>；被改的是 <code>L1[0]</code> 這一格所保存的參照。因為 <code>a[0]</code>、<code>b[0]</code> 都指向同一個 <code>L1</code>，所以兩邊都會看到 <code>[9, 2]</code>。</p>
+
+<h3>第二個操作：<code>b[1] = [7, 8]</code></h3>
+<p>右側 <code>[7, 8]</code> 會建立新的串列物件，暫時命名為 <code>L5</code>：</p>
+<pre><code>L5 = [7, 8]</code></pre>
+<p>左側指定目標是 <code>b[1]</code>，也就是 <code>L4[1]</code>。因此程式把 <code>L4[1]</code> 原本指向 <code>L2</code> 的參照，改成指向 <code>L5</code>：</p>
+<pre><code>修改前：
+L3 = [L1, L2]
+L4 = [L1, L2]
+
+修改後：
+L3 = [L1, L2]
+L4 = [L1, L5]</code></pre>
+<p>這個操作只改到 <code>L4[1]</code>，沒有進入或修改 <code>L2</code>，也沒有修改 <code>L3[1]</code>。因此：</p>
+<pre><code>a[1] → L2 → [3, 4]
+b[1] → L5 → [7, 8]</code></pre>
+
+<table>
+<thead>
+<tr><th>程式</th><th>真正被修改的格子</th><th>被替換的參照</th><th>原物件是否被修改</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><code>b[0][0] = 9</code></td>
+<td><code>L1[0]</code></td>
+<td><code>1 → 9</code></td>
+<td>整數 <code>1</code> 沒被修改</td>
+</tr>
+<tr>
+<td><code>b[1] = [7, 8]</code></td>
+<td><code>L4[1]</code></td>
+<td><code>L2 → L5</code></td>
+<td><code>L2</code> 沒被修改</td>
+</tr>
+</tbody>
+</table>
+
+<p>最後的參照關係為：</p>
+<pre><code>L1 = [9, 2]
+L2 = [3, 4]
+L5 = [7, 8]
+
+a → L3 = [L1, L2]
+b → L4 = [L1, L5]</code></pre>
+
+<p>所以輸出為：</p>
+<pre><code>[[9, 2], [3, 4]]
+[[9, 2], [7, 8]]</code></pre>
+<p class="answer">答案：B。</p>
+</div></details>
+</section>
+
+<section class="card" id="q13">
+  <div class="qhead"><span class="qnum">第 13 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式原本想建立三個互相獨立的列。執行後實際輸出為何？</p>
+<pre><code>grid = [[0] * 3] * 3
+grid[1][2] = 7
+
+print(grid)</code></pre>
+<ol class="choices" type="A">
+<li><code>[[0, 0, 0], [0, 0, 7], [0, 0, 0]]</code></li>
+<li><code>[[0, 0, 7], [0, 0, 7], [0, 0, 7]]</code></li>
+<li><code>[[7, 0, 0], [7, 0, 0], [7, 0, 0]]</code></li>
+<li>程式會在建立 <code>grid</code> 時發生錯誤</li>
+</ol>
+</div>
+  <details><summary>2. 解析（點擊後顯示）</summary><div class="analysis">
+<p>我們用紙筆標籤來表示物件：</p>
+<ul>
+<li><code>K</code>：代表整數物件 <code>0</code></li>
+<li><code>M</code>：代表整數物件 <code>7</code></li>
+<li><code>L1</code>：代表內層串列物件</li>
+<li><code>L2</code>：代表最外層的 <code>grid</code> 串列物件</li>
+</ul>
+<p><code>K</code>、<code>M</code> 是為了畫圖方便所使用的標籤；實際 Python 程式中沒有建立名為 <code>K</code>、<code>M</code> 的變數。</p>
+
+<h3>第一步：計算 <code>[0] * 3</code></h3>
+<p>右側先建立一個只含 <code>0</code> 的串列，再把其中的元素參照重複三次。概念上可以寫成：</p>
+<pre><code>K = 整數物件 0
+L1 = [K, K, K]</code></pre>
+<p>也就是：</p>
+<pre><code>L1[0] → K
+L1[1] → K
+L1[2] → K</code></pre>
+<p><code>L1</code> 的三個格子都參照整數物件 <code>0</code>。整數是 Immutable Object(不可變物件)，但這不是本題發生三列連動的主要原因。</p>
+
+<h3>第二步：計算 <code>[L1] * 3</code></h3>
+<p>外層的 <code>* 3</code> 並不會建立三個獨立的內層串列，而是把同一個 <code>L1</code> 的參照放入外層三次：</p>
+<pre><code>L2 = [L1, L1, L1]
+grid → L2</code></pre>
+<p>因此：</p>
+<pre><code>grid[0] → L1
+grid[1] → L1
+grid[2] → L1</code></pre>
+<p>這三個位置看到的是同一個可變串列物件 <code>L1</code>。</p>
+
+<h3>第三步：執行 <code>grid[1][2] = 7</code></h3>
+<p>先追蹤左側到底指向哪一個格子：</p>
+<pre><code>grid      → L2
+grid[1]   → L1
+grid[1][2]→ L1[2]</code></pre>
+<p>右側的 <code>7</code> 會求值得到整數物件 <code>7</code>，我們用紙筆標籤 <code>M</code> 表示它。</p>
+<p>所以這行真正做的是：</p>
+<pre><code>原本：L1[2] → K
+後來：L1[2] → M</code></pre>
+<p>也就是把 <code>L1</code> 索引 2 這一格所保存的參照，從整數物件 <code>0</code> 改成整數物件 <code>7</code>：</p>
+<pre><code>修改前：L1 = [K, K, K]
+修改後：L1 = [K, K, M]</code></pre>
+<p>這裡沒有把 <code>K</code> 物件本身改成 <code>M</code>，也沒有改變其他仍指向 <code>K</code> 的格子；真正被修改的是 <code>L1[2]</code> 這個串列位置。</p>
+
+<h3>為什麼三列都出現 7？</h3>
+<p>因為外層三個位置全部指向同一個 <code>L1</code>：</p>
+<pre><code>grid[0] → L1
+grid[1] → L1
+grid[2] → L1</code></pre>
+<p>而 <code>L1</code> 現在已經是：</p>
+<pre><code>[K, K, M] = [0, 0, 7]</code></pre>
+<p>所以從 <code>grid[0]</code>、<code>grid[1]</code> 或 <code>grid[2]</code> 查看，都會看到同一份內容：</p>
+<pre><code>[[0, 0, 7], [0, 0, 7], [0, 0, 7]]</code></pre>
+
+<table>
+<thead>
+<tr><th>操作</th><th>真正被修改的位置</th><th>參照變化</th><th>沒有被修改的東西</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><code>grid[1][2] = 7</code></td>
+<td><code>L1[2]</code></td>
+<td><code>K → M</code></td>
+<td><code>K</code> 代表的整數物件 0、以及 <code>L1[0]</code>、<code>L1[1]</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3>如何建立三個互相獨立的列？</h3>
+<p>要在每一輪都重新建立一個新的內層串列：</p>
+<pre><code>grid = [[0] * 3 for _ in range(3)]</code></pre>
+<p>概念上會得到三個不同物件：</p>
+<pre><code>L1 = [K, K, K]
+L2 = [K, K, K]
+L3 = [K, K, K]
+
+grid = [L1, L2, L3]</code></pre>
+<p>此時修改其中一列，不會連動其他列。</p>
+
+<p class="answer">答案：B。</p>
+</div></details>
+</section>
+
+<section class="card" id="q14">
+  <div class="qhead"><span class="qnum">第 14 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式執行後輸出為何？</p>
+<pre><code>def change(x, data):
+    x = x + 5
+    data[0] = data[0] + 5
+    data = data + [99]
+
+n = 10
+a = [10]
+change(n, a)
+
+print(n, a)</code></pre>
+<ol class="choices" type="A">
+<li><code>10 [10]</code></li>
+<li><code>15 [15, 99]</code></li>
+<li><code>10 [15]</code></li>
+<li><code>15 [15]</code></li>
+</ol>
+</div>
+
+<details><summary>2. 解析（點擊後顯示）</summary><div class="analysis">
+
+<p>這題要分清楚兩種操作：</p>
+<ul>
+<li><strong>修改物件內容</strong>：例如 <code>data[0] = ...</code>，被修改的是串列物件裡的某一格，串列本身仍是原本同一個物件。</li>
+<li><strong>重新指定名稱</strong>：例如 <code>data = ...</code>，被改變的是名稱 <code>data</code> 的參照；原本的物件不會因此在所有地方一起被替換。</li>
+</ul>
+
+<h3>先替物件加上紙筆標籤</h3>
+<p>為了追蹤參照關係，我們使用下列標籤：</p>
+<ul>
+<li><code>K</code>：整數物件 <code>10</code></li>
+<li><code>M</code>：整數物件 <code>15</code></li>
+<li><code>N</code>：整數物件 <code>99</code></li>
+<li><code>L1</code>：原本的串列物件 <code>[10]</code></li>
+<li><code>L2</code>：右側串列常值所建立的串列物件 <code>[99]</code></li>
+<li><code>L3</code>：串接後產生的新串列物件 <code>[15, 99]</code></li>
+</ul>
+<p>這些字母只是紙筆分析用的標籤；原程式中沒有真的宣告 <code>K</code>、<code>M</code>、<code>N</code>、<code>L1</code>、<code>L2</code>、<code>L3</code>。</p>
+
+<h3>第一步：建立外部變數</h3>
+<pre><code>n = 10
+a = [10]</code></pre>
+<p>概念上可表示為：</p>
+<pre><code>K = 整數物件 10
+L1 = [K]
+
+n → K
+a → L1</code></pre>
+
+<h3>第二步：呼叫 <code>change(n, a)</code></h3>
+<p>呼叫函式時，不會自動複製 <code>10</code> 或串列 <code>[10]</code>。函式參數名稱會參照呼叫端傳入的物件：</p>
+<pre><code>外部：
+n    → K
+a    → L1
+
+函式內：
+x    → K
+data → L1</code></pre>
+<p>因此一開始：</p>
+<ul>
+<li><code>n</code>、<code>x</code> 都參照整數物件 <code>K</code>。</li>
+<li><code>a</code>、<code>data</code> 都參照同一個串列物件 <code>L1</code>。</li>
+</ul>
+
+<h3>第三步：執行 <code>x = x + 5</code></h3>
+<p>先計算右側：</p>
+<pre><code>x + 5
+10 + 5
+→ 15</code></pre>
+<p>右側運算得到整數物件 <code>15</code>，用標籤 <code>M</code> 表示。接著 <code>=</code> 只讓函式內的名稱 <code>x</code> 改為參照 <code>M</code>：</p>
+<pre><code>執行前：
+n → K
+x → K
+
+執行後：
+n → K
+x → M</code></pre>
+<p>真正被修改的是名稱 <code>x</code> 的參照；整數物件 <code>K</code> 沒有被改成 <code>M</code>，外部名稱 <code>n</code> 也沒有被重新指定，所以 <code>n</code> 仍是 <code>10</code>。</p>
+
+<h3>第四步：執行 <code>data[0] = data[0] + 5</code></h3>
+<p>先追蹤左側位置：</p>
+<pre><code>data    → L1
+data[0] → L1[0]</code></pre>
+<p>右側 <code>data[0] + 5</code> 得到整數物件 <code>15</code>，也就是 <code>M</code>。因此真正發生的是：</p>
+<pre><code>原本：L1[0] → K
+後來：L1[0] → M</code></pre>
+<p>修改後：</p>
+<pre><code>L1 = [M] = [15]</code></pre>
+<p>這裡修改的是原串列物件 <code>L1</code> 的內容。<code>L1</code> 仍然是原本同一個串列物件，只是索引 <code>0</code> 保存的參照由 <code>K</code> 換成 <code>M</code>。</p>
+<p>因為外部的 <code>a</code> 和函式內的 <code>data</code> 都參照 <code>L1</code>：</p>
+<pre><code>a    → L1
+data → L1</code></pre>
+<p>所以外部的 <code>a</code> 也會看到 <code>L1</code> 已變成 <code>[15]</code>。</p>
+
+<h3>第五步：為何 <code>data = data + [99]</code> 會產生新串列？</h3>
+<p>這一行必須分成「計算右側」與「指定左側」兩部分：</p>
+
+<h4>5.1 先建立右側的 <code>[99]</code></h4>
+<p>串列常值 <code>[99]</code> 會建立新的串列物件，假設叫做 <code>L2</code>：</p>
+<pre><code>N = 整數物件 99
+L2 = [N] = [99]</code></pre>
+
+<h4>5.2 再計算 <code>data + [99]</code></h4>
+<p>此時：</p>
+<pre><code>data → L1
+L1 = [M] = [15]
+
+L2 = [N] = [99]</code></pre>
+<p>串列的 <code>+</code> 是 Concatenation(串接)運算。它會建立一個新的串列，把左右兩個串列中的元素參照依序放入新串列，而不會直接修改原本的 <code>L1</code> 或 <code>L2</code>。</p>
+<p>因此：</p>
+<pre><code>L1 + L2
+→ 建立 L3
+
+L3 = [M, N] = [15, 99]</code></pre>
+<p>運算完成後，三個串列物件同時存在：</p>
+<pre><code>L1 = [15]
+L2 = [99]
+L3 = [15, 99]</code></pre>
+
+<h4>5.3 最後執行 <code>data = L3</code></h4>
+<p>右側完成後，<code>=</code> 才讓函式內的名稱 <code>data</code> 改為參照新串列 <code>L3</code>：</p>
+<pre><code>執行前：
+a    → L1
+data → L1
+
+執行後：
+a    → L1
+data → L3</code></pre>
+<p>所以這裡不是把原本的 <code>L1</code> 在所有地方「整個換掉」，而只是重新指定函式內的區域名稱 <code>data</code>。</p>
+<p>外部名稱 <code>a</code> 沒有被重新指定，仍然參照原本的 <code>L1</code>：</p>
+<pre><code>a    → L1 = [15]
+data → L3 = [15, 99]</code></pre>
+<p>函式結束後，區域名稱 <code>x</code>、<code>data</code> 消失；外部仍然是：</p>
+<pre><code>n → K  = 10
+a → L1 = [15]</code></pre>
+
+<h3><code>=</code> 本身不一定建立新物件</h3>
+<p>本題中，新串列不是由 <code>=</code> 自己建立，而是由右側運算式建立：</p>
+<ul>
+<li><code>[99]</code> 建立新的串列 <code>L2</code>。</li>
+<li><code>data + [99]</code> 的串接運算建立新的串列 <code>L3</code>。</li>
+<li><code>=</code> 最後只把左側名稱 <code>data</code> 改為參照 <code>L3</code>。</li>
+</ul>
+<p>例如 <code>x = y</code> 通常不會建立副本，只會讓 <code>x</code> 也參照 <code>y</code> 當時所參照的物件。</p>
+
+<h3>三個指定敘述對照</h3>
+<table>
+<thead>
+<tr>
+<th>程式</th>
+<th>真正被修改的目標</th>
+<th>參照變化</th>
+<th>外部是否受影響</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x = x + 5</code></td>
+<td>區域名稱 <code>x</code></td>
+<td><code>x：K → M</code></td>
+<td><code>n</code> 不受影響</td>
+</tr>
+<tr>
+<td><code>data[0] = data[0] + 5</code></td>
+<td>原串列 <code>L1[0]</code></td>
+<td><code>L1[0]：K → M</code></td>
+<td><code>a</code> 會看到 <code>L1</code> 的修改</td>
+</tr>
+<tr>
+<td><code>data = data + [99]</code></td>
+<td>區域名稱 <code>data</code></td>
+<td><code>data：L1 → L3</code></td>
+<td><code>a</code> 仍參照 <code>L1</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3>與 <code>append()</code> 的差別</h3>
+<p>若最後一行改成：</p>
+<pre><code>data.append(99)</code></pre>
+<p>它會直接修改原本的 <code>L1</code>：</p>
+<pre><code>L1：[15] → [15, 99]</code></pre>
+<p>因為 <code>a</code> 也參照 <code>L1</code>，此時外部的 <code>a</code> 就會變成 <code>[15, 99]</code>。但原題使用的是 <code>data = data + [99]</code>，所以建立新串列後只重新指定區域名稱 <code>data</code>。</p>
+
+<h3>最後結果</h3>
+<pre><code>n = 10
+a = [15]</code></pre>
+<p>因此：</p>
+<pre><code>print(n, a)
+→ 10 [15]</code></pre>
+
+<p class="answer">答案：C，<code>10 [15]</code>。</p>
+</div></details>
+</section>
+
+<section class="card" id="q15">
+  <div class="qhead"><span class="qnum">第 15 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式執行後輸出為何？</p>
+<pre><code>a = [3, 1, 2]
+b = a.sort()
+c = sorted(a, reverse=True)
+
+print(a)
+print(b)
+print(c)</code></pre>
+<ol class="choices" type="A">
+<li><pre><code>[1, 2, 3]
+None
+[3, 2, 1]</code></pre></li>
+<li><pre><code>[3, 1, 2]
+[1, 2, 3]
+[3, 2, 1]</code></pre></li>
+<li><pre><code>[1, 2, 3]
+[1, 2, 3]
+[3, 2, 1]</code></pre></li>
+<li><pre><code>[3, 2, 1]
+None
+[1, 2, 3]</code></pre></li>
+</ol>
+</div>
+  <details><summary>2. 解析（點擊後顯示）</summary><div class="analysis">
+<p><code>list.sort()</code> 直接修改原串列，並回傳 <code>None</code>；<code>sorted()</code> 則建立並回傳新的排序結果。</p>
+<p>因此 <code>a</code> 先變成遞增排序，<code>b</code> 是 <code>None</code>，而 <code>c</code> 是依目前 <code>a</code> 建立的遞減排序新串列。</p>
+<p class="answer">答案：A。</p>
+</div></details>
+</section>
+
+<section class="card" id="q16">
+  <div class="qhead"><span class="qnum">第 16 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式執行後輸出為何？</p>
+<pre><code>s = "ABCDEFG"
+print(s[-2], s[1:6:2], s[::-2])</code></pre>
+<ol class="choices" type="A">
+<li><code>F BDF GECA</code></li>
+<li><code>F BDF ACEG</code></li>
+<li><code>G BCE GEC</code></li>
+<li><code>F BDF GFEDCBA</code></li>
+</ol>
+</div>
+  <details><summary>2. 解析（點擊後顯示）</summary><div class="analysis">
+<p><code>s[-2]</code> 是倒數第二個字元 <code>F</code>；<code>s[1:6:2]</code> 取索引 1、3、5，得到 <code>BDF</code>。</p>
+<p><code>s[::-2]</code> 從最後一個字元開始，每次向左兩格，索引依序為 6、4、2、0，得到 <code>GECA</code>。</p>
+<p class="answer">答案：A。</p>
+</div></details>
+</section>
+
+<section class="card" id="q17">
+  <div class="qhead"><span class="qnum">第 17 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式執行後輸出為何？</p>
+<pre><code>def check(s):
+    left = 0
+    right = len(s) - 1
+    count = 0
+
+    while left &lt; right:
+        count += 1
+        if s[left] != s[right]:
+            return False, count
+        left += 1
+        right -= 1
+
+    return True, count
+
+print(check("LEVEL"), check("LEVER"))</code></pre>
+<ol class="choices" type="A">
+<li><code>(True, 2) (False, 1)</code></li>
+<li><code>(True, 3) (False, 2)</code></li>
+<li><code>(False, 2) (True, 1)</code></li>
+<li><code>(True, 5) (False, 5)</code></li>
+</ol>
+</div>
+  <details><summary>2. 解析（點擊後顯示）</summary><div class="analysis">
+<p><code>LEVEL</code> 只需比較第 0 與 4、以及第 1 與 3 個字元，中間字元不需與自己比較，因此共 2 次。</p>
+<p><code>LEVER</code> 的第一組字元 <code>L</code>、<code>R</code> 就不同，第一次比較後立即回傳。</p>
+<p class="answer">答案：A。</p>
+</div></details>
+</section>
+
+<section class="card" id="q18">
+  <div class="qhead"><span class="qnum">第 18 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式要將 <code>AAABBCCCC</code> 壓縮成 <code>A3B2C4</code>。空格應填入哪一行？</p>
+<pre><code>s = "AAABBCCCC"
+result = ""
+count = 1
+
+for i in range(1, len(s)):
+    if s[i] == s[i - 1]:
+        count += 1
+    else:
+        result += s[i - 1] + str(count)
+        count = 1
+
+____________________________
+print(result)</code></pre>
+<ol class="choices" type="A">
+<li><code>result += s[0] + str(count)</code></li>
+<li><code>result += s[-1] + str(count)</code></li>
+<li><code>result += s[i - 1] + str(i)</code></li>
+<li><code>result += str(count) + s[0]</code></li>
+</ol>
+</div>
+  <details><summary>2. 解析（點擊後顯示）</summary><div class="analysis">
+<p>迴圈只在字元發生變化時輸出前一組，因此最後一組 <code>CCCC</code> 不會在迴圈內被加入。</p>
+<p>迴圈結束後，最後字元是 <code>s[-1]</code>，而 <code>count</code> 保存最後一組的數量。</p>
+<p class="answer">答案：B，<code>result += s[-1] + str(count)</code>。</p>
+</div></details>
+</section>
+
+<section class="card" id="q19">
+  <div class="qhead"><span class="qnum">第 19 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列 Selection Sort 執行完第一次外層迴圈，也就是 <code>i == 0</code> 的那一輪後，<code>a</code> 為何，且實際交換幾次？</p>
+<pre><code>a = [7, 3, 5, 2]
+
+for i in range(len(a) - 1):
+    pos = i
+    for j in range(i + 1, len(a)):
+        if a[j] &lt; a[pos]:
+            pos = j
+    a[i], a[pos] = a[pos], a[i]</code></pre>
+<ol class="choices" type="A">
+<li><code>[3, 7, 5, 2]</code></li>
+<li><code>[2, 3, 5, 7]</code>，且第一輪發生兩次交換</li>
+<li><code>[2, 3, 5, 7]</code>，且第一輪發生三次交換</li>
+<li><code>[2, 3, 5, 7]</code>，且第一輪只在最後交換一次</li>
+</ol>
+</div>
+  <details><summary>2. 解析（點擊後顯示）</summary><div class="analysis">
+<p>第一輪會掃描索引 1～3，記住最小值 2 的位置，直到內層迴圈結束後才與 <code>a[0]</code> 交換。</p>
+<p>因此第一輪結束後是 <code>[2, 3, 5, 7]</code>，而不是每次發現較小值就交換。</p>
+<p class="answer">答案：D。</p>
+</div></details>
+</section>
+
+<section class="card" id="q20">
+  <div class="qhead"><span class="qnum">第 20 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式將索引 3 的元素插入前方已排序區域。執行後 <code>a</code> 為何？</p>
+<pre><code>a = [2, 5, 7, 3, 9]
+
+key = a[3]
+j = 2
+
+while j &gt;= 0 and a[j] &gt; key:
+    a[j + 1] = a[j]
+    j -= 1
+
+a[j + 1] = key</code></pre>
+<ol class="choices" type="A">
+<li><code>[2, 5, 3, 7, 9]</code></li>
+<li><code>[2, 3, 5, 7, 9]</code></li>
+<li><code>[3, 2, 5, 7, 9]</code></li>
+<li><code>[2, 5, 7, 9, 3]</code></li>
+</ol>
+</div>
+  <details><summary>2. 解析（點擊後顯示）</summary><div class="analysis">
+<p><code>key=3</code>。7 與 5 都比 3 大，因此依序向右移動；2 不大於 3，迴圈停止，最後將 3 放到索引 1。</p>
+<p class="answer">答案：B，<code>[2, 3, 5, 7, 9]</code>。</p>
+</div></details>
+</section>
+
+<section class="card" id="q21">
+  <div class="qhead"><span class="qnum">第 21 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式的主要特徵是選出一個 <code>key</code>，把較大的元素向右搬移，再把 <code>key</code> 放入空出的正確位置。這是哪一種演算法？</p>
+<pre><code>for i in range(1, len(a)):
+    key = a[i]
+    j = i - 1
+
+    while j &gt;= 0 and a[j] &gt; key:
+        a[j + 1] = a[j]
+        j -= 1
+
+    a[j + 1] = key</code></pre>
+<ol class="choices" type="A">
+<li>Bubble Sort(氣泡排序)</li>
+<li>Selection Sort(選擇排序)</li>
+<li>Insertion Sort(插入排序)</li>
+<li>Binary Search(二分搜尋)</li>
+</ol>
+</div>
+  <details><summary>2. 解析（點擊後顯示）</summary><div class="analysis">
+<p>程式維持左側的已排序區域，每輪把新元素插入其中，這是 Insertion Sort。</p>
+<p>Bubble Sort 以相鄰比較交換為主；Selection Sort 每輪尋找剩餘資料中的最小值。</p>
+<p class="answer">答案：C。</p>
+</div></details>
+</section>
+
+<section class="card" id="q22">
+  <div class="qhead"><span class="qnum">第 22 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式執行後輸出為何？</p>
+<pre><code>a = [4, 8, 1, 6, 9, 3]
+target = 9
+comparisons = 0
+
+for i in range(len(a)):
+    comparisons += 1
+    if a[i] == target:
+        break
+
+print(i, comparisons)</code></pre>
+<ol class="choices" type="A">
+<li><code>4 4</code></li>
+<li><code>4 5</code></li>
+<li><code>5 5</code></li>
+<li><code>5 6</code></li>
+</ol>
+</div>
+  <details><summary>2. 解析（點擊後顯示）</summary><div class="analysis">
+<p>目標 9 位於索引 4。程式會比較索引 0、1、2、3、4，共 5 次，找到後停止。</p>
+<p class="answer">答案：B，<code>4 5</code>。</p>
+</div></details>
+</section>
+
+<section class="card" id="q23">
+  <div class="qhead"><span class="qnum">第 23 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列函式想回傳串列中的最大值，但初始化方式有問題。哪一組輸入最能測出錯誤？</p>
+<pre><code>def find_max(a):
+    answer = 0
+
+    for x in a:
+        if x &gt; answer:
+            answer = x
+
+    return answer</code></pre>
+<ol class="choices" type="A">
+<li><code>[1, 2, 3]</code></li>
+<li><code>[0, 5, 2]</code></li>
+<li><code>[-5, -2, -8]</code></li>
+<li><code>[10]</code></li>
+</ol>
+</div>
+  <details><summary>2. 解析（點擊後顯示）</summary><div class="analysis">
+<p>所有元素都是負數時，沒有任何元素大於初始值 0，函式會錯誤回傳 0，而實際最大值應為 -2。</p>
+<p>較可靠的初始化方式是使用 <code>answer = a[0]</code>，再從後續元素開始比較。</p>
+<p class="answer">答案：C。</p>
+</div></details>
+</section>
+
+<section class="card" id="q24">
+  <div class="qhead"><span class="qnum">第 24 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列函式要回傳已排序串列中 <code>target</code> 第一次出現的索引。找到目標後，空格應填什麼？</p>
+<pre><code>def first_pos(values, target):
+    left = 0
+    right = len(values) - 1
+    answer = -1
+
+    while left &lt;= right:
+        mid = (left + right) // 2
+
+        if values[mid] == target:
+            answer = mid
+            __________________
+        elif values[mid] &lt; target:
+            left = mid + 1
+        else:
+            right = mid - 1
+
+    return answer</code></pre>
+<ol class="choices" type="A">
+<li><code>left = mid + 1</code></li>
+<li><code>right = mid - 1</code></li>
+<li><code>return mid</code></li>
+<li><code>right = mid + 1</code></li>
+</ol>
+</div>
+  <details><summary>2. 解析（點擊後顯示）</summary><div class="analysis">
+<p>找到一個目標後，先記錄索引，但還要繼續檢查左半部是否有更早出現的相同值，因此應將右界移到 <code>mid - 1</code>。</p>
+<p class="answer">答案：B。</p>
+</div></details>
+</section>
+
+<section class="card" id="q25">
+  <div class="qhead"><span class="qnum">第 25 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式以固定長度串列模擬 Stack。關於這組函式，下列敘述何者正確？</p>
+<pre><code>storage = [None] * 3
+top = 0
+
+def push(x):
+    global top
+    storage[top] = x
+    top += 1
+
+def pop():
+    global top
+    top -= 1
+    return storage[top]</code></pre>
+<ol class="choices" type="A">
+<li>空堆疊呼叫 <code>pop()</code> 時會回傳 <code>None</code>，且 <code>top</code> 仍維持 0</li>
+<li>空堆疊呼叫 <code>pop()</code> 時，<code>top</code> 會變成 -1，並讀取串列最後一格，未正確偵測下溢</li>
+<li>堆疊滿時呼叫 <code>push()</code>，Python 會自動擴充 <code>storage</code></li>
+<li><code>top</code> 永遠指向目前堆疊頂端的元素</li>
+</ol>
+</div>
+  <details><summary>2. 解析（點擊後顯示）</summary><div class="analysis">
+<p>這裡的 <code>top</code> 指向「下一個可寫入位置」。空堆疊時為 0，若直接 <code>pop()</code>，會先減成 -1。</p>
+<p>Python 的負索引 -1 會讀取最後一格，所以程式不一定立即報錯，反而可能回傳無效資料，這是更隱蔽的 Stack Underflow 問題。</p>
+<p class="answer">答案：B。</p>
+</div></details>
+</section>
+
+<section class="card" id="q26">
+  <div class="qhead"><span class="qnum">第 26 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式以固定長度串列模擬 Queue。依序加入 10、20、30，取出兩次，再加入 40、50。此時若再加入 60，主要問題是什麼？</p>
+<pre><code>Q = [None] * 5
+front = 0
+rear = 0
+
+def enqueue(x):
+    global rear
+    Q[rear] = x
+    rear += 1
+
+def dequeue():
+    global front
+    x = Q[front]
+    front += 1
+    return x</code></pre>
+<ol class="choices" type="A">
+<li>60 會自動存到索引 0，因此沒有問題</li>
+<li>雖然索引 0、1 已空出，但 <code>rear</code> 已到 5，再寫入會越界；函式沒有重用前端空間</li>
+<li><code>dequeue()</code> 會從尾端取出資料</li>
+<li>Queue 中仍有五個有效元素，因此本來就不應再加入</li>
+</ol>
+</div>
+  <details><summary>2. 解析（點擊後顯示）</summary><div class="analysis">
+<p>取出兩次後，索引 0、1 已不再保存有效佇列資料，但 <code>rear</code> 只會持續增加，不會回到前方空位。</p>
+<p>加入 40、50 後 <code>rear=5</code>，下一次執行 <code>Q[5] = 60</code> 會越界。可用 Circular Queue(循環佇列)或搬移有效資料解決。</p>
+<p class="answer">答案：B。</p>
+</div></details>
+</section>
+
+<section class="card" id="q27">
+  <div class="qhead"><span class="qnum">第 27 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式執行後輸出為何？</p>
+<pre><code>a = [1, 2, 2, 2, 3]
+
+for x in a:
+    if x == 2:
+        a.remove(x)
+
+print(a)</code></pre>
+<ol class="choices" type="A">
+<li><code>[1, 3]</code></li>
+<li><code>[1, 2, 3]</code></li>
+<li><code>[1, 2, 2, 3]</code></li>
+<li>迴圈會無限執行</li>
+</ol>
+</div>
+  <details><summary>2. 解析（點擊後顯示）</summary><div class="analysis">
+<p>迴圈走訪串列時刪除元素，後方元素會向左移，但迭代位置仍繼續前進，因此某些元素會被跳過。</p>
+<p>本題第一次刪除後，下一個 2 移到目前索引卻未被檢查；最後仍留下其中一個 2。</p>
+<p class="answer">答案：B，<code>[1, 2, 3]</code>。</p>
+</div></details>
+</section>
+
+
+<section class="card" id="q28">
+  <div class="qhead"><span class="qnum">第 28 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式執行後輸出為何？</p>
+<pre><code>calls = 0
+
+def check(x):
+    global calls
+    calls += 1
+    return x &gt; 0
+
+result = check(0) and check(1) or check(2)
+
+print(result, calls)</code></pre>
+<ol class="choices" type="A">
+<li><code>False 1</code></li>
+<li><code>False 2</code></li>
+<li><code>True 2</code></li>
+<li><code>True 3</code></li>
+</ol>
+</div>
+<details><summary>2. 解析（點擊後顯示）</summary><div class="analysis">
+<p><code>and</code> 的優先順序高於 <code>or</code>，因此可先理解成：</p>
+<pre><code>(check(0) and check(1)) or check(2)</code></pre>
+<p>第一次呼叫：</p>
+<pre><code>check(0)
+calls = 1
+回傳 False</code></pre>
+<p>因為 <code>False and ...</code> 的結果已確定為 <code>False</code>，所以 <code>check(1)</code> 不會執行。</p>
+<p>接著運算：</p>
+<pre><code>False or check(2)</code></pre>
+<p><code>or</code> 左側為 <code>False</code>，因此必須計算右側：</p>
+<pre><code>check(2)
+calls = 2
+回傳 True</code></pre>
+<table>
+<thead><tr><th>運算</th><th>是否執行</th><th>回傳值</th><th><code>calls</code></th></tr></thead>
+<tbody>
+<tr><td><code>check(0)</code></td><td>是</td><td><code>False</code></td><td>1</td></tr>
+<tr><td><code>check(1)</code></td><td>否，因 <code>and</code> 短路</td><td>—</td><td>1</td></tr>
+<tr><td><code>check(2)</code></td><td>是</td><td><code>True</code></td><td>2</td></tr>
+</tbody></table>
+<p>所以輸出為：</p>
+<pre><code>True 2</code></pre>
+<p class="answer">答案：C。</p>
+</div></details>
+</section>
+
+<section class="card" id="q29">
+  <div class="qhead"><span class="qnum">第 29 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式執行後輸出為何？</p>
+<pre><code>grid = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+total = 0
+
+for i in range(len(grid)):
+    for j in range(len(grid[i])):
+        if i == j or i + j == len(grid) - 1:
+            total += grid[i][j]
+
+print(total)</code></pre>
+<ol class="choices" type="A">
+<li><code>20</code></li>
+<li><code>25</code></li>
+<li><code>30</code></li>
+<li><code>35</code></li>
+</ol>
+</div>
+<details><summary>2. 解析（點擊後顯示）</summary><div class="analysis">
+<p><code>grid</code> 是一個 3×3 的二維串列：</p>
+<pre><code>索引       j=0  j=1  j=2
+i=0         1    2    3
+i=1         4    5    6
+i=2         7    8    9</code></pre>
+<p><code>i == j</code> 代表主對角線：</p>
+<pre><code>(0, 0) → 1
+(1, 1) → 5
+(2, 2) → 9</code></pre>
+<p><code>i + j == len(grid) - 1</code> 代表副對角線。因為 <code>len(grid) - 1 = 2</code>：</p>
+<pre><code>(0, 2) → 3
+(1, 1) → 5
+(2, 0) → 7</code></pre>
+<p>中心位置 <code>(1, 1)</code> 同時符合兩個條件，但同一回合的 <code>if</code> 只會執行一次，因此 <code>5</code> 只加一次。</p>
+<pre><code>1 + 3 + 5 + 7 + 9 = 25</code></pre>
+<table>
+<thead><tr><th>座標</th><th>值</th><th>符合條件</th></tr></thead>
+<tbody>
+<tr><td><code>(0, 0)</code></td><td>1</td><td>主對角線</td></tr>
+<tr><td><code>(0, 2)</code></td><td>3</td><td>副對角線</td></tr>
+<tr><td><code>(1, 1)</code></td><td>5</td><td>兩者皆符合，但只加一次</td></tr>
+<tr><td><code>(2, 0)</code></td><td>7</td><td>副對角線</td></tr>
+<tr><td><code>(2, 2)</code></td><td>9</td><td>主對角線</td></tr>
+</tbody></table>
+<p>所以輸出為：</p>
+<pre><code>25</code></pre>
+<p class="answer">答案：B。</p>
+</div></details>
+</section>
+
+<section class="card" id="q30">
+  <div class="qhead"><span class="qnum">第 30 題</span></div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式執行後輸出為何？</p>
+<pre><code>a = 48
+b = 18
+count = 0
+
+while b != 0:
+    a, b = b, a % b
+    count += 1
+
+print(a, count)</code></pre>
+<ol class="choices" type="A">
+<li><code>6 2</code></li>
+<li><code>6 3</code></li>
+<li><code>12 2</code></li>
+<li><code>12 3</code></li>
+</ol>
+</div>
+<details><summary>2. 解析（點擊後顯示）</summary><div class="analysis">
+<p>這段程式使用 Euclidean Algorithm（輾轉相除法）計算最大公因數。</p>
+<p>這一行會先使用更新前的 <code>a</code>、<code>b</code> 計算右側，再同時指定給左側：</p>
+<pre><code>a, b = b, a % b</code></pre>
+<table>
+<thead><tr><th>回合</th><th>原本 <code>a</code></th><th>原本 <code>b</code></th><th><code>a % b</code></th><th>更新後 <code>(a, b)</code></th><th><code>count</code></th></tr></thead>
+<tbody>
+<tr><td>1</td><td>48</td><td>18</td><td>12</td><td><code>(18, 12)</code></td><td>1</td></tr>
+<tr><td>2</td><td>18</td><td>12</td><td>6</td><td><code>(12, 6)</code></td><td>2</td></tr>
+<tr><td>3</td><td>12</td><td>6</td><td>0</td><td><code>(6, 0)</code></td><td>3</td></tr>
+</tbody></table>
+<p>第三回合後 <code>b = 0</code>，所以 <code>b != 0</code> 不成立，迴圈結束。</p>
+<pre><code>a = 6
+count = 3</code></pre>
+<p>所以輸出為：</p>
+<pre><code>6 3</code></pre>
+<p class="answer">答案：B。</p>
+</div></details>
+</section>
+
+</main>
+</body>
+</html>

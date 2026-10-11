@@ -1,0 +1,1246 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>APCS Python 程式識讀 30 題｜自測解析</title>
+<style>
+:root {
+  --bg:#f5f5f3;
+  --paper:#ffffff;
+  --ink:#161616;
+  --muted:#666;
+  --line:#d8d8d4;
+  --soft:#f0f0ed;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+  line-height:1.7;
+}
+header {
+  position:sticky;
+  top:0;
+  z-index:10;
+  border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(8px);
+}
+.toolbar {
+  max-width:980px;
+  margin:auto;
+  padding:14px 20px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.toolbar strong { margin-right:auto; }
+button {
+  border:1px solid #999;
+  background:#fff;
+  color:#111;
+  border-radius:7px;
+  padding:8px 12px;
+  cursor:pointer;
+}
+button:hover { background:#eee; }
+main {
+  max-width:980px;
+  margin:28px auto 80px;
+  padding:0 18px;
+}
+.intro, .card {
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:24px;
+  margin-bottom:20px;
+}
+.intro h1 { margin:0 0 8px; font-size:1.65rem; }
+.intro p { margin:.35rem 0; color:#444; }
+.qhead {
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  padding-bottom:12px;
+  border-bottom:1px solid var(--line);
+}
+.qnum { font-size:1.25rem; font-weight:800; }
+.qtitle { color:var(--muted); }
+h3 { font-size:1.05rem; margin:20px 0 10px; }
+pre {
+  overflow:auto;
+  background:#f7f7f5;
+  border:1px solid #deded9;
+  border-radius:8px;
+  padding:14px;
+  font-family:"Cascadia Mono","Consolas",monospace;
+  font-size:.93rem;
+  line-height:1.55;
+}
+code {
+  font-family:"Cascadia Mono","Consolas",monospace;
+  background:#f1f1ee;
+  border-radius:4px;
+  padding:.08em .3em;
+}
+pre code { background:transparent; padding:0; }
+.choices {
+  padding-left:2rem;
+  margin-bottom:8px;
+}
+.choices > li { margin:.35rem 0; padding-left:.35rem; }
+.choices pre { margin:.4rem 0 1rem; }
+details {
+  margin-top:22px;
+  border-top:1px dashed #aaa;
+  padding-top:14px;
+}
+summary {
+  cursor:pointer;
+  font-weight:800;
+  padding:9px 0;
+  user-select:none;
+}
+.analysis {
+  margin-top:10px;
+  padding:18px;
+  background:var(--soft);
+  border-radius:8px;
+}
+.answer {
+  margin-top:18px;
+  padding-top:12px;
+  border-top:1px solid #b8b8b3;
+  font-weight:800;
+}
+table {
+  width:100%;
+  border-collapse:collapse;
+  margin:12px 0;
+}
+th,td {
+  border:1px solid #ccc;
+  padding:8px 10px;
+  text-align:left;
+}
+.index {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(58px,1fr));
+  gap:6px;
+  margin-top:15px;
+}
+.index a {
+  text-decoration:none;
+  color:#111;
+  border:1px solid #ccc;
+  border-radius:6px;
+  text-align:center;
+  padding:6px;
+  background:#fafafa;
+}
+.index a:hover { background:#e8e8e5; }
+@media (max-width:640px) {
+  .intro,.card { padding:17px; }
+  .qhead { display:block; }
+  .qtitle { display:block; margin-top:3px; }
+}
+@media print {
+  header { display:none; }
+  body { background:#fff; }
+  main { max-width:none; margin:0; }
+  .card { break-inside:avoid; border:1px solid #aaa; }
+  details:not([open]) .analysis { display:none; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="toolbar">
+    <strong>APCS Python 程式識讀｜自測模式</strong>
+    <button onclick="document.querySelectorAll('details').forEach(x=>x.open=false)">全部收合</button>
+    <button onclick="document.querySelectorAll('details').forEach(x=>x.open=true)">全部展開</button>
+  </div>
+</header>
+<main>
+  <section class="intro">
+    <h1>APCS Python 程式識讀 30 題</h1>
+    <p>每題分為「1. 題目」與「2. 解析」。題目區沒有答案標色；解析預設收合，作答後再點開。</p>
+    <p>建議先用紙筆追蹤變數、迴圈次數與遞迴呼叫，再查看解析。</p>
+    <div class="index">
+      <a href="#q1">1</a><a href="#q2">2</a><a href="#q3">3</a><a href="#q4">4</a><a href="#q5">5</a><a href="#q6">6</a><a href="#q7">7</a><a href="#q8">8</a><a href="#q9">9</a><a href="#q10">10</a><a href="#q11">11</a><a href="#q12">12</a><a href="#q13">13</a><a href="#q14">14</a><a href="#q15">15</a><a href="#q16">16</a><a href="#q17">17</a><a href="#q18">18</a><a href="#q19">19</a><a href="#q20">20</a><a href="#q21">21</a><a href="#q22">22</a><a href="#q23">23</a><a href="#q24">24</a><a href="#q25">25</a><a href="#q26">26</a><a href="#q27">27</a><a href="#q28">28</a><a href="#q29">29</a><a href="#q30">30</a>
+    </div>
+  </section>
+  
+<section class="card" id="q1">
+  <div class="qhead">
+    <span class="qnum">第 1 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>給定下列函式 <code>f()</code>，當執行 <code>f(10)</code> 時，最終回傳結果為何？</p>
+<pre><code>def f(i):
+    if i &gt; 0:
+        if (i // 2) % 2 == 0:
+            return f(i - 2) * i
+        return f(i - 2) * (-i)
+    else:
+        return 1</code></pre>
+<ol class="choices" type="A">
+<li>1</li><li>3840</li><li>-3840</li><li>執行時導致無窮迴圈，不會停止執行</li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>每次遞迴都讓 <code>i</code> 減少 2，因此呼叫順序為：</p>
+<pre><code>f(10) → f(8) → f(6) → f(4) → f(2) → f(0)</code></pre>
+<p><code>f(0)=1</code>。再由內往外乘回來：</p>
+<pre><code>f(2)  = 1 × (-2)
+f(4)  = (-2) × 4
+f(6)  = (-8) × (-6)
+f(8)  = 48 × 8
+f(10) = 384 × (-10)</code></pre>
+<p>共有三個負因數：<code>-2、-6、-10</code>，所以結果為負。</p>
+<p class="answer">答案：C，-3840。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q2">
+  <div class="qhead">
+    <span class="qnum">第 2 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>給定下列程式，若輸出結果為 <code>[1][2][3][5][4][6]</code>，程式中的 <code>(?)</code> 應為何？</p>
+<pre><code>for i in range(5):
+    j = 0
+    while (?):
+        print(f'[{i + j}]', end='')
+        j = j + 2</code></pre>
+<ol class="choices" type="A">
+<li><code>j &lt; i</code></li><li><code>j &gt; i</code></li>
+<li><code>j &lt;= i</code></li><li><code>j &gt;= i</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>逐一代入 <code>i=0,1,2,3,4</code>，並觀察 <code>j</code> 從 0 開始，每次增加 2。</p>
+<table><thead><tr><th>i</th><th>可執行的 j</th><th>印出 i+j</th></tr></thead>
+<tbody>
+<tr><td>0</td><td>無</td><td>無</td></tr>
+<tr><td>1</td><td>0</td><td>1</td></tr>
+<tr><td>2</td><td>0</td><td>2</td></tr>
+<tr><td>3</td><td>0、2</td><td>3、5</td></tr>
+<tr><td>4</td><td>0、2</td><td>4、6</td></tr>
+</tbody></table>
+<p>這正好對應條件 <code>j &lt; i</code>。</p>
+<p class="answer">答案：A，<code>j &lt; i</code>。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q3">
+  <div class="qhead">
+    <span class="qnum">第 3 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>給定下列函式，已知 <code>f(14)、f(10)、f(6)</code> 分別回傳 <code>25、18、10</code>，空格應填何者？</p>
+<pre><code>def f(n):
+    if n &lt; 2:
+        return n
+    else:
+        return n + f(?)</code></pre>
+<ol class="choices" type="A">
+<li><code>(n + 1) // 2</code></li><li><code>n // 2</code></li>
+<li><code>(n - 1) // 2</code></li><li><code>(n // 2) + 1</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>測試 <code>n // 2</code>：</p>
+<pre><code>f(14) = 14 + f(7)
+      = 14 + 7 + f(3)
+      = 14 + 7 + 3 + f(1)
+      = 25
+
+f(10) = 10 + 5 + 2 + 1 = 18
+f(6)  = 6 + 3 + 1 = 10</code></pre>
+<p>三個條件全部吻合。</p>
+<p class="answer">答案：B，<code>n // 2</code>。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q4">
+  <div class="qhead">
+    <span class="qnum">第 4 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式執行完後，輸出結果為何？</p>
+<pre><code>Q = [0] * 200
+val = 0
+count = 0
+head = tail = 0
+
+for i in range(1, 31):
+    Q[tail] = i
+    tail = tail + 1
+
+while tail &gt; head + 1:
+    val = Q[head]
+    head = head + 1
+    count = count + 1
+
+    if count == 3:
+        count = 0
+        Q[tail] = val
+        tail = tail + 1
+
+print(Q[head])</code></pre>
+<ol class="choices" type="A"><li>9</li><li>18</li><li>27</li><li>30</li></ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>程式每取出三個數時，只把第三個放回佇列尾端，前兩個永久刪除。</p>
+<p>第一輪處理 1 到 30 後，留下：</p>
+<pre><code>3, 6, 9, 12, 15, 18, 21, 24, 27, 30</code></pre>
+<p>接著必須延續原本的 <code>count</code> 狀態繼續模擬，不能把計數器重新開始。持續處理後，最後剩下的元素是 18。</p>
+<p class="answer">答案：B，18。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q5">
+  <div class="qhead">
+    <span class="qnum">第 5 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>程式應輸出以下圖形。在不修改第 4、5 行的前提下，最少需要修改幾行？</p>
+<pre><code>    *
+   ***
+  *****
+ *******
+*********</code></pre>
+<pre><code>1  k = 4
+2  m = 1
+3  for i in range(5):
+4      print(' ' * k, end='')
+5      print('*' * m)
+6      k = k - 1
+7      m = m + 1</code></pre>
+<ol class="choices" type="A"><li>1</li><li>2</li><li>3</li><li>4</li></ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>空白數量原本是 <code>4,3,2,1,0</code>，已經正確。</p>
+<p>星號目前是 <code>1,2,3,4,5</code>，但需要的是 <code>1,3,5,7,9</code>，每次應增加 2。</p>
+<pre><code>m = m + 2</code></pre>
+<p>只需修改第 7 行。</p>
+<p class="answer">答案：A，修改 1 行。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q6">
+  <div class="qhead">
+    <span class="qnum">第 6 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>整數列表滿足 <code>a[k] = 3k + 1</code>，索引為 <code>0～99</code>。以 <code>value=100</code> 呼叫以下函式，兩個 while 主體分別執行幾次？</p>
+<pre><code>def f1(a, value):
+    r_value = -1
+    i = 0
+    while i &lt; 100:
+        n1 += 1
+        if a[i] == value:
+            r_value = i
+            break
+        i = i + 1
+    return r_value
+
+def f2(a, value):
+    r_value = -1
+    low = 0
+    high = 99
+    while low &lt;= high:
+        n2 += 1
+        mid = (low + high) // 2
+        if a[mid] == value:
+            r_value = mid
+            break
+        elif a[mid] &lt; value:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return r_value</code></pre>
+<ol class="choices" type="A">
+<li><code>n1=33, n2=4</code></li><li><code>n1=33, n2=5</code></li>
+<li><code>n1=34, n2=4</code></li><li><code>n1=34, n2=5</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>先找出 100 的索引：</p>
+<pre><code>3k + 1 = 100
+k = 33</code></pre>
+<p>線性搜尋從索引 0 檢查到索引 33，包含兩端，因此是 34 次。</p>
+<p>二分搜尋的中點依序為：</p>
+<pre><code>49 → 24 → 36 → 30 → 33</code></pre>
+<p>共 5 次找到。</p>
+<p class="answer">答案：D，<code>n1=34, n2=5</code>。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q7">
+  <div class="qhead">
+    <span class="qnum">第 7 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>以下程式用來計算第 N 個費氏數列值，空格 (a)、(b) 應填何者？</p>
+<pre><code>a = 0
+b = 1
+for i in range(2, N + 1):
+    temp = b
+    (a)
+    a = temp
+print((b))</code></pre>
+<ol class="choices" type="A">
+<li><code>(a) f[i]=f[i-1]+f[i-2]　(b) f[N]</code></li>
+<li><code>(a) a=a+b　　　　　　(b) a</code></li>
+<li><code>(a) b=a+b　　　　　　(b) a</code></li>
+<li><code>(a) f[i]=f[i-1]+f[i-2]　(b) f[i]</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>每輪開始時，<code>a</code> 是前前項，<code>b</code> 是前一項。</p>
+<pre><code>temp = b
+b = a + b
+a = temp</code></pre>
+<p>更新後，<code>a</code> 變成舊的前一項，<code>b</code> 變成新的一項。依題目的索引定義，迴圈結束時應輸出 <code>a</code>。</p>
+<p class="answer">答案：C，<code>b = a + b</code>，最後印出 <code>a</code>。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q8">
+  <div class="qhead">
+    <span class="qnum">第 8 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>執行 <code>f1(1)</code> 時，下列敘述何者錯誤？</p>
+<pre><code>def f1(m):
+    if m &gt; 3:
+        print(m)
+        return
+    else:
+        print(m)
+        f2(m + 2)
+        print(m)
+
+def f2(n):
+    if n &gt; 3:
+        print(n)
+        return
+    else:
+        print(n)
+        f1(n - 1)
+        print(n)</code></pre>
+<ol class="choices" type="A">
+<li>印出的數字最大的是 4</li>
+<li><code>f1</code> 一共被呼叫二次</li>
+<li><code>f2</code> 一共被呼叫三次</li>
+<li>數字 2 被印出兩次</li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>呼叫結構如下：</p>
+<pre><code>f1(1)
+ └─ f2(3)
+     └─ f1(2)
+         └─ f2(4)</code></pre>
+<p>輸出順序為：</p>
+<pre><code>1 3 2 4 2 3 1</code></pre>
+<p><code>f1</code> 被呼叫 2 次，<code>f2</code> 也只被呼叫 2 次。</p>
+<p class="answer">答案：C。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q9">
+  <div class="qhead">
+    <span class="qnum">第 9 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式欲求 76 與 48 的最大公因數，while 內容何者正確？</p>
+<pre><code>i = 76
+j = 48
+while (i % j) != 0:
+    ____________
+    ____________
+    ____________
+print(j)</code></pre>
+<ol class="choices" type="A">
+<li><pre><code>k = i % j
+i = j
+j = k</code></pre></li>
+<li><pre><code>i = j
+j = k
+k = i % j</code></pre></li>
+<li><pre><code>i = j
+j = i % k
+k = i</code></pre></li>
+<li><pre><code>k = i
+i = j
+j = i % k</code></pre></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>Euclidean Algorithm(輾轉相除法)的不變量是：</p>
+<pre><code>gcd(i, j) = gcd(j, i % j)</code></pre>
+<p>因此要先保存餘數，再把 <code>j</code> 移到 <code>i</code>，餘數移到 <code>j</code>。</p>
+<pre><code>k = i % j
+i = j
+j = k</code></pre>
+<p class="answer">答案：A。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q10">
+  <div class="qhead">
+    <span class="qnum">第 10 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式執行後輸出何值？</p>
+<pre><code>count = 10
+
+if count &gt; 0:
+    count = 11
+
+if count &gt; 10:
+    count = 12
+    if count % 3 == 4:
+        count = 1
+    else:
+        count = 0
+elif count &gt; 11:
+    count = 13
+else:
+    count = 14
+
+if count:
+    count = 15
+else:
+    count = 16
+
+print(count)</code></pre>
+<ol class="choices" type="A"><li>11</li><li>13</li><li>15</li><li>16</li></ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>第一個 if 使 <code>count=11</code>。第二個 if 成立，再使它變成 12。</p>
+<p><code>12 % 3 = 0</code>，不等於 4，因此內層 else 把 <code>count</code> 設成 0。</p>
+<p>Python 中整數 0 是 Falsy(假值)，所以最後執行外層 else，得到 16。</p>
+<p class="answer">答案：D，16。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q11">
+  <div class="qhead">
+    <span class="qnum">第 11 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列函式欲計算 <code>n!</code>，應如何修改才會得到正確結果？</p>
+<pre><code>1. def fun(n):
+2.     fac = 1
+3.     if n &gt;= 0:
+4.         fac = n * fun(n - 1)
+5.     return fac</code></pre>
+<ol class="choices" type="A">
+<li>第 2 行改為 <code>fac = n</code></li>
+<li>第 3 行改為 <code>if n &gt; 0:</code></li>
+<li>第 4 行改為 <code>fac = n * fun(n + 1)</code></li>
+<li>第 4 行改為 <code>fac = fac * fun(n - 1)</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>階乘的基底條件應為 <code>0! = 1</code>。</p>
+<p>原程式在 <code>n=0</code> 時仍會遞迴到 <code>-1、-2...</code>，無法停止。將條件改為 <code>n &gt; 0</code>，當 <code>n=0</code> 時會直接回傳初始值 1。</p>
+<p class="answer">答案：B。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q12">
+  <div class="qhead">
+    <span class="qnum">第 12 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列函式的 (a)、(b)、(c) 應填哪些數字，才能使 <code>f(4)</code> 輸出 <code>2468</code>？</p>
+<pre><code>def f(n):
+    p = 0
+    i = n
+    while i &gt;= (a):
+        p = 10 - (b) * i
+        print(p, end='')
+        i = i - (c)</code></pre>
+<ol class="choices" type="A">
+<li><code>1, 2, 1</code></li><li><code>0, 1, 2</code></li>
+<li><code>0, 2, 1</code></li><li><code>1, 1, 1</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>希望 <code>i</code> 依序為 4、3、2、1，因此終點是 1，每次減 1。</p>
+<p>再觀察輸出：</p>
+<pre><code>i=4 → 10-2×4 = 2
+i=3 → 10-2×3 = 4
+i=2 → 10-2×2 = 6
+i=1 → 10-2×1 = 8</code></pre>
+<p class="answer">答案：A，<code>(a,b,c)=(1,2,1)</code>。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q13">
+  <div class="qhead">
+    <span class="qnum">第 13 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>執行 <code>g(4)</code> 後，回傳值為何？</p>
+<pre><code>def f(n):
+    if n &gt; 3:
+        return 1
+    elif n == 2:
+        return 3 + f(n + 1)
+    else:
+        return 1 + f(n + 1)
+
+def g(n):
+    j = 0
+    for i in range(1, n):
+        j = j + f(i)
+    return j</code></pre>
+<ol class="choices" type="A"><li>6</li><li>11</li><li>13</li><li>14</li></ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>先算各個函式值：</p>
+<pre><code>f(4)=1
+f(3)=1+f(4)=2
+f(2)=3+f(3)=5
+f(1)=1+f(2)=6</code></pre>
+<p><code>range(1,4)</code> 只包含 1、2、3，因此：</p>
+<pre><code>g(4)=f(1)+f(2)+f(3)=6+5+2=13</code></pre>
+<p class="answer">答案：C，13。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q14">
+  <div class="qhead">
+    <span class="qnum">第 14 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列函式的 else 部分應填何者，才能使 <code>Mystery(9)</code> 回傳 34？</p>
+<pre><code>def Mystery(x):
+    if x &lt;= 1:
+        return x
+    else:
+        return ____________</code></pre>
+<ol class="choices" type="A">
+<li><code>x + Mystery(x - 1)</code></li>
+<li><code>x * Mystery(x - 1)</code></li>
+<li><code>Mystery(x - 2) + Mystery(x + 2)</code></li>
+<li><code>Mystery(x - 2) + Mystery(x - 1)</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>基底為 <code>Mystery(0)=0</code>、<code>Mystery(1)=1</code>。若每項等於前兩項相加，就得到：</p>
+<pre><code>0, 1, 1, 2, 3, 5, 8, 13, 21, 34</code></pre>
+<p>因此第 9 項為 34。</p>
+<p class="answer">答案：D。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q15">
+  <div class="qhead">
+    <span class="qnum">第 15 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式執行後輸出為何？</p>
+<pre><code>a = [1, 3, 5, 7, 9, 8, 6, 4, 2]
+n = 9
+
+for i in range(n):
+    a[i], a[n-i-1] = a[n-i-1], a[i]
+
+for i in range(n//2 + 1):
+    print(a[i], a[n-i-1], end=' ')</code></pre>
+<ol class="choices" type="A">
+<li><code>2 4 6 8 9 7 5 3 1 9</code></li>
+<li><code>1 3 5 7 9 2 4 6 8 9</code></li>
+<li><code>1 2 3 4 5 6 7 8 9 9</code></li>
+<li><code>2 4 6 8 5 1 3 7 9 9</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>第一個迴圈執行完整的 9 次。每一對元素會被交換兩次：</p>
+<pre><code>i=0 交換 0、8
+i=8 再交換 8、0</code></pre>
+<p>所以陣列最後回到原狀。</p>
+<p>第二個迴圈依序印：</p>
+<pre><code>a[0],a[8] → 1 2
+a[1],a[7] → 3 4
+a[2],a[6] → 5 6
+a[3],a[5] → 7 8
+a[4],a[4] → 9 9</code></pre>
+<p class="answer">答案：C。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q16">
+  <div class="qhead">
+    <span class="qnum">第 16 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列函式以 <code>F(7)</code> 呼叫後回傳 12，則條件應為何？</p>
+<pre><code>def F(a):
+    if &lt;condition&gt;:
+        return 1
+    else:
+        return F(a - 2) + F(a - 3)</code></pre>
+<ol class="choices" type="A">
+<li><code>a &lt; 3</code></li><li><code>a &lt; 2</code></li>
+<li><code>a &lt; 1</code></li><li><code>a &lt; 0</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>測試條件 <code>a &lt; 0</code>，所有負數回傳 1：</p>
+<pre><code>F(0)=F(-2)+F(-3)=2
+F(1)=F(-1)+F(-2)=2
+F(2)=F(0)+F(-1)=3
+F(3)=F(1)+F(0)=4
+F(4)=F(2)+F(1)=5
+F(5)=F(3)+F(2)=7
+F(7)=F(5)+F(4)=7+5=12</code></pre>
+<p class="answer">答案：D，<code>a &lt; 0</code>。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q17">
+  <div class="qhead">
+    <span class="qnum">第 17 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>正確等第為：90～100 A、80～89 B、70～79 C、60～69 D、0～59 F。以下程式處理 0～100 時，有幾個分數會判錯？</p>
+<pre><code>if s &gt;= 90:
+    print('A')
+elif s &gt;= 80:
+    print('B')
+elif s &gt; 60:
+    print('D')
+elif s &gt; 70:
+    print('C')
+else:
+    print('F')</code></pre>
+<ol class="choices" type="A"><li>20</li><li>11</li><li>2</li><li>10</li></ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p><code>s &gt; 70</code> 的條件放在 <code>s &gt; 60</code> 後面，因此 71～79 會先被判成 D；70 也會因為 <code>70 &gt; 60</code> 被判成 D。</p>
+<p>也就是 70～79 共 10 個分數錯誤。</p>
+<p>另外 60 不滿足 <code>s &gt; 60</code>，最後被判為 F，又多 1 個錯誤。</p>
+<p class="answer">答案：B，共 11 個。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q18">
+  <div class="qhead">
+    <span class="qnum">第 18 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式執行後，<code>count</code> 為何？</p>
+<pre><code>maze = [
+    [1, 1, 1, 1, 1],
+    [1, 0, 1, 0, 1],
+    [1, 1, 0, 0, 1],
+    [1, 0, 0, 1, 1],
+    [1, 1, 1, 1, 1]
+]
+
+count = 0
+
+for i in range(1, 4):
+    for j in range(1, 4):
+        dir = [[-1,0], [0,1], [1,0], [0,-1]]
+        for d in range(4):
+            if maze[i+dir[d][0]][j+dir[d][1]] == 1:
+                count = count + 1</code></pre>
+<ol class="choices" type="A"><li>36</li><li>20</li><li>12</li><li>3</li></ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>程式會對內部 3×3 的每個位置，檢查上、右、下、左四個鄰居是否為 1。</p>
+<p>九個位置分別貢獻：</p>
+<pre><code>4, 1, 3
+1, 2, 2
+3, 2, 2</code></pre>
+<p>總和為：</p>
+<pre><code>4+1+3+1+2+2+3+2+2 = 20</code></pre>
+<p class="answer">答案：B，20。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q19">
+  <div class="qhead">
+    <span class="qnum">第 19 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>若要印出 6、4、2 個星號的三行圖案，<code>(a)</code> 應為何？</p>
+<pre><code>for i in range(4):
+    for j in range(i):
+        print(' ', end='')
+    for k in range(6 - 2*i, (a), -1):
+        print('*', end='')
+    print('')</code></pre>
+<ol class="choices" type="A"><li>2</li><li>1</li><li>0</li><li>-1</li></ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p><code>range(start, stop, -1)</code> 不包含 <code>stop</code>。</p>
+<p>若 stop 為 0：</p>
+<pre><code>i=0：6,5,4,3,2,1 → 6 次
+i=1：4,3,2,1     → 4 次
+i=2：2,1         → 2 次
+i=3：空          → 0 次</code></pre>
+<p class="answer">答案：C，0。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q20">
+  <div class="qhead">
+    <span class="qnum">第 20 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式碼是自動計算找零程式的一部分，程式碼中三個主要變數分別為 <code>Total</code>（購買總額）、<code>Paid</code>（實際支付金額）、<code>Change</code>（找零金額）。但是此程式片段有冗餘的程式碼，也就是移除該段程式碼之後不會影響程式的功能。請找出冗餘程式碼的區塊。</p>
+<pre><code>Change = Paid - Total
+
+print(f'500 : {(Change-Change%500)//500} pieces')
+Change = Change % 500
+
+print(f'100 : {(Change-Change%100)//100} coins')
+Change = Change % 100
+
+# A 區
+print(f'50 : {(Change-Change%50)//50} coins')
+Change = Change % 50
+
+# B 區
+print(f'10 : {(Change-Change%10)//10} coins')
+Change = Change % 10
+
+# C 區
+print(f'5 : {(Change-Change%5)//5} coins')
+Change = Change % 5
+
+# D 區
+print(f'1 : {(Change-Change%1)//1} coins')
+Change = Change % 1</code></pre>
+<ol class="choices" type="A">
+<li>冗餘程式碼在 A 區</li><li>冗餘程式碼在 B 區</li><li>冗餘程式碼在 C 區</li><li>冗餘程式碼在 D 區</li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>任何整數除以 1 的餘數都為 0：</p>
+<pre><code>Change % 1 == 0</code></pre>
+<p>最後一行把 <code>Change</code> 設為 0，但程式後面已不再使用它，因此不影響輸出或功能。</p>
+<p class="answer">答案：D。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q21">
+  <div class="qhead">
+    <span class="qnum">第 21 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>執行 <code>G(3,7)</code> 後回傳值為何？</p>
+<pre><code>def G(a, x):
+    if x == 0:
+        return 1
+    else:
+        return a * G(a, x - 1)</code></pre>
+<ol class="choices" type="A"><li>128</li><li>2187</li><li>6561</li><li>1024</li></ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>每層遞迴都乘上一個 <code>a</code>，直到 <code>x=0</code> 回傳 1，因此：</p>
+<pre><code>G(a,x) = a^x</code></pre>
+<p><code>G(3,7)=3^7=2187</code>。</p>
+<p class="answer">答案：B，2187。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q22">
+  <div class="qhead">
+    <span class="qnum">第 22 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>函式目的是找出列表中「大於 x 的最小值」，但程式有誤。哪個呼叫能測出錯誤？</p>
+<pre><code>A = [0, 2, 4, 6, 8, 10, 12, 14]
+
+def Search(x):
+    high = 7
+    low = 0
+    while high &gt; low:
+        mid = (high + low) // 2
+        if A[mid] &lt;= x:
+            low = mid + 1
+        else:
+            high = mid
+    return A[high]</code></pre>
+<ol class="choices" type="A">
+<li><code>Search(-1)</code></li><li><code>Search(0)</code></li>
+<li><code>Search(10)</code></li><li><code>Search(16)</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>前三個呼叫都有合法答案：</p>
+<pre><code>Search(-1) → 0
+Search(0)  → 2
+Search(10) → 12</code></pre>
+<p>但列表中沒有任何值大於 16。程式仍會回傳最後一個元素 14，這不符合函式目的。</p>
+<p class="answer">答案：D，<code>Search(16)</code>。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q23">
+  <div class="qhead">
+    <span class="qnum">第 23 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列函式的兩個 return 應分別填何者，才能正確計算最大公因數？</p>
+<pre><code>def GCD(a, b):
+    r = a % b
+    if r == 0:
+        return ______
+    return ______</code></pre>
+<ol class="choices" type="A">
+<li><code>a, GCD(b,r)</code></li><li><code>b, GCD(b,r)</code></li>
+<li><code>a, GCD(a,r)</code></li><li><code>b, GCD(a,r)</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>若 <code>a % b == 0</code>，代表 <code>b</code> 能整除 <code>a</code>，最大公因數就是 <code>b</code>。</p>
+<p>否則利用：</p>
+<pre><code>gcd(a,b) = gcd(b, a%b)</code></pre>
+<p>下一層應呼叫 <code>GCD(b,r)</code>。</p>
+<p class="answer">答案：B。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q24">
+  <div class="qhead">
+    <span class="qnum">第 24 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>程式執行後，下列何者不一定正確？</p>
+<pre><code>p = q = A[0]
+
+for i in range(1, n):
+    if A[i] &gt; p:
+        p = A[i]
+    if A[i] &lt; q:
+        q = A[i]</code></pre>
+<ol class="choices" type="A">
+<li><code>p</code> 是列表最大值</li>
+<li><code>q</code> 是列表最小值</li>
+<li><code>q &lt; p</code></li>
+<li><code>A[0] &lt;= p</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>若所有元素都相同，例如：</p>
+<pre><code>A = [5,5,5]</code></pre>
+<p>則最大值和最小值都為 5，所以只能保證 <code>q &lt;= p</code>，不能保證嚴格小於。</p>
+<p class="answer">答案：C。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q25">
+  <div class="qhead">
+    <span class="qnum">第 25 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>依序輸入 0～9 後，列表 X 的元素依序為何？</p>
+<pre><code>def F():
+    X = [0] * 10
+    for i in range(10):
+        X[(i + 2) % 10] = int(input())</code></pre>
+<ol class="choices" type="A">
+<li><code>0,1,2,3,4,5,6,7,8,9</code></li>
+<li><code>2,0,2,0,2,0,2,0,2,0</code></li>
+<li><code>9,0,1,2,3,4,5,6,7,8</code></li>
+<li><code>8,9,0,1,2,3,4,5,6,7</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>每個輸入會存到索引 <code>(i+2)%10</code>：</p>
+<pre><code>輸入 0 → X[2]
+輸入 1 → X[3]
+...
+輸入 7 → X[9]
+輸入 8 → X[0]
+輸入 9 → X[1]</code></pre>
+<p>因此最後為 <code>[8,9,0,1,2,3,4,5,6,7]</code>。</p>
+<p class="answer">答案：D。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q26">
+  <div class="qhead">
+    <span class="qnum">第 26 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>原程式無法正確列印 20 次 <code>Hi!</code>。下列哪個修改仍無法列印 20 次？</p>
+<pre><code>for i in range(0, 101, 5):
+    print('Hi!')</code></pre>
+<ol class="choices" type="A">
+<li>改為 <code>range(0,20,1)</code></li>
+<li>改為 <code>range(5,101,5)</code></li>
+<li>改為 <code>range(0,100,5)</code></li>
+<li>改為 <code>range(5,100,5)</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>逐一計算：</p>
+<pre><code>range(0,20,1)   → 0～19，共 20 次
+range(5,101,5)  → 5～100，共 20 次
+range(0,100,5)  → 0～95，共 20 次
+range(5,100,5)  → 5～95，共 19 次</code></pre>
+<p class="answer">答案：D。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q27">
+  <div class="qhead">
+    <span class="qnum">第 27 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>執行下列函式時，哪一行永遠不會被執行？</p>
+<pre><code>def F(a):
+    while a &lt; 10:
+        a = a + 5
+
+    if a &lt; 12:
+        a = a + 2
+
+    if a &lt; 11:
+        a = 5</code></pre>
+<ol class="choices" type="A">
+<li><code>a = a + 5</code></li>
+<li><code>a = a + 2</code></li>
+<li><code>a = 5</code></li>
+<li>每一行都有可能執行</li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>while 結束時一定有 <code>a &gt;= 10</code>。</p>
+<p>若此時 <code>a</code> 是 10 或 11，第二段 if 會再加 2，變成 12 或 13；若本來已經至少 12，則保持不變。</p>
+<p>所以到最後一個 if 時，<code>a</code> 一定至少為 12，<code>a &lt; 11</code> 永遠不成立。</p>
+<p class="answer">答案：C，<code>a = 5</code>。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q28">
+  <div class="qhead">
+    <span class="qnum">第 28 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列函式執行後回傳的 <code>x</code> 為何？</p>
+<pre><code>def F(n):
+    x = 0
+    for i in range(1, n + 1):
+        for j in range(i, n + 1):
+            k = 1
+            while k &lt;= n:
+                x = x + 1
+                k = k * 2
+    return x</code></pre>
+<ol class="choices" type="A">
+<li><code>n(n+1)√⌊log₂n⌋</code></li>
+<li><code>n²(n+1)/2</code></li>
+<li><code>n(n+1)(⌊log₂n⌋+1)/2</code></li>
+<li><code>n(n+1)/2</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>前兩層迴圈的總次數為：</p>
+<pre><code>n + (n-1) + ... + 1 = n(n+1)/2</code></pre>
+<p>內層 while 的 <code>k</code> 為 <code>1,2,4,8,...</code>，因此執行：</p>
+<pre><code>⌊log₂n⌋ + 1</code></pre>
+<p>兩者相乘：</p>
+<pre><code>n(n+1)(⌊log₂n⌋+1)/2</code></pre>
+<p class="answer">答案：C。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q29">
+  <div class="qhead">
+    <span class="qnum">第 29 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式想找出最大值 M 與最小值 N。哪一組初始列表可以測出程式有誤？</p>
+<pre><code>M, N, s = -1, 101, 3
+
+for i in range(s):
+    if A[i] &gt; M:
+        M = A[i]
+    elif A[i] &lt; N:
+        N = A[i]</code></pre>
+<ol class="choices" type="A">
+<li><code>[90,80,100]</code></li>
+<li><code>[80,90,100]</code></li>
+<li><code>[100,90,80]</code></li>
+<li><code>[90,100,80]</code></li>
+</ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p>錯誤原因是使用 <code>elif</code>：只要元素更新了最大值，就不會再檢查它是否也是目前最小值。</p>
+<p>若列表嚴格遞增：</p>
+<pre><code>[80,90,100]</code></pre>
+<p>每個元素都會進入第一個 if，<code>N</code> 永遠維持 101，明顯錯誤。</p>
+<p class="answer">答案：B。</p>
+</div>
+  </details>
+</section>
+
+<section class="card" id="q30">
+  <div class="qhead">
+    <span class="qnum">第 30 題</span>
+  </div>
+  <h3>1. 題目</h3>
+  <div class="question">
+<p>下列程式輸出為何？</p>
+<pre><code>a = [0] * 101
+b = [i for i in range(101)]
+
+for i in range(1, 101):
+    a[i] = b[i] + a[i - 1]
+
+print(a[50] - a[30])</code></pre>
+<ol class="choices" type="A"><li>1275</li><li>20</li><li>1000</li><li>810</li></ol>
+</div>
+  <details>
+    <summary>2. 解析（點擊後顯示）</summary>
+    <div class="analysis">
+<p><code>a[i]</code> 是 1 到 i 的前綴和：</p>
+<pre><code>a[50] = 1+2+...+50
+a[30] = 1+2+...+30</code></pre>
+<p>兩者相減後，剩下 31 到 50：</p>
+<pre><code>31+32+...+50</code></pre>
+<p>共有 20 項，平均值是 <code>(31+50)/2=40.5</code>，所以總和為：</p>
+<pre><code>40.5 × 20 = 810</code></pre>
+<p class="answer">答案：D，810。</p>
+</div>
+  </details>
+</section>
+
+</main>
+</body>
+</html>
