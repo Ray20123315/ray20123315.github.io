@@ -7,7 +7,7 @@ site_description: Python 語法、資料結構與 APCS 練習筆記
 docs_dir: _python_docs
 site_dir: _python_public
 use_directory_urls: false
-not_in_nav: []
+not_in_nav: ''
 
 # Restrict publication-specific plugins to Python content.
 # Theme, custom_dir, features, palette, markdown extensions and original hooks
