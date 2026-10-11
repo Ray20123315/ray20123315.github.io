@@ -3,13 +3,16 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 concurrency:
   group: python-pages
   cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -17,34 +20,61 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout Python site files
+      - name: Checkout source and original theme
         uses: actions/checkout@v4
         with:
           sparse-checkout: |
-            index.html
-            lesson.html
-            python.css
-            python.js
-            md/python
-            md/images
-            images
-            .nojekyll
+            .github
+            docs/md/python
+            docs/logo/logo.png
+            theme
+            mkdocs.python.yml
+            requirements.txt
           sparse-checkout-cone-mode: false
           fetch-depth: 1
-      - name: Prepare Python-only public directory
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install MkDocs Material
         run: |
-          mkdir -p _public/md
-          cp index.html lesson.html python.css python.js _public/
-          cp -r md/python _public/md/python
-          if [ -d md/images ]; then cp -r md/images _public/md/images; fi
-          if [ -d images ]; then cp -r images _public/images; fi
-          touch _public/.nojekyll
+          python -m pip install --upgrade pip
+          python -m pip install 'mkdocs<2' 'mkdocs-material==9.7.1'
+      - name: Stage Python-only documentation
+        run: |
+          mkdir -p _python_docs/md/python _python_docs/assets _python_docs/logo
+          find docs/md/python -maxdepth 1 -type f \( -name '*.md' -o -name '*.html' \) -exec cp -t _python_docs/md/python/ {} +
+          cp docs/md/python/首頁.md _python_docs/index.md
+          cp docs/logo/logo.png _python_docs/logo/logo.png
+          cp -a theme/assets/. _python_docs/assets/
+          test "$(find _python_docs/md/python -type f -name '*.md' | wc -l)" -eq 20
+          test "$(find _python_docs/md/python -type f -name '*.html' | wc -l)" -eq 32
+      - name: Build original Material template
+        run: python -m mkdocs build --config-file mkdocs.python.yml
+      - name: Verify published pages
+        run: |
+          test -f _python_public/index.html
+          test -f _python_public/md/python/首頁.html
+          test -f _python_public/md/python/輸出與資料存取.html
+          test -f _python_public/md/python/f580_骰子.html
+          test -f _python_public/assets/pymdownx-extras/自定義.css
+          test -f _python_public/search/search_index.json
+          test ! -e _python_public/blog
+          test ! -e _python_public/md/人工智慧
+          test ! -e _python_public/md/演算法筆記
+          python - <<'PY'
+          from pathlib import Path
+          html = Path("_python_public/index.html").read_text(encoding="utf-8")
+          assert "md-header" in html, "MkDocs Material template not rendered"
+          assert "Python" in html
+          assert "peicd100.github.io/md/python" not in html, "An old-domain link remains on the homepage"
+          PY
       - name: Configure Pages
         uses: actions/configure-pages@v5
-      - name: Upload Pages artifact
+      - name: Upload Python-only site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: _public
+          path: _python_public
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

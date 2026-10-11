@@ -1,0 +1,131 @@
+# Python-only deployment, based on the repository's original MkDocs Material theme.
+# All non-Python source files remain untouched and are excluded from the published artifact.
+site_name: Python 筆記
+site_url: https://ray20123315.github.io/
+site_description: Python 語法、資料結構與 APCS 練習筆記
+use_directory_urls: false
+docs_dir: _python_docs
+site_dir: _python_public
+
+theme:
+  name: material
+  custom_dir: theme
+  language: zh
+  logo: logo/logo.png
+  favicon: logo/logo.png
+  font: false
+  palette:
+    scheme: slate
+    primary: cyan
+    accent: cyan
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.top
+    - navigation.footer
+    - content.tabs.link
+    - content.code.copy
+    - content.code.annotations
+    - search.share
+
+plugins:
+  - search:
+      separator: '[\\s\\u200b\\-]'
+
+extra_css:
+  - assets/pymdownx-extras/extra-8611f6c398.css
+  - assets/pymdownx-extras/自定義.css
+
+extra_javascript:
+  - assets/pymdownx-extras/conditional-loader.js
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - tables
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tilde
+  - pymdownx.caret
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - 首頁: index.md
+  - Python 筆記:
+      - 原始首頁: "md/python/首頁.md"
+      - "Python 基礎":
+          - "輸出與資料存取": "md/python/輸出與資料存取.md"
+          - "整數的算術運算": "md/python/整數的算術運算.md"
+          - "常用的輸入方式": "md/python/常用的輸入方式.md"
+          - "邏輯運算": "md/python/邏輯運算.md"
+      - "流程控制":
+          - "控制程式流程—分支選擇指令": "md/python/控制程式流程—分支選擇指令.md"
+          - "控制程式流程—for 迴圈": "md/python/控制程式流程—for 迴圈.md"
+          - "控制程式流程—while 迴圈": "md/python/控制程式流程—while 迴圈.md"
+          - "控制程式流程—自訂函數": "md/python/控制程式流程—自訂函數.md"
+      - "資料結構與操作":
+          - "再探 List(串列)與字串操作": "md/python/再探 List(串列)與字串操作.md"
+          - "切片和 range 的記法": "md/python/切片和_range_的記法.md"
+          - "list of list 實作二維陣列": "md/python/list of list 實作二維陣列.md"
+          - "排序與搜尋": "md/python/排序與搜尋.md"
+          - "set": "md/python/set.md"
+          - "dict(map)": "md/python/dict(map).md"
+          - "物件的參照": "md/python/物件的參照.md"
+      - "競賽技巧與補充":
+          - "競程常用的「高速輸入 、集中輸出」": "md/python/競程常用的「高速輸入 、集中輸出」.md"
+          - "競賽偷懶輸入法": "md/python/競賽偷懶輸入法.md"
+          - "一些講義中沒講的東西": "md/python/一些講義中沒講的東西.md"
+          - "Else變數": "md/python/Else變數.md"
+  - 題目練習:
+      - "程式識讀與模擬考":
+          - "APCS 中級模擬考": "md/python/APCS_中級模擬考.html"
+          - "APCS 技巧總複習": "md/python/APCS_技巧總複習.html"
+          - "APCS 模擬考 01": "md/python/APCS_模擬考_01.html"
+          - "APCS 模擬考 02": "md/python/APCS_模擬考_02.html"
+          - "APCS 識讀模擬考": "md/python/APCS_識讀模擬考.html"
+          - "Python APCS 官方識讀例題轉 HTML": "md/python/Python_APCS_官方識讀例題轉_HTML.html"
+          - "Python APCS 程式識讀 30題模擬考": "md/python/Python_APCS_程式識讀_30題模擬考.html"
+          - "Python APCS 自編識讀例題轉 HTML": "md/python/Python_APCS_自編識讀例題轉_HTML.html"
+          - "二維陣列旋轉與翻轉 4題題單": "md/python/二維陣列旋轉與翻轉_4題題單.html"
+      - "實作題":
+          - "b965 矩陣轉換": "md/python/b965_矩陣轉換.html"
+          - "c291 小群體": "md/python/c291_小群體.html"
+          - "c295 最大和": "md/python/c295_最大和.html"
+          - "e287 機器人的路徑": "md/python/e287_機器人的路徑.html"
+          - "f313 人口遷移": "md/python/f313_人口遷移.html"
+          - "f580 骰子": "md/python/f580_骰子.html"
+          - "f606 流量": "md/python/f606_流量.html"
+          - "g276 魔王迷宮": "md/python/g276_魔王迷宮.html"
+          - "h027 矩陣總和": "md/python/h027_矩陣總和.html"
+          - "h082 贏家預測": "md/python/h082_贏家預測.html"
+          - "i400 字串解碼": "md/python/i400_字串解碼.html"
+          - "j123 運貨站": "md/python/j123_運貨站.html"
+          - "j606 造字程式": "md/python/j606_造字程式.html"
+          - "k732 特殊位置": "md/python/k732_特殊位置.html"
+          - "m371 卡牌遊戲": "md/python/m371_卡牌遊戲.html"
+          - "m932 蜜蜂觀察": "md/python/m932_蜜蜂觀察.html"
+          - "o077 電子畫布": "md/python/o077_電子畫布.html"
+          - "o712 蒐集寶石": "md/python/o712_蒐集寶石.html"
+          - "q182 字串操作": "md/python/q182_字串操作.html"
+          - "q837 轉盤得分": "md/python/q837_轉盤得分.html"
+          - "r488 彗星撞擊": "md/python/r488_彗星撞擊.html"
+          - "r489 航空拍照圖": "md/python/r489_航空拍照圖.html"
+          - "r490 商品包裝地": "md/python/r490_商品包裝地.html"
