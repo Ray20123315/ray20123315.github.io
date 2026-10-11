@@ -1,11 +1,11 @@
 (() => {
   const root=document.documentElement;
   const toggle=document.querySelector('#theme-toggle');
-  let stored='dark';
-  try{stored=localStorage.getItem('python-theme')||'dark'}catch(_){}
+  let stored='light';
+  try{stored=localStorage.getItem('python-theme')||'light'}catch(_){}
   function apply(mode){
     root.dataset.theme=mode==='light'?'light':'dark';
-    if(toggle){toggle.textContent=root.dataset.theme==='light'?'切換深色':'切換淺色';toggle.setAttribute('aria-label',toggle.textContent)}
+    if(toggle){toggle.textContent=root.dataset.theme==='light'?'深色模式':'淺色模式';toggle.setAttribute('aria-label',toggle.textContent)}
     try{localStorage.setItem('python-theme',root.dataset.theme)}catch(_){}
   }
   apply(stored);
@@ -13,22 +13,19 @@
   const search=document.querySelector('#search');
   const cards=[...document.querySelectorAll('[data-note]')];
   const sections=[...document.querySelectorAll('.section')];
+  const collections=[...document.querySelectorAll('.collection')];
   if(search){
     const status=document.querySelector('#search-status');
     const filter=()=>{
       const q=search.value.trim().toLowerCase();let count=0;
       for(const card of cards){const visible=card.textContent.toLowerCase().includes(q);card.hidden=!visible;if(visible)count++}
       for(const section of sections)section.hidden=!section.querySelector('[data-note]:not([hidden])');
+      for(const collection of collections)collection.hidden=!collection.querySelector('.section:not([hidden])');
       status.textContent=q?'找到 '+count+' / '+cards.length+' 篇筆記與練習':'共 '+cards.length+' 篇 Python 筆記與練習';
     };
     search.addEventListener('input',filter);
     search.addEventListener('keydown',e=>{if(e.key==='Escape'){search.value='';filter();search.blur()}});
     filter();
-  }
-  if('IntersectionObserver' in window&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    root.classList.add('js');
-    const ob=new IntersectionObserver((entries,observer)=>{for(const e of entries){if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}},{threshold:.08});
-    document.querySelectorAll('.reveal').forEach(el=>ob.observe(el));
   }
   if(document.querySelector('#markdown-content'))loadNote();
   async function loadNote(){
