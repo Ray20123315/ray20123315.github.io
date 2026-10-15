@@ -45,6 +45,7 @@ nav:
           - "一些講義中沒講的東西": "md/python/一些講義中沒講的東西.md"
           - "Else變數": "md/python/Else變數.md"
   - 題目練習:
+      - "資訊月 Python：模擬考 1、2、3 與正式測驗": "md/python/資訊月_Python_四回練習.html"
       - "程式識讀與模擬考":
           - "APCS 中級模擬考": "md/python/APCS_中級模擬考.html"
           - "APCS 技巧總複習": "md/python/APCS_技巧總複習.html"

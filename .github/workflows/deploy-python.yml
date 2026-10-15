@@ -55,7 +55,7 @@ jobs:
           cp docs/logo/logo.png _python_docs/logo/logo.png
           cp -a theme/assets/. _python_docs/assets/
           test "$(find _python_docs/md/python -type f -name '*.md' | wc -l)" -eq 20
-          test "$(find _python_docs/md/python -type f -name '*.html' | wc -l)" -eq 32
+          test "$(find _python_docs/md/python -type f -name '*.html' | wc -l)" -eq 33
 
       - name: Build using inherited forked template
         run: python -m mkdocs build --config-file mkdocs.python.yml
