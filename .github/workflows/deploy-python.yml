@@ -54,13 +54,14 @@ jobs:
         run: |
           mkdir -p _python_docs/md/python _python_docs/md/cpp _python_docs/assets _python_docs/logo
           find docs/md/python -maxdepth 1 -type f \( -name '*.md' -o -name '*.html' \) -exec cp -t _python_docs/md/python/ {} +
-          find docs/md/cpp -maxdepth 1 -type f -name '*.md' -exec cp -t _python_docs/md/cpp/ {} +
+          find docs/md/cpp -maxdepth 1 -type f \( -name '*.md' -o -name '*.html' \) -exec cp -t _python_docs/md/cpp/ {} +
           cp docs/portal.md _python_docs/index.md
           cp docs/logo/logo.png _python_docs/logo/logo.png
           cp -a theme/assets/. _python_docs/assets/
           cp -a docs/md/cpp/assets/. _python_docs/assets/
           test "$(find _python_docs/md/python -type f -name '*.md' | wc -l)" -eq 20
-          test "$(find _python_docs/md/cpp -type f -name '*.md' | wc -l)" -eq 26
+          test "$(find _python_docs/md/cpp -type f -name '*.md' | wc -l)" -eq 24
+          test "$(find _python_docs/md/cpp -type f -name '*.html' | wc -l)" -eq 2
           test "$(find _python_docs/md/python -type f -name '*.html' | wc -l)" -eq 33
 
       - name: Build using inherited forked template
@@ -96,6 +97,7 @@ jobs:
         run: |
           node --check docs/md/cpp/assets/cpp-practice.js
           node --check docs/md/cpp/assets/cpp-mock-exam.js
+          node --check docs/md/cpp/assets/cpp-standalone.js
           python tools/verify_cpp_progression.py
           python - <<'PY'
           from pathlib import Path
@@ -104,12 +106,18 @@ jobs:
               matches=list(pages.glob(f'{i:02d}-*.html'))
               assert len(matches)==1,(i,matches)
               assert 'data-cpp-practice=' in matches[0].read_text(encoding='utf-8'),matches[0]
-          for name, marker in [
-              ('24-漸進式練習.html', 'data-cpp-overview'),
-              ('25-模擬考中心.html', 'data-cpp-mock-exam'),
+          for name, mode in [
+              ('24-漸進式練習.html', 'practice'),
+              ('25-模擬考中心.html', 'exam'),
           ]:
-              assert marker in (pages / name).read_text(encoding='utf-8'),name
-          for name in ('cpp-practice.js','cpp-practice.css','cpp-practice-data.json','cpp-mock-exam.js','cpp-mock-exam.css'):
+              html=(pages / name).read_text(encoding='utf-8')
+              assert html.lstrip().lower().startswith('<!doctype html>'),name
+              assert f'data-app="{mode}"' in html,name
+              assert 'class="topbar"' in html and 'id="panel"' in html,name
+              assert '../../assets/cpp-standalone.js' in html,name
+              assert '../../assets/cpp-standalone.css' in html,name
+              assert 'md-header' not in html,name
+          for name in ('cpp-practice.js','cpp-practice.css','cpp-practice-data.json','cpp-mock-exam.js','cpp-mock-exam.css','cpp-standalone.js','cpp-standalone.css'):
               assert Path('_python_public/assets',name).is_file(),name
           home=Path('_python_public/md/cpp/00-學習地圖.html').read_text(encoding='utf-8')
           assert 'data-cpp-overview' in home
