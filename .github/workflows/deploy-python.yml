@@ -98,6 +98,8 @@ jobs:
           node --check docs/md/cpp/assets/cpp-practice.js
           node --check docs/md/cpp/assets/cpp-mock-exam.js
           node --check docs/md/cpp/assets/cpp-standalone.js
+          node --check docs/md/cpp/assets/cpp-tutor.js
+          python tools/verify_cpp_tutors.py
           python tools/verify_cpp_progression.py
           python - <<'PY'
           from pathlib import Path
@@ -116,8 +118,11 @@ jobs:
               assert 'class="topbar"' in html and 'id="panel"' in html,name
               assert '../../assets/cpp-standalone.js' in html,name
               assert '../../assets/cpp-standalone.css' in html,name
+              if mode == 'practice':
+                  assert '../../assets/cpp-tutor.js' in html,name
+                  assert '../../assets/cpp-tutor.css' in html,name
               assert 'md-header' not in html,name
-          for name in ('cpp-practice.js','cpp-practice.css','cpp-practice-data.json','cpp-mock-exam.js','cpp-mock-exam.css','cpp-standalone.js','cpp-standalone.css'):
+          for name in ('cpp-practice.js','cpp-practice.css','cpp-practice-data.json','cpp-mock-exam.js','cpp-mock-exam.css','cpp-standalone.js','cpp-standalone.css','cpp-tutor.js','cpp-tutor.css','cpp-tutor-data.json'):
               assert Path('_python_public/assets',name).is_file(),name
           home=Path('_python_public/md/cpp/00-學習地圖.html').read_text(encoding='utf-8')
           assert 'data-cpp-overview' in home
