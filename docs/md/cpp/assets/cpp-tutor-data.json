@@ -1,0 +1,909 @@
+{
+  "schema": 1,
+  "description": "從完全零基礎開始的 C++21 堂互動引導課，先理解→逐行拆解→手動追蹤→簡單觀念檢查→原有四關練習；範例為 C++17。",
+  "lessons": {
+    "10": {
+      "name": "10｜二維陣列",
+      "goal": "看懂第幾列、第幾欄；像看座位表一樣。",
+      "analogy": "二維陣列就像 2 列 2 欄的座位表，要拿一個位置必須說列號和欄號。",
+      "terms": [
+        [
+          "vector<vector<int>>",
+          "vector 裡面裝另一排 vector，形成表格。"
+        ],
+        [
+          "a[0][0]",
+          "第 0 列第 0 欄，也就是左上角。"
+        ],
+        [
+          "a[1][0]",
+          "第 1 列第 0 欄，也就是第二列第一個。"
+        ],
+        [
+          "{ {1,2}, {3,4} }",
+          "兩列數字，每列有兩欄。"
+        ]
+      ],
+      "code": "#include <iostream>\n#include <vector>\n\nint main() {\n    std::vector<std::vector<int>> a = {\n        {1, 2},\n        {3, 4}\n    };\n    std::cout << a[1][0] << \"\\n\";\n    return 0;\n}",
+      "input": "",
+      "output": "3",
+      "trace": [
+        "表格第一列是 1、2。",
+        "第二列是 3、4。",
+        "a[1][0] 取第二列第一欄，所以是 3。"
+      ],
+      "check": {
+        "question": "a[0][1] 是多少？",
+        "options": [
+          "1",
+          "2",
+          "3"
+        ],
+        "correct": 1,
+        "explain": "先找第 0 列（1、2），再找第 1 欄，就是 2。"
+      },
+      "pitfall": "常見錯誤：把列和欄互換；以為第一列的索引是 1。",
+      "tiny": "試著找 a[1][1]，不要先執行程式。"
+    },
+    "11": {
+      "name": "11｜時間複雜度",
+      "goal": "開始學會估計程式會做多少工作，不再只問能不能算對。",
+      "analogy": "同樣是數 100 顆糖，有人一顆一顆數，有人把每顆都和所有糖比一次，工作量差很多。",
+      "terms": [
+        [
+          "O(n)",
+          "工作量大致跟輸入數量 n 成正比。"
+        ],
+        [
+          "O(n²)",
+          "n 個東西每個又檢查 n 次，工作量近似平方。"
+        ],
+        [
+          "for",
+          "每做一輪就是一次重複工作。"
+        ],
+        [
+          "上限 n",
+          "n 變兩倍時，O(n) 大約變兩倍。"
+        ]
+      ],
+      "code": "#include <iostream>\n\nint main() {\n    int n;\n    std::cin >> n;\n    for (int i = 0; i < n; ++i) {\n        std::cout << \"*\\n\";\n    }\n    return 0;\n}",
+      "input": "3",
+      "output": "*\n*\n*",
+      "trace": [
+        "n=3，迴圈從 i=0 開始。",
+        "i=0、1、2 共做 3 次。",
+        "每次印一顆星，所以共有三行星號。"
+      ],
+      "check": {
+        "question": "一個迴圈做 n 次工作，通常是？",
+        "options": [
+          "O(1)",
+          "O(n)",
+          "O(n²)"
+        ],
+        "correct": 1,
+        "explain": "做幾次跟 n 成正比，就稱為 O(n)。"
+      },
+      "pitfall": "常見錯誤：只看程式行數，不看巢狀迴圈跑了多少次。",
+      "tiny": "想一想 n=10 時會印多少顆星；這題不用先寫程式。"
+    },
+    "12": {
+      "name": "12｜排序",
+      "goal": "知道排序就是把一排資料排成從小到大或從大到小。",
+      "analogy": "把高矮不同的同學排隊，排序就是依照身高重新站好。",
+      "terms": [
+        [
+          "#include <algorithm>",
+          "排序工具 sort 放在這個標頭。"
+        ],
+        [
+          "sort(a.begin(), a.end())",
+          "把 a 從第一格到結尾，預設排成小到大。"
+        ],
+        [
+          "begin() / end()",
+          "表示這段資料的起點與終點邊界。"
+        ],
+        [
+          "for (int x : a)",
+          "一個一個拿出 vector 中的數字。"
+        ]
+      ],
+      "code": "#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n    std::vector<int> a = {3, 1, 2};\n    std::sort(a.begin(), a.end());\n    for (int x : a) std::cout << x << \" \";\n    std::cout << \"\\n\";\n    return 0;\n}",
+      "input": "",
+      "output": "1 2 3",
+      "trace": [
+        "原本 a=[3,1,2]，順序是亂的。",
+        "sort 把三個數改成 [1,2,3]。",
+        "for 從左到右印出 1 2 3。"
+      ],
+      "check": {
+        "question": "排序 [4,1,4] 後得到？",
+        "options": [
+          "1,4,4",
+          "4,4,1",
+          "1,4"
+        ],
+        "correct": 0,
+        "explain": "排序只會改順序，不會把重複的 4 刪掉。"
+      },
+      "pitfall": "常見錯誤：以為 sort 會刪除重複元素；忘記 include <algorithm>。",
+      "tiny": "把 a 的 3 改成 9，自己排排看。"
+    },
+    "13": {
+      "name": "13｜二分搜尋",
+      "goal": "會利用「已排序」的特性，每次排除約一半資料。",
+      "analogy": "猜數字時，若知道答案比 50 大，就不用再猜 1～50；二分搜尋也是這個想法。",
+      "terms": [
+        [
+          "資料已排序",
+          "沒有排序就不能隨便丟掉一半。"
+        ],
+        [
+          "mid = (left+right)/2",
+          "檢查目前範圍中間的位置。"
+        ],
+        [
+          "a[mid] < k",
+          "中間太小，就從右半邊找。"
+        ],
+        [
+          "left = mid + 1",
+          "跳過確定不可能的左側。"
+        ]
+      ],
+      "code": "#include <iostream>\n#include <vector>\n\nint main() {\n    std::vector<int> a={1,3,5,7,9};\n    int k; std::cin >> k;\n    int left=0, right=5;\n    while(left<right) {\n        int mid=(left+right)/2;\n        if(a[mid]<k) left=mid+1;\n        else right=mid;\n    }\n    std::cout << (left<5?left:-1) << \"\\n\";\n    return 0;\n}",
+      "input": "6",
+      "output": "3",
+      "trace": [
+        "要找第一個不小於 6 的位置。",
+        "檢查中間的數，太小就往右縮小範圍。",
+        "最後找到索引 3 的數值 7，因此輸出 3。"
+      ],
+      "check": {
+        "question": "要使用這種二分搜尋，資料必須怎樣？",
+        "options": [
+          "先排序",
+          "全部不同",
+          "只能正整數"
+        ],
+        "correct": 0,
+        "explain": "如果沒有順序，就不知道可以排除哪一半。"
+      },
+      "pitfall": "常見錯誤：對未排序的資料二分；左右邊界不收斂造成死迴圈。",
+      "tiny": "已排序 [2,4,6,8]，第一個 >=5 的索引是多少？"
+    },
+    "14": {
+      "name": "14｜前綴和",
+      "goal": "把累加的結果先記下來，之後很快就能回答很多區間總和。",
+      "analogy": "你每天存零用錢，先記好『到今天為止存了多少』，下次就不用每天重算。",
+      "terms": [
+        [
+          "prefix[0]=0",
+          "前 0 項的總和是 0。"
+        ],
+        [
+          "prefix[i+1]",
+          "代表前 i+1 個數字的總和。"
+        ],
+        [
+          "prefix[r+1]-prefix[l]",
+          "計算索引 l 到 r（含 r）的區間總和。"
+        ],
+        [
+          "long long",
+          "很多數累加時，要留意 int 可能裝不下。"
+        ]
+      ],
+      "code": "#include <iostream>\n\nint main() {\n    int a[4]={2,3,5,7};\n    int prefix[5]={0};\n    for(int i=0;i<4;++i) {\n        prefix[i+1]=prefix[i]+a[i];\n    }\n    std::cout << prefix[4]-prefix[1] << \"\\n\";\n    return 0;\n}",
+      "input": "",
+      "output": "15",
+      "trace": [
+        "prefix 依序是 [0,2,5,10,17]。",
+        "prefix[4]=17 是全部四個數的總和。",
+        "扣掉 prefix[1]=2，得到 3+5+7=15。"
+      ],
+      "check": {
+        "question": "陣列 [2,3,5] 的 prefix[2] 是？",
+        "options": [
+          "2",
+          "5",
+          "10"
+        ],
+        "correct": 1,
+        "explain": "前兩項相加 2+3=5。"
+      },
+      "pitfall": "常見錯誤：區間右界忘記 +1；把 [l,r] 當成不含 r。",
+      "tiny": "請先手算 [2,3,5,7] 的 prefix[3]。"
+    },
+    "15": {
+      "name": "15｜遞迴",
+      "goal": "知道函式可以呼叫自己，但一定要有停下來的條件。",
+      "analogy": "像拆俄羅斯娃娃：每次拆成更小的問題，拆到最小那一層就停止。",
+      "terms": [
+        [
+          "int sum(int n)",
+          "建立計算 1 到 n 的加總函式。"
+        ],
+        [
+          "if(n==0) return 0",
+          "遞迴出口：問題小到 0 時不再往下。"
+        ],
+        [
+          "sum(n-1)",
+          "向自己詢問更小的問題。"
+        ],
+        [
+          "return n+sum(n-1)",
+          "把目前 n 加上小問題的答案。"
+        ]
+      ],
+      "code": "#include <iostream>\n\nint sum(int n) {\n    if (n==0) return 0;\n    return n + sum(n-1);\n}\nint main() {\n    std::cout << sum(3) << \"\\n\";\n    return 0;\n}",
+      "input": "",
+      "output": "6",
+      "trace": [
+        "sum(3) 需要先知道 sum(2)。",
+        "sum(2) 又需要 sum(1)；sum(0)=0 停下來。",
+        "往回算：sum(1)=1、sum(2)=3、sum(3)=6。"
+      ],
+      "check": {
+        "question": "如果沒有 if(n==0) 的出口，可能發生什麼？",
+        "options": [
+          "停不下來",
+          "答案自動歸零",
+          "編譯器幫你補上出口"
+        ],
+        "correct": 0,
+        "explain": "遞迴一定要逐步靠近可停止的基本情況。"
+      },
+      "pitfall": "常見錯誤：忘記停止條件、每次遞迴沒有縮小問題、遞迴太深。",
+      "tiny": "請手算 sum(2) 會回傳幾。"
+    },
+    "16": {
+      "name": "16｜常用容器",
+      "goal": "先學一個好記的容器：stack，最後放進去的先拿出來。",
+      "analogy": "stack 就像疊盤子，最上面的盤子是最後放上去、第一個拿起來的。",
+      "terms": [
+        [
+          "stack<int> s",
+          "建立只能看頂端的整數堆疊。"
+        ],
+        [
+          "s.push(3)",
+          "把 3 放到堆疊頂部。"
+        ],
+        [
+          "s.top()",
+          "看目前頂端是什麼，不移除。"
+        ],
+        [
+          "s.pop()",
+          "把頂端取走；不是回傳頂端值。"
+        ]
+      ],
+      "code": "#include <iostream>\n#include <stack>\n\nint main() {\n    std::stack<int> s;\n    s.push(3);\n    s.push(8);\n    std::cout << s.top() << \"\\n\";\n    return 0;\n}",
+      "input": "",
+      "output": "8",
+      "trace": [
+        "stack 原本是空的，先 push 3。",
+        "再 push 8，8 疊在 3 上面。",
+        "top() 查看最上面的 8，所以印出 8。"
+      ],
+      "check": {
+        "question": "先 push 3 再 push 8，top() 是？",
+        "options": [
+          "3",
+          "8",
+          "11"
+        ],
+        "correct": 1,
+        "explain": "stack 後進先出，最新放入的 8 在頂端。"
+      },
+      "pitfall": "常見錯誤：對空 stack 呼叫 top；以為 pop() 會回傳取出的數字。",
+      "tiny": "若先 pop() 一次，再 top()，會看到多少？"
+    },
+    "17": {
+      "name": "17｜DFS 與 BFS",
+      "goal": "先學 BFS：從起點一步一步向外擴展，求無權圖最少邊數。",
+      "analogy": "想像水波紋，從投入石頭的位置一圈一圈擴大：第一圈距離 1，第二圈距離 2。",
+      "terms": [
+        [
+          "graph",
+          "用鄰接串列表示每個點可以走到哪些點。"
+        ],
+        [
+          "queue<int> q",
+          "排隊等著處理的點，先進先出。"
+        ],
+        [
+          "dist[v]=-1",
+          "還沒有走到這個點。"
+        ],
+        [
+          "dist[v]=dist[u]+1",
+          "從 u 再走一步到 v，距離加 1。"
+        ]
+      ],
+      "code": "#include <iostream>\n#include <vector>\n#include <queue>\n\nint main() {\n    std::vector<std::vector<int>> g={{1},{0,2},{1}};\n    std::vector<int> dist(3,-1);\n    std::queue<int> q;\n    dist[0]=0; q.push(0);\n    while(!q.empty()) {\n        int u=q.front();q.pop();\n        for(int v:g[u]) if(dist[v]==-1) {\n            dist[v]=dist[u]+1;\n            q.push(v);\n        }\n    }\n    std::cout << dist[2] << \"\\n\";\n    return 0;\n}",
+      "input": "",
+      "output": "2",
+      "trace": [
+        "從點 0 出發，dist[0]=0。",
+        "先找到點 1，距離設為 1。",
+        "從點 1 再找到點 2，距離設為 2。"
+      ],
+      "check": {
+        "question": "在 0—1—2 這條無權路徑上，0 到 2 最少幾步？",
+        "options": [
+          "1",
+          "2",
+          "3"
+        ],
+        "correct": 1,
+        "explain": "0→1 走一步，1→2 再一步，共兩步。"
+      },
+      "pitfall": "常見錯誤：重複進 queue 沒標記拜訪；把 DFS 當成一定能求無權最短路。",
+      "tiny": "畫一條 0—1—2—3 的線，猜 0 到 3 要幾步。"
+    },
+    "18": {
+      "name": "18｜貪心",
+      "goal": "學會一個具備理由的貪心策略：選最早結束的活動，留下最多空間。",
+      "analogy": "排活動時，如果先選很晚結束的活動，就可能擋住許多短活動。",
+      "terms": [
+        [
+          "活動 [start,end)",
+          "從 start 開始到 end 結束，允許 end 時刻接下一個。"
+        ],
+        [
+          "sort",
+          "按結束時間排序，先考慮最早結束。"
+        ],
+        [
+          "start>=lastEnd",
+          "不和上一個選到的活動重疊。"
+        ],
+        [
+          "++count",
+          "成功選到一個活動，總數加一。"
+        ]
+      ],
+      "code": "#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <utility>\n\nint main() {\n    std::vector<std::pair<int,int>> a={{3,1},{4,3},{6,4}};\n    std::sort(a.begin(),a.end());\n    int last=0,count=0;\n    for(auto [end,start]:a) {\n        if(start>=last) {++count;last=end;}\n    }\n    std::cout << count << \"\\n\";\n    return 0;\n}",
+      "input": "",
+      "output": "3",
+      "trace": [
+        "活動 1：1～3，最早結束，先選。",
+        "活動 2：3～4，剛好接上，可以選。",
+        "活動 3：4～6，也能接上，總共 3 個。"
+      ],
+      "check": {
+        "question": "安排最多不重疊活動，通常先考慮？",
+        "options": [
+          "最早結束",
+          "持續最久",
+          "開始最晚"
+        ],
+        "correct": 0,
+        "explain": "最早結束能保留較多時間給後面的活動。"
+      },
+      "pitfall": "常見錯誤：只憑直覺使用貪心，不證明策略是否安全；處理負開始時間時 last=0 不適用。",
+      "tiny": "畫三個不重疊的時段，說明為什麼可以依序選取。"
+    },
+    "19": {
+      "name": "19｜動態規劃",
+      "goal": "把重複的小問題答案記住，從小問題一路算到大問題。",
+      "analogy": "像爬樓梯：到第 4 階，最後一步不是從第 3 階走 1 階，就是從第 2 階走 2 階。",
+      "terms": [
+        [
+          "dp[i]",
+          "走到第 i 階的方法數。"
+        ],
+        [
+          "dp[0]=1",
+          "什麼都不走也算一種方法。"
+        ],
+        [
+          "dp[1]=1",
+          "走到第 1 階只能走一步。"
+        ],
+        [
+          "dp[i-1]+dp[i-2]",
+          "最後一步走 1 階或 2 階，兩種情況相加。"
+        ]
+      ],
+      "code": "#include <iostream>\n#include <vector>\n\nint main() {\n    int n;std::cin>>n;\n    std::vector<long long> dp(n+1,0);\n    dp[0]=1;\n    if(n>=1) dp[1]=1;\n    for(int i=2;i<=n;++i) dp[i]=dp[i-1]+dp[i-2];\n    std::cout << dp[n] << \"\\n\";\n    return 0;\n}",
+      "input": "4",
+      "output": "5",
+      "trace": [
+        "dp[0]=1、dp[1]=1。",
+        "dp[2]=2、dp[3]=3。",
+        "dp[4]=dp[3]+dp[2]=3+2=5。"
+      ],
+      "check": {
+        "question": "一次走 1 或 2 階，走到第 3 階有幾種？",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "correct": 1,
+        "explain": "1+1+1、1+2、2+1，共三種。"
+      },
+      "pitfall": "常見錯誤：沒有先設定基本情況；把 dp[0] 忘記設為 1；索引超界。",
+      "tiny": "請在紙上列出走到第 2 階的所有方法。"
+    },
+    "20": {
+      "name": "20｜Dijkstra 最短路徑",
+      "goal": "學會當道路有不同成本時，找出從起點到終點的最便宜走法。",
+      "analogy": "搭車時最短距離不等於經過最少站。Dijkstra 是先處理目前已知花費最小的位置。",
+      "terms": [
+        [
+          "非負邊權",
+          "這個版本的 Dijkstra 要求所有路徑成本不能是負數。"
+        ],
+        [
+          "dist[u]",
+          "目前已知到達 u 的最小成本。"
+        ],
+        [
+          "priority_queue",
+          "永遠先拿出候選成本最小的點。"
+        ],
+        [
+          "如果 nd < dist[v]",
+          "找到更便宜走法時更新距離。"
+        ]
+      ],
+      "code": "#include <iostream>\n#include <vector>\n#include <queue>\n#include <functional>\n#include <utility>\n\nint main() {\n    using P=std::pair<long long,int>;\n    std::vector<std::vector<std::pair<int,int>>> g(3);\n    g[0]={{1,2},{2,10}};\n    g[1]={{2,3}};\n    std::vector<long long> dist(3,1000000000000LL);\n    std::priority_queue<P,std::vector<P>,std::greater<P>> q;\n    dist[0]=0;q.push({0,0});\n    while(!q.empty()) {\n        auto [d,u]=q.top();q.pop();\n        if(d!=dist[u])continue;\n        for(auto [v,w]:g[u]) if(d+w<dist[v]) {\n            dist[v]=d+w;q.push({dist[v],v});\n        }\n    }\n    std::cout << dist[2] << \"\\n\";\n    return 0;\n}",
+      "input": "",
+      "output": "5",
+      "trace": [
+        "從 0 到 2 直接走要付 10。",
+        "但先從 0 到 1 只付 2。",
+        "再從 1 到 2 付 3；總成本 5，比 10 小。"
+      ],
+      "check": {
+        "question": "0→2 要 10，0→1→2 要 2+3，最小成本？",
+        "options": [
+          "10",
+          "5",
+          "3"
+        ],
+        "correct": 1,
+        "explain": "2+3=5，較低的成本才是最短路。"
+      },
+      "pitfall": "常見錯誤：把 BFS 用在不同權重的圖；忘記忽略過期的優先佇列距離；讓邊權出現負數。",
+      "tiny": "先畫 0、1、2 三個點，標出 10、2、3 的邊權，再手算答案。"
+    },
+    "21": {
+      "name": "21｜競賽解題流程",
+      "goal": "練習讀懂題意、拆小步驟、找邊界、驗證，不要急著寫程式。",
+      "analogy": "就像做數學應用題：先讀出問題要什麼，再列出已知條件，最後算答案。",
+      "terms": [
+        [
+          "讀題",
+          "先辨認輸入內容、限制與輸出格式。"
+        ],
+        [
+          "先想算法",
+          "決定要逐筆檢查、排序，或使用其他策略。"
+        ],
+        [
+          "用最小測資驗證",
+          "試 0、1、負數與最大限制的情況。"
+        ],
+        [
+          "不輸出提示",
+          "競賽評測通常只接受規定格式的答案。"
+        ]
+      ],
+      "code": "#include <iostream>\n\nint main() {\n    int n;std::cin>>n;\n    int positive=0;\n    for(int i=0;i<n;++i) {\n        int x;std::cin>>x;\n        if(x>0) ++positive;\n    }\n    std::cout << positive << \"\\n\";\n    return 0;\n}",
+      "input": "5\n-1 0 3 4 -2",
+      "output": "2",
+      "trace": [
+        "n=5，接下來讀五個整數。",
+        "-1 和 0 不算正數；3 和 4 算；-2 不算。",
+        "positive 最後等於 2，輸出 2。"
+      ],
+      "check": {
+        "question": "題目要求『正數個數』，0 要不要算？",
+        "options": [
+          "算",
+          "不算",
+          "只算第一個零"
+        ],
+        "correct": 1,
+        "explain": "正數是大於 0；等於 0 不是正數。"
+      },
+      "pitfall": "常見錯誤：把 >0 寫成 >=0；忘記讀題限制；提交前沒有自己測試。",
+      "tiny": "手算 [0,0,-3,2] 的正數個數，並說明為什麼。"
+    },
+    "01": {
+      "name": "01｜第一支程式",
+      "goal": "今天只要看懂「程式從哪裡開始」與「怎麼印出一句話」就過關，不需要背一大串語法。",
+      "analogy": "把電腦想成一個很聽話的機器人：你必須按順序告訴它要做什麼。std::cout 就是叫它把話說出來。",
+      "terms": [
+        [
+          "#include <iostream>",
+          "先把負責輸出的工具箱拿進來。"
+        ],
+        [
+          "int main()",
+          "電腦從這裡開始執行；目前只要認得它。"
+        ],
+        [
+          "std::cout",
+          "把右邊的文字印到畫面。"
+        ],
+        [
+          "; 與 \\n",
+          "分號表示這行指令結束；\\n 讓輸出換到下一行。"
+        ]
+      ],
+      "code": "#include <iostream>\n\nint main() {\n    std::cout << \"Hi!\\n\";\n    return 0;\n}",
+      "input": "",
+      "output": "Hi!",
+      "trace": [
+        "電腦進入 main() 的大括號。",
+        "遇到 std::cout，就把雙引號內的 Hi! 印出來。",
+        "\\n 換行；return 0; 表示正常結束。"
+      ],
+      "check": {
+        "question": "這段程式會印出什麼？",
+        "options": [
+          "Hi!",
+          "int main()",
+          "0"
+        ],
+        "correct": 0,
+        "explain": "雙引號裡的 Hi! 才會被 cout 印出來；return 0 不會出現在畫面。"
+      },
+      "pitfall": "常見錯誤：把 cout 寫成 count、忘記結尾分號、雙引號用成中文全形引號。",
+      "tiny": "把 \"Hi!\" 改成 \"Hello!\"；只改這個地方，再預測畫面文字。"
+    },
+    "02": {
+      "name": "02｜變數與型別",
+      "goal": "會用 int 幫一個整數取名字，並知道 = 是「放進去」不是數學等號。",
+      "analogy": "變數像貼了標籤的盒子：盒子叫 apples，裡面先放 3。想換成 5 就重新放進去。",
+      "terms": [
+        [
+          "int",
+          "宣告一個用來放整數的盒子。"
+        ],
+        [
+          "apples",
+          "變數名稱，可以自己命名，不可有空白。"
+        ],
+        [
+          "= 3",
+          "把數值 3 放進盒子。"
+        ],
+        [
+          "apples += 2",
+          "原本 3 再加 2，盒子裡變成 5。"
+        ]
+      ],
+      "code": "#include <iostream>\n\nint main() {\n    int apples = 3;\n    apples += 2;\n    std::cout << apples << \"\\n\";\n    return 0;\n}",
+      "input": "",
+      "output": "5",
+      "trace": [
+        "第 1 步：apples 盒子先裝著 3。",
+        "第 2 步：apples += 2，把 3 改成 5。",
+        "第 3 步：cout 印出盒子現在的數值 5。"
+      ],
+      "check": {
+        "question": "執行 apples += 2 後，apples 裡面是多少？",
+        "options": [
+          "2",
+          "3",
+          "5"
+        ],
+        "correct": 2,
+        "explain": "3 再加 2，所以盒子中的值變成 5。"
+      },
+      "pitfall": "常見錯誤：以為 = 是數學的相等；在宣告前使用變數；以為 `apples += 2` 會創造第二個盒子。",
+      "tiny": "把 apples 的起始數改成 10，猜輸出會是幾。"
+    },
+    "03": {
+      "name": "03｜輸入輸出與運算",
+      "goal": "學會從鍵盤拿兩個數，再把它們的和印出來。",
+      "analogy": "cin 像是收作業的窗口，cout 像是把計算結果寫在黑板上。題目通常把數字交給 cin。",
+      "terms": [
+        [
+          "std::cin >> a",
+          "讀進來一個數字，放進 a。"
+        ],
+        [
+          "std::cin >> b",
+          "繼續讀一個數字，放進 b。"
+        ],
+        [
+          "+",
+          "將兩個數相加。"
+        ],
+        [
+          "std::cout << a+b",
+          "把計算結果輸出給讀題系統，不用印「請輸入」。"
+        ]
+      ],
+      "code": "#include <iostream>\n\nint main() {\n    int a, b;\n    std::cin >> a >> b;\n    std::cout << a + b << \"\\n\";\n    return 0;\n}",
+      "input": "2 4",
+      "output": "6",
+      "trace": [
+        "輸入的第一個數字 2 被放進 a。",
+        "第二個數字 4 被放進 b。",
+        "a+b 算出 6，cout 印出 6。"
+      ],
+      "check": {
+        "question": "輸入「2 4」，a + b 是多少？",
+        "options": [
+          "24",
+          "6",
+          "2"
+        ],
+        "correct": 1,
+        "explain": "加號做整數加法，不會把數字黏成字串。"
+      },
+      "pitfall": "常見錯誤：cin 和 cout 寫反；`>>` 與 `<<` 用錯；題目只要答案卻額外印中文提示。",
+      "tiny": "試著預測輸入 10 7 時的輸出，不必修改整支程式。"
+    },
+    "04": {
+      "name": "04｜條件判斷",
+      "goal": "看懂 if 如何讓電腦二選一。",
+      "analogy": "if 就像過馬路的紅綠燈：『如果燈是綠的，就往前走；否則停下來』。",
+      "terms": [
+        [
+          "if (score >= 60)",
+          "如果分數大於或等於 60。"
+        ],
+        [
+          "else",
+          "如果剛剛的條件不成立，就執行這一邊。"
+        ],
+        [
+          ">=",
+          "大於或等於，60 也算通過。"
+        ],
+        [
+          "大括號 { }",
+          "把同一個條件下要執行的指令放在一起。"
+        ]
+      ],
+      "code": "#include <iostream>\n\nint main() {\n    int score;\n    std::cin >> score;\n    if (score >= 60) {\n        std::cout << \"Pass\\n\";\n    } else {\n        std::cout << \"Retry\\n\";\n    }\n    return 0;\n}",
+      "input": "60",
+      "output": "Pass",
+      "trace": [
+        "讀到 score=60。",
+        "檢查 60 >= 60，結果是『真』。",
+        "只執行 if 這邊，輸出 Pass；else 不會跑。"
+      ],
+      "check": {
+        "question": "如果輸入 59，會輸出哪個？",
+        "options": [
+          "Pass",
+          "Retry",
+          "59"
+        ],
+        "correct": 1,
+        "explain": "59 不滿 60，所以條件是假的，改走 else。"
+      },
+      "pitfall": "常見錯誤：把 >= 寫成 >，錯過等於 60 的邊界；把比較 == 寫成賦值 =。",
+      "tiny": "把門檻 60 改成 80：輸入 75 會印哪一邊？"
+    },
+    "05": {
+      "name": "05｜迴圈",
+      "goal": "看懂 for 就是把同一件事重複做很多次。",
+      "analogy": "有 4 顆糖要逐顆數，與其寫 4 次『加一』，不如說『從 1 數到 4，每次都加進總和』。",
+      "terms": [
+        [
+          "int sum = 0",
+          "先準備一個總和盒子，開始是零。"
+        ],
+        [
+          "int i = 1",
+          "計數器 i 從 1 開始。"
+        ],
+        [
+          "i <= n",
+          "只要 i 還沒超過 n，就繼續。"
+        ],
+        [
+          "++i / sum += i",
+          "每輪 i 加一；sum 則加上這一輪的 i。"
+        ]
+      ],
+      "code": "#include <iostream>\n\nint main() {\n    int n;\n    std::cin >> n;\n    int sum = 0;\n    for (int i = 1; i <= n; ++i) {\n        sum += i;\n    }\n    std::cout << sum << \"\\n\";\n    return 0;\n}",
+      "input": "4",
+      "output": "10",
+      "trace": [
+        "i=1：sum 從 0 變 1。",
+        "i=2：sum 變 3；i=3：sum 變 6。",
+        "i=4：sum 變 10；i=5 不符合 <=4，結束並印 10。"
+      ],
+      "check": {
+        "question": "n=3 時，迴圈跑完的 sum 是？",
+        "options": [
+          "3",
+          "6",
+          "9"
+        ],
+        "correct": 1,
+        "explain": "每次把 i 加進 sum：1+2+3=6。"
+      },
+      "pitfall": "常見錯誤：忘記 ++i，可能一直跑不完；把 i<n 寫成 i<=n 的相反，少算最後一次。",
+      "tiny": "只手算 n=2 時 i 與 sum 如何變化；熟了再自己修改數值。"
+    },
+    "06": {
+      "name": "06｜除錯與測資",
+      "goal": "學會用小數字一步一步找出程式錯在哪，而不是只看最後答案。",
+      "analogy": "除錯就像驗算數學題：先試最小的例子，再試邊界和一般例子。",
+      "terms": [
+        [
+          "n",
+          "需要檢查的數字範圍上限。"
+        ],
+        [
+          "i % 2",
+          "除以 2 的餘數，奇數會餘 1。"
+        ],
+        [
+          "if (i % 2 == 1)",
+          "只有 i 是奇數才會加一。"
+        ],
+        [
+          "++count",
+          "成功找到一個奇數，計數器加一。"
+        ]
+      ],
+      "code": "#include <iostream>\n\nint main() {\n    int n;\n    std::cin >> n;\n    int count = 0;\n    for (int i = 1; i <= n; ++i) {\n        if (i % 2 == 1) ++count;\n    }\n    std::cout << count << \"\\n\";\n    return 0;\n}",
+      "input": "5",
+      "output": "3",
+      "trace": [
+        "檢查 i=1，是奇數，count=1。",
+        "i=2 不加；i=3 加一，count=2。",
+        "i=4 不加；i=5 加一，count=3。"
+      ],
+      "check": {
+        "question": "要測試程式是否正確，以下哪個做法最好？",
+        "options": [
+          "只測 n=5",
+          "試 n=1、n=2、n=5 等不同情境",
+          "不測試直接交卷"
+        ],
+        "correct": 1,
+        "explain": "小數字和邊界值通常最容易找出少一、多一的錯誤。"
+      },
+      "pitfall": "常見錯誤：寫成 i<n，最後的 n 可能漏掉；count 沒初始化就加一。",
+      "tiny": "改用 n=2 手算答案，看自己的程式是否真的輸出 1。"
+    },
+    "07": {
+      "name": "07｜vector 陣列",
+      "goal": "知道 vector 就是一排可以用索引拿東西的盒子。",
+      "analogy": "把數字排成置物櫃，每格有號碼，但 C++ 的第一格編號從 0 開始。",
+      "terms": [
+        [
+          "std::vector<int> a",
+          "建立一排放整數的格子；需要 <vector>。"
+        ],
+        [
+          "a.push_back(x)",
+          "把 x 加到最後一格。"
+        ],
+        [
+          "a[0]",
+          "取第一格；注意從 0 開始。"
+        ],
+        [
+          "a.size()",
+          "現在有幾格。"
+        ]
+      ],
+      "code": "#include <iostream>\n#include <vector>\n\nint main() {\n    std::vector<int> a;\n    a.push_back(10);\n    a.push_back(20);\n    a.push_back(30);\n    std::cout << a[1] << \"\\n\";\n    return 0;\n}",
+      "input": "",
+      "output": "20",
+      "trace": [
+        "加 10，現在 a=[10]。",
+        "加 20、30，現在 a=[10,20,30]。",
+        "a[1] 是編號 1 的格子，也就是第二個數 20。"
+      ],
+      "check": {
+        "question": "陣列 a=[10,20,30]，a[0] 是？",
+        "options": [
+          "10",
+          "20",
+          "30"
+        ],
+        "correct": 0,
+        "explain": "編號從 0 開始，所以 a[0] 是第一個。"
+      },
+      "pitfall": "常見錯誤：誤把 a[1] 當第一格；對空 vector 直接存取 a[0]。",
+      "tiny": "如果把 a[1] 改成 a[2]，畫面應該顯示什麼？"
+    },
+    "08": {
+      "name": "08｜字串 string",
+      "goal": "學會把一個單字拆成一個個字母來看。",
+      "analogy": "字串就是一串小卡片，卡片上分別寫 c、a、t，編號從 0 開始。",
+      "terms": [
+        [
+          "std::string s",
+          "用 string 放字母組成的文字。"
+        ],
+        [
+          "std::cin >> s",
+          "讀一個不含空格的單字。"
+        ],
+        [
+          "s[0]",
+          "取第一個字元。"
+        ],
+        [
+          "s.size()",
+          "計算字串長度；不是最後一個索引。"
+        ]
+      ],
+      "code": "#include <iostream>\n#include <string>\n\nint main() {\n    std::string s;\n    std::cin >> s;\n    std::cout << s[0] << \"\\n\";\n    std::cout << s.size() << \"\\n\";\n    return 0;\n}",
+      "input": "cat",
+      "output": "c\n3",
+      "trace": [
+        "輸入 cat 存成 s。",
+        "s[0] 是第一個字母 c。",
+        "共有 3 個字元，所以 size() 是 3。"
+      ],
+      "check": {
+        "question": "字串 abc 的 s[1] 是？",
+        "options": [
+          "a",
+          "b",
+          "c"
+        ],
+        "correct": 1,
+        "explain": "索引 0=a、1=b、2=c。"
+      },
+      "pitfall": "常見錯誤：把 s.size() 當最後一個索引；存取不存在的 s[3]。",
+      "tiny": "把輸入改成 dog，試著預測印出的兩行。"
+    },
+    "09": {
+      "name": "09｜函式",
+      "goal": "學會寫一個有名字的小工具，再重複叫它做事。",
+      "analogy": "函式就像微波爐按鈕：把數字交進去，它按照規則算完再把結果交回來。",
+      "terms": [
+        [
+          "int twice(int x)",
+          "建立叫 twice 的函式，接收整數 x，回傳整數。"
+        ],
+        [
+          "return x * 2",
+          "把計算結果交回呼叫者。"
+        ],
+        [
+          "twice(n)",
+          "把 n 丟給函式運算。"
+        ],
+        [
+          "main()",
+          "主程式可以呼叫你自己定義的函式。"
+        ]
+      ],
+      "code": "#include <iostream>\n\nint twice(int x) {\n    return x * 2;\n}\nint main() {\n    int n;\n    std::cin >> n;\n    std::cout << twice(n) << \"\\n\";\n    return 0;\n}",
+      "input": "5",
+      "output": "10",
+      "trace": [
+        "n 讀到 5。",
+        "呼叫 twice(5)，函式算 5×2。",
+        "函式 return 10，主程式再印出 10。"
+      ],
+      "check": {
+        "question": "twice(3) 的回傳值為？",
+        "options": [
+          "3",
+          "6",
+          "9"
+        ],
+        "correct": 1,
+        "explain": "x=3，函式的規則是乘 2，所以回傳 6。"
+      },
+      "pitfall": "常見錯誤：忘記 return；把函式的參數 x 和 main 的變數弄混。",
+      "tiny": "想像再寫一個 triple，把 x 乘 3；triple(4) 會回傳多少？"
+    }
+  }
+}
