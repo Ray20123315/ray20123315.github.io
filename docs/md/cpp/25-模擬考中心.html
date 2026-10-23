@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-Hant-TW" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="全螢幕 C++17 自編競賽模擬考 · 90 分鐘計時">
+<title>C++ 模擬考｜90 分鐘獨立考試平台</title>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.21/codemirror.min.css">
+<link rel="stylesheet" href="../../assets/cpp-standalone.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.21/codemirror.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.21/mode/clike/clike.min.js" defer></script>
+<script src="../../assets/cpp-standalone.js" defer></script>
+</head>
+<body data-app="exam">
+<header class="topbar">
+ <div class="top-inner">
+  <div class="brand"><strong>C++17 學科競賽學習平台</strong><small>全螢幕 C++17 自編競賽模擬考 · 90 分鐘計時</small></div>
+  <nav class="navbar" aria-label="網站導覽">
+   <a class="navlink" href="../../index.html">首頁</a>
+   <a class="navlink" href="00-學習地圖.html">C++ 教學</a>
+   <a class="navlink" href="24-漸進式練習.html">漸進式練習</a>
+   <a class="navlink active" aria-current="page" href="25-模擬考中心.html">模擬考</a>
+   <a class="navlink" href="../python/首頁.html">Python</a>
+   <button class="control" type="button" id="theme-toggle">☀ 淺色</button>
+  </nav>
+ </div>
+</header>
+<main class="page">
+ <div class="hero">
+  <div>
+   <div class="kicker">STANDALONE C++ MOCK EXAM</div>
+   <h1>獨立 C++ 模擬考平台</h1>
+   <p>三題自由切換、程式草稿自動保存、時間到自動交卷。與 Python 模擬考一樣採用獨立作答頁面。</p>
+  </div>
+  <div class="stats" aria-label="目前進度">
+   <div class="stat"><strong id="stat-count">90:00</strong><span id="stat-caption">考試時間</span></div>
+   <div class="stat"><strong>3</strong><span>考試題目</span></div>
+  </div>
+ </div>
+ <div class="layout">
+  <aside class="sidebar" aria-label="模擬考題目列表">
+   <div class="sidebar-title">本回題目｜自由切換</div>
+   <div id="unit-list" aria-live="polite"><p class="muted">正在載入題目列表……</p></div>
+   <hr>
+   <p class="bottom-note">原有 Python 練習和 C++ 教學都保留。本頁為獨立 HTML，不是 MkDocs 文章。</p>
+   <a class="navlink" href="24-漸進式練習.html">切換到漸進式練習 →</a>
+  </aside>
+  <section id="panel" class="panel" aria-label="模擬考主要介面">
+   <div class="exam-intro"><h2>正在載入 模擬考……</h2><p>請確認瀏覽器已啟用 JavaScript。</p></div>
+  </section>
+ </div>
+ <p class="bottom-note">本平台不在網頁執行 C++，不會虛構 AC 或分數。實作題請在本機以 C++17 編譯，進度僅保存在目前瀏覽器。正式賽事規則以當屆公告為準。</p>
+</main>
+</body>
+</html>
