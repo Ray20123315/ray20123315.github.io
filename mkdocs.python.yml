@@ -9,6 +9,15 @@ site_dir: _python_public
 use_directory_urls: false
 not_in_nav: ''
 
+# Keep upstream theme assets alongside independent C++ practice scripts.
+extra_css:
+  - assets/pymdownx-extras/extra-8611f6c398.css
+  - assets/pymdownx-extras/自定義.css?v=20260614-2
+  - assets/cpp-practice.css
+extra_javascript:
+  - assets/pymdownx-extras/conditional-loader.js?v=20261007-1
+  - assets/cpp-practice.js
+
 # Restrict publication-specific plugins to Python content.
 # Theme, custom_dir, features, palette, markdown extensions and original hooks
 # are inherited from mkdocs.yml (which inherits docs/.mkdocs/site.yml).

@@ -57,6 +57,7 @@ jobs:
           cp docs/portal.md _python_docs/index.md
           cp docs/logo/logo.png _python_docs/logo/logo.png
           cp -a theme/assets/. _python_docs/assets/
+          cp -a docs/md/cpp/assets/. _python_docs/assets/
           test "$(find _python_docs/md/python -type f -name '*.md' | wc -l)" -eq 20
           test "$(find _python_docs/md/cpp -type f -name '*.md' | wc -l)" -eq 24
           test "$(find _python_docs/md/python -type f -name '*.html' | wc -l)" -eq 33
@@ -86,6 +87,23 @@ jobs:
           assets = Path('_python_public/assets/pymdownx-extras')
           assert any(f.suffix == '.css' for f in assets.iterdir()), 'Original CSS missing'
           assert (assets / 'material-extra-theme-2ek1P7jT.js').is_file(), 'Original theme script missing'
+          PY
+
+      - name: Validate all progressive lessons and original C++ examples
+        run: |
+          node --check docs/md/cpp/assets/cpp-practice.js
+          python tools/verify_cpp_progression.py
+          python - <<'PY'
+          from pathlib import Path
+          pages=Path('_python_public/md/cpp')
+          for i in range(1,24):
+              matches=list(pages.glob(f'{i:02d}-*.html'))
+              assert len(matches)==1,(i,matches)
+              assert 'data-cpp-practice=' in matches[0].read_text(encoding='utf-8'),matches[0]
+          for name in ('cpp-practice.js','cpp-practice.css','cpp-practice-data.json'):
+              assert Path('_python_public/assets',name).is_file(),name
+          home=Path('_python_public/md/cpp/00-學習地圖.html').read_text(encoding='utf-8')
+          assert 'data-cpp-overview' in home
           PY
 
       - name: Configure Pages
