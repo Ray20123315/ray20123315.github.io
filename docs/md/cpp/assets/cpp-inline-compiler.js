@@ -33,9 +33,15 @@
     const slot = node("div", "ic-slot");
     let frame = null, loaded = false, lastEdit = 0, lastSync = 0;
     let timer = null, backdrop = null, savedOverflow = null;
+    let returnParent=null, returnNext=null;
     function collapse() {
       if(!card.classList.contains("ic-expanded")) return;
       card.classList.remove("ic-expanded");
+      if(returnParent?.isConnected){
+        if(returnNext?.parentNode===returnParent)returnParent.insertBefore(card,returnNext);
+        else returnParent.append(card);
+      }
+      returnParent=null;returnNext=null;
       backdrop?.remove();
       backdrop=null;
       document.body.style.overflow=savedOverflow ?? "";
@@ -55,9 +61,12 @@
         return;
       }
       savedOverflow=document.body.style.overflow;
+      returnParent=card.parentNode;
+      returnNext=card.nextSibling;
       backdrop=node("div","ic-backdrop");
       backdrop.addEventListener("click",collapse);
       document.body.append(backdrop);
+      document.body.append(card);
       card.classList.add("ic-expanded");
       document.body.style.overflow="hidden";
       expand.textContent="⤡ 返回頁內模式";
@@ -139,7 +148,7 @@
     window.addEventListener("message", onMessage);
     // A detached panel cannot continue receiving user code from its old iframe.
     const observer = new MutationObserver(() => {
-      if (!card.isConnected) {
+      if (!card.isConnected || (returnParent && !returnParent.isConnected)) {
         if(card.classList.contains("ic-expanded"))collapse();
         window.removeEventListener("message", onMessage);
         observer.disconnect();
@@ -147,7 +156,10 @@
       }
     });
     observer.observe(document.body, {childList:true,subtree:true});
-    return {open: start};
+    return {open: start, openExpanded: () => {
+      start();
+      if(!card.classList.contains("ic-expanded")) expandToggle();
+    }};
   }
   window.CppInlineCompiler = {mount};
 })();

@@ -40,3 +40,50 @@
 .tl-actions>a.tl-btn{display:inline-block;text-decoration:none;text-align:center;line-height:1.45}.tl-highlight .tl-actions{margin:13px 0 0}.tl-highlight p{margin-top:8px}.tl-highlight .tl-actions .tl-btn{max-width:100%}
 
 .beginner-banner{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap;border:1px solid var(--border);background:var(--accentSoft);border-radius:12px;padding:12px 17px;margin-bottom:14px}.beginner-banner strong{font-size:.86rem;color:var(--accentText)}.beginner-banner span{flex:1;min-width:220px;color:var(--text);font-size:.77rem;line-height:1.6}
+
+
+/* 16:9 teaching desk — permanent code on the left, lesson/trace/quiz on the right. */
+.tl-workbench{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:14px;align-items:start;margin-top:10px;min-width:0}
+.tl-code-pane,.tl-explain-pane{min-width:0}
+.tl-pane-caption{font-size:.72rem;letter-spacing:.05em;font-weight:800;color:var(--accentText);margin-bottom:7px}
+.tl-code-pane .tl-source{margin:0;max-width:none;max-height:52dvh;overflow:auto;font-size:.84rem;line-height:1.6}
+.tl-explain-pane{max-height:52dvh;overflow-y:auto;overscroll-behavior:contain;padding-right:5px}
+.tl-explain-pane .tl-terms{display:grid;grid-template-columns:minmax(0,1fr);gap:6px;margin:0}
+.tl-explain-pane .tl-term{padding:9px 12px}
+.tl-explain-pane .tl-term p{margin:4px 0 0;line-height:1.55}
+.tl-explain-pane .tl-trace{min-width:0}
+.tl-explain-pane .tl-sample{margin:5px 0 9px}
+.tl-explain-pane .tl-choices{width:100%}
+.tl-explain-pane .tl-option{padding:10px}
+.tl-code-actions{margin:9px 0 0;gap:7px}
+.tl-code-actions .tl-btn{padding:8px 10px}
+.tl-inline-runner{min-width:0}
+/* The compiler is activated directly into a full-screen 16:9 layer. */
+.tl-inline-runner .inline-compiler:not(.ic-expanded){display:none}
+.tl-inline-runner .inline-compiler.ic-expanded{display:flex}
+.tl-workbench + .tl-footer{margin-top:12px}
+@media(min-width:1100px) and (min-height:620px){
+  html[data-layout="wide"] .tutor-shell .tl-head{
+    display:grid;grid-template-columns:minmax(0,1fr) auto;
+    align-items:center;column-gap:15px;row-gap:2px;
+    padding:8px 14px
+  }
+  html[data-layout="wide"] .tutor-shell .tl-head>.kicker{display:none}
+  html[data-layout="wide"] .tutor-shell .tl-head>h3{grid-column:1;margin:0;font-size:.98rem}
+  html[data-layout="wide"] .tutor-shell .tl-head>p{grid-column:1;font-size:.72rem;line-height:1.3;margin:0}
+  html[data-layout="wide"] .tutor-shell .tl-steps{grid-column:2;grid-row:1 / 3;margin:0;flex-wrap:nowrap}
+  html[data-layout="wide"] .tutor-shell .tl-step{font-size:.7rem;padding:5px 7px}
+  html[data-layout="wide"] .tutor-shell .tl-body{padding:10px 14px 14px;min-height:0}
+  html[data-layout="wide"] .tutor-shell .tl-body>h4{font-size:.98rem;margin:2px 0 7px}
+  html[data-layout="wide"] .tutor-shell .tl-workbench{margin-top:4px;gap:12px}
+  html[data-layout="wide"] .tutor-shell .tl-code-pane .tl-source{max-height:38dvh;padding:12px;line-height:1.5}
+  html[data-layout="wide"] .tutor-shell .tl-explain-pane{max-height:38dvh}
+  html[data-layout="wide"] .tutor-shell .tl-footer{margin-top:8px;padding-top:8px}
+  html[data-layout="wide"] .tutor-shell .tl-note{margin:6px 0;font-size:.75rem!important}
+}
+@media(max-width:950px){
+  .tl-workbench{grid-template-columns:minmax(0,1fr)}
+  .tl-code-pane .tl-source{max-height:none}
+  .tl-explain-pane{max-height:none;overflow:visible}
+  .tl-inline-runner .inline-compiler:not(.ic-expanded){display:none}
+}
