@@ -1,9 +1,9 @@
 # Reuse the forked repository's original PEICD100 MkDocs theme and extensions.
 # Only navigation, publishing scope and site identity differ from the upstream fork.
 INHERIT: mkdocs.yml
-site_name: Python 筆記
+site_name: Python × C++ 學習中心
 site_url: https://ray20123315.github.io/
-site_description: Python 語法、資料結構與 APCS 練習筆記
+site_description: Python 筆記及 C++ 零基礎資訊學科能力競賽教學
 docs_dir: _python_docs
 site_dir: _python_public
 use_directory_urls: false
@@ -19,64 +19,95 @@ plugins:
 
 nav:
   - 首頁: index.md
-  - Python 筆記:
-      - 原始首頁: "md/python/首頁.md"
-      - "Python 基礎":
-          - "輸出與資料存取": "md/python/輸出與資料存取.md"
-          - "整數的算術運算": "md/python/整數的算術運算.md"
-          - "常用的輸入方式": "md/python/常用的輸入方式.md"
-          - "邏輯運算": "md/python/邏輯運算.md"
-      - "流程控制":
-          - "控制程式流程—分支選擇指令": "md/python/控制程式流程—分支選擇指令.md"
-          - "控制程式流程—for 迴圈": "md/python/控制程式流程—for 迴圈.md"
-          - "控制程式流程—while 迴圈": "md/python/控制程式流程—while 迴圈.md"
-          - "控制程式流程—自訂函數": "md/python/控制程式流程—自訂函數.md"
-      - "資料結構與操作":
-          - "再探 List(串列)與字串操作": "md/python/再探 List(串列)與字串操作.md"
-          - "切片和 range 的記法": "md/python/切片和_range_的記法.md"
-          - "list of list 實作二維陣列": "md/python/list of list 實作二維陣列.md"
-          - "排序與搜尋": "md/python/排序與搜尋.md"
-          - "set": "md/python/set.md"
-          - "dict(map)": "md/python/dict(map).md"
-          - "物件的參照": "md/python/物件的參照.md"
-      - "競賽技巧與補充":
-          - "競程常用的「高速輸入 、集中輸出」": "md/python/競程常用的「高速輸入 、集中輸出」.md"
-          - "競賽偷懶輸入法": "md/python/競賽偷懶輸入法.md"
-          - "一些講義中沒講的東西": "md/python/一些講義中沒講的東西.md"
-          - "Else變數": "md/python/Else變數.md"
-  - 題目練習:
-      - "資訊月 Python：模擬考 1、2、3 與正式測驗": "md/python/資訊月_Python_四回練習.html"
-      - "程式識讀與模擬考":
-          - "APCS 中級模擬考": "md/python/APCS_中級模擬考.html"
-          - "APCS 技巧總複習": "md/python/APCS_技巧總複習.html"
-          - "APCS 模擬考 01": "md/python/APCS_模擬考_01.html"
-          - "APCS 模擬考 02": "md/python/APCS_模擬考_02.html"
-          - "APCS 識讀模擬考": "md/python/APCS_識讀模擬考.html"
-          - "Python APCS 官方識讀例題轉 HTML": "md/python/Python_APCS_官方識讀例題轉_HTML.html"
-          - "Python APCS 程式識讀 30題模擬考": "md/python/Python_APCS_程式識讀_30題模擬考.html"
-          - "Python APCS 自編識讀例題轉 HTML": "md/python/Python_APCS_自編識讀例題轉_HTML.html"
-          - "二維陣列旋轉與翻轉 4題題單": "md/python/二維陣列旋轉與翻轉_4題題單.html"
-      - "實作題":
-          - "b965 矩陣轉換": "md/python/b965_矩陣轉換.html"
-          - "c291 小群體": "md/python/c291_小群體.html"
-          - "c295 最大和": "md/python/c295_最大和.html"
-          - "e287 機器人的路徑": "md/python/e287_機器人的路徑.html"
-          - "f313 人口遷移": "md/python/f313_人口遷移.html"
-          - "f580 骰子": "md/python/f580_骰子.html"
-          - "f606 流量": "md/python/f606_流量.html"
-          - "g276 魔王迷宮": "md/python/g276_魔王迷宮.html"
-          - "h027 矩陣總和": "md/python/h027_矩陣總和.html"
-          - "h082 贏家預測": "md/python/h082_贏家預測.html"
-          - "i400 字串解碼": "md/python/i400_字串解碼.html"
-          - "j123 運貨站": "md/python/j123_運貨站.html"
-          - "j606 造字程式": "md/python/j606_造字程式.html"
-          - "k732 特殊位置": "md/python/k732_特殊位置.html"
-          - "m371 卡牌遊戲": "md/python/m371_卡牌遊戲.html"
-          - "m932 蜜蜂觀察": "md/python/m932_蜜蜂觀察.html"
-          - "o077 電子畫布": "md/python/o077_電子畫布.html"
-          - "o712 蒐集寶石": "md/python/o712_蒐集寶石.html"
-          - "q182 字串操作": "md/python/q182_字串操作.html"
-          - "q837 轉盤得分": "md/python/q837_轉盤得分.html"
-          - "r488 彗星撞擊": "md/python/r488_彗星撞擊.html"
-          - "r489 航空拍照圖": "md/python/r489_航空拍照圖.html"
-          - "r490 商品包裝地": "md/python/r490_商品包裝地.html"
+  - Python:
+      - Python 筆記:
+          - 原始首頁: "md/python/首頁.md"
+          - "Python 基礎":
+              - "輸出與資料存取": "md/python/輸出與資料存取.md"
+              - "整數的算術運算": "md/python/整數的算術運算.md"
+              - "常用的輸入方式": "md/python/常用的輸入方式.md"
+              - "邏輯運算": "md/python/邏輯運算.md"
+          - "流程控制":
+              - "控制程式流程—分支選擇指令": "md/python/控制程式流程—分支選擇指令.md"
+              - "控制程式流程—for 迴圈": "md/python/控制程式流程—for 迴圈.md"
+              - "控制程式流程—while 迴圈": "md/python/控制程式流程—while 迴圈.md"
+              - "控制程式流程—自訂函數": "md/python/控制程式流程—自訂函數.md"
+          - "資料結構與操作":
+              - "再探 List(串列)與字串操作": "md/python/再探 List(串列)與字串操作.md"
+              - "切片和 range 的記法": "md/python/切片和_range_的記法.md"
+              - "list of list 實作二維陣列": "md/python/list of list 實作二維陣列.md"
+              - "排序與搜尋": "md/python/排序與搜尋.md"
+              - "set": "md/python/set.md"
+              - "dict(map)": "md/python/dict(map).md"
+              - "物件的參照": "md/python/物件的參照.md"
+          - "競賽技巧與補充":
+              - "競程常用的「高速輸入 、集中輸出」": "md/python/競程常用的「高速輸入 、集中輸出」.md"
+              - "競賽偷懶輸入法": "md/python/競賽偷懶輸入法.md"
+              - "一些講義中沒講的東西": "md/python/一些講義中沒講的東西.md"
+              - "Else變數": "md/python/Else變數.md"
+      - 題目練習:
+          - "資訊月 Python：模擬考 1、2、3 與正式測驗": "md/python/資訊月_Python_四回練習.html"
+          - "程式識讀與模擬考":
+              - "APCS 中級模擬考": "md/python/APCS_中級模擬考.html"
+              - "APCS 技巧總複習": "md/python/APCS_技巧總複習.html"
+              - "APCS 模擬考 01": "md/python/APCS_模擬考_01.html"
+              - "APCS 模擬考 02": "md/python/APCS_模擬考_02.html"
+              - "APCS 識讀模擬考": "md/python/APCS_識讀模擬考.html"
+              - "Python APCS 官方識讀例題轉 HTML": "md/python/Python_APCS_官方識讀例題轉_HTML.html"
+              - "Python APCS 程式識讀 30題模擬考": "md/python/Python_APCS_程式識讀_30題模擬考.html"
+              - "Python APCS 自編識讀例題轉 HTML": "md/python/Python_APCS_自編識讀例題轉_HTML.html"
+              - "二維陣列旋轉與翻轉 4題題單": "md/python/二維陣列旋轉與翻轉_4題題單.html"
+          - "實作題":
+              - "b965 矩陣轉換": "md/python/b965_矩陣轉換.html"
+              - "c291 小群體": "md/python/c291_小群體.html"
+              - "c295 最大和": "md/python/c295_最大和.html"
+              - "e287 機器人的路徑": "md/python/e287_機器人的路徑.html"
+              - "f313 人口遷移": "md/python/f313_人口遷移.html"
+              - "f580 骰子": "md/python/f580_骰子.html"
+              - "f606 流量": "md/python/f606_流量.html"
+              - "g276 魔王迷宮": "md/python/g276_魔王迷宮.html"
+              - "h027 矩陣總和": "md/python/h027_矩陣總和.html"
+              - "h082 贏家預測": "md/python/h082_贏家預測.html"
+              - "i400 字串解碼": "md/python/i400_字串解碼.html"
+              - "j123 運貨站": "md/python/j123_運貨站.html"
+              - "j606 造字程式": "md/python/j606_造字程式.html"
+              - "k732 特殊位置": "md/python/k732_特殊位置.html"
+              - "m371 卡牌遊戲": "md/python/m371_卡牌遊戲.html"
+              - "m932 蜜蜂觀察": "md/python/m932_蜜蜂觀察.html"
+              - "o077 電子畫布": "md/python/o077_電子畫布.html"
+              - "o712 蒐集寶石": "md/python/o712_蒐集寶石.html"
+              - "q182 字串操作": "md/python/q182_字串操作.html"
+              - "q837 轉盤得分": "md/python/q837_轉盤得分.html"
+              - "r488 彗星撞擊": "md/python/r488_彗星撞擊.html"
+              - "r489 航空拍照圖": "md/python/r489_航空拍照圖.html"
+              - "r490 商品包裝地": "md/python/r490_商品包裝地.html"
+  - C++:
+      - 學習地圖: md/cpp/00-學習地圖.md
+      - "A｜零基礎語法":
+          - "第一支程式": "md/cpp/01-第一支程式.md"
+          - "變數與型別": "md/cpp/02-變數與型別.md"
+          - "輸入輸出與運算": "md/cpp/03-輸入輸出與運算.md"
+          - "條件判斷": "md/cpp/04-條件判斷.md"
+          - "迴圈": "md/cpp/05-迴圈.md"
+          - "除錯與測資": "md/cpp/06-除錯與測資.md"
+      - "B｜資料處理":
+          - "vector陣列": "md/cpp/07-vector陣列.md"
+          - "字串": "md/cpp/08-字串.md"
+          - "函式": "md/cpp/09-函式.md"
+          - "二維陣列": "md/cpp/10-二維陣列.md"
+      - "C｜效率與搜尋":
+          - "時間複雜度": "md/cpp/11-時間複雜度.md"
+          - "排序": "md/cpp/12-排序.md"
+          - "二分搜尋": "md/cpp/13-二分搜尋.md"
+          - "前綴和": "md/cpp/14-前綴和.md"
+      - "D｜核心演算法":
+          - "遞迴": "md/cpp/15-遞迴.md"
+          - "常用容器": "md/cpp/16-常用容器.md"
+          - "DFS與BFS": "md/cpp/17-DFS與BFS.md"
+          - "貪心": "md/cpp/18-貪心.md"
+          - "動態規劃": "md/cpp/19-動態規劃.md"
+          - "最短路徑": "md/cpp/20-最短路徑.md"
+      - "E｜競賽訓練":
+          - "競賽解題流程": "md/cpp/21-競賽解題流程.md"
+      - 分級實作題庫: md/cpp/22-分級題庫.md
+      - 模擬測驗: md/cpp/23-模擬測驗.md

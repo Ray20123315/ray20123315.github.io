@@ -1,4 +1,4 @@
-name: Deploy Python Notes
+name: Deploy Python and C++ Learning
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: python-pages
+  group: learning-pages
   cancel-in-progress: true
 
 jobs:
@@ -27,6 +27,8 @@ jobs:
           sparse-checkout: |
             docs/.mkdocs/site.yml
             docs/md/python
+            docs/md/cpp
+            docs/portal.md
             docs/logo/logo.png
             mkdocs.yml
             mkdocs.python.yml
@@ -49,23 +51,28 @@ jobs:
 
       - name: Stage Python-only pages
         run: |
-          mkdir -p _python_docs/md/python _python_docs/assets _python_docs/logo
+          mkdir -p _python_docs/md/python _python_docs/md/cpp _python_docs/assets _python_docs/logo
           find docs/md/python -maxdepth 1 -type f \( -name '*.md' -o -name '*.html' \) -exec cp -t _python_docs/md/python/ {} +
-          cp docs/md/python/首頁.md _python_docs/index.md
+          find docs/md/cpp -maxdepth 1 -type f -name '*.md' -exec cp -t _python_docs/md/cpp/ {} +
+          cp docs/portal.md _python_docs/index.md
           cp docs/logo/logo.png _python_docs/logo/logo.png
           cp -a theme/assets/. _python_docs/assets/
           test "$(find _python_docs/md/python -type f -name '*.md' | wc -l)" -eq 20
+          test "$(find _python_docs/md/cpp -type f -name '*.md' | wc -l)" -eq 24
           test "$(find _python_docs/md/python -type f -name '*.html' | wc -l)" -eq 33
 
       - name: Build using inherited forked template
         run: python -m mkdocs build --config-file mkdocs.python.yml
 
-      - name: Verify Python pages and fork styling
+      - name: Verify Python/C++ pages and fork styling
         run: |
           test -f _python_public/index.html
           test -f _python_public/md/python/首頁.html
           test -f _python_public/md/python/輸出與資料存取.html
           test -f _python_public/md/python/f580_骰子.html
+          test -f _python_public/md/cpp/00-學習地圖.html
+          test -f _python_public/md/cpp/01-第一支程式.html
+          test -f _python_public/md/cpp/23-模擬測驗.html
           test -f _python_public/search/search_index.json
           test ! -e _python_public/blog
           test ! -e _python_public/md/人工智慧
@@ -74,7 +81,7 @@ jobs:
           from pathlib import Path
           home = Path('_python_public/index.html').read_text(encoding='utf-8')
           assert 'md-header' in home, 'Forked Material header not rendered'
-          assert 'Python' in home
+          assert 'Python' in home and 'C++' in home
           assert 'peicd100.github.io/md/python' not in home
           assets = Path('_python_public/assets/pymdownx-extras')
           assert any(f.suffix == '.css' for f in assets.iterdir()), 'Original CSS missing'
@@ -84,7 +91,7 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload Python-only site
+      - name: Upload Python/C++ site
         uses: actions/upload-pages-artifact@v3
         with:
           path: _python_public
