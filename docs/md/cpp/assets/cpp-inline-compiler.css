@@ -13,3 +13,53 @@
 .ic-slot{min-width:0}
 .ic-frame{display:block;width:100%;height:570px;border:1px solid var(--border,#444);border-radius:10px;background:#131313}
 @media(max-width:650px){.ic-panel{padding:10px}.ic-frame{height:650px}.ic-btn{width:100%}}
+
+
+/* A true 16:9 compiler canvas, bounded by the viewport. */
+.ic-frame{
+  width:100%;height:auto;aspect-ratio:16 / 9;
+  min-height:320px;max-height:none
+}
+.ic-slot{width:100%;min-width:0}
+.ic-expand{white-space:nowrap}
+.ic-backdrop{
+  position:fixed;inset:0;z-index:99;
+  background:rgba(0,0,0,.78);backdrop-filter:blur(4px)
+}
+.inline-compiler.ic-expanded{
+  position:fixed;inset:0;margin:auto;z-index:100;
+  width:min(96vw,calc(92dvh * 16 / 9));max-width:none;
+  height:auto;max-height:92dvh;aspect-ratio:16 / 9;
+  display:flex;flex-direction:column;overflow:hidden;
+  border:1px solid var(--border2,#555);
+  box-shadow:0 20px 80px rgba(0,0,0,.65)
+}
+.inline-compiler.ic-expanded .ic-heading{
+  flex:0 0 auto;padding:6px 14px
+}
+.inline-compiler.ic-expanded .ic-heading p{display:none}
+.inline-compiler.ic-expanded .ic-panel{
+  flex:1;min-height:0;display:flex;flex-direction:column;
+  padding:6px 10px;overflow:hidden
+}
+.inline-compiler.ic-expanded .ic-actions{flex:0 0 auto;gap:6px}
+.inline-compiler.ic-expanded .ic-btn{padding:5px 9px}
+.inline-compiler.ic-expanded .ic-feedback{display:none}
+.inline-compiler.ic-expanded .ic-slot{flex:1;min-height:0}
+.inline-compiler.ic-expanded .ic-frame{
+  display:block;width:100%;height:100%;min-height:0;
+  max-height:none;aspect-ratio:auto
+}
+@media(max-width:800px){
+  .ic-frame{min-height:380px}
+  .inline-compiler.ic-expanded{
+    width:100vw;height:100dvh;max-height:100dvh;
+    aspect-ratio:auto;border-radius:0
+  }
+  .inline-compiler.ic-expanded .ic-heading p{display:none}
+  .inline-compiler.ic-expanded .ic-panel{padding:5px}
+  .inline-compiler.ic-expanded .ic-btn{width:auto}
+}
+@media(max-height:580px) and (min-width:801px){
+  .inline-compiler.ic-expanded{width:98vw;max-height:98dvh}
+}

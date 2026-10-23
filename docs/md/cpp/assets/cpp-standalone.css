@@ -62,3 +62,71 @@ pre.sample-hidden{color:var(--muted);font:inherit;font-size:.8rem}
 @media(max-width:720px){.top-inner{padding:11px 14px;align-items:flex-start;flex-wrap:wrap}.navbar{justify-content:flex-start}.page{padding:14px}.layout{grid-template-columns:1fr}.sidebar{position:relative;top:auto;max-height:210px}.panel-head,.problem,.workspace{padding:18px}.stage-tabs{padding:11px 17px}.rules{grid-template-columns:1fr}.hero{margin-top:6px}}
 @media(prefers-reduced-motion:reduce){.progress>i{transition:none}}
 .beginner-banner{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap;border:1px solid var(--border);background:var(--accentSoft);border-radius:12px;padding:12px 17px;margin-bottom:14px}.beginner-banner strong{font-size:.86rem;color:var(--accentText)}.beginner-banner span{flex:1;min-width:220px;color:var(--text);font-size:.77rem;line-height:1.6}
+
+
+/* 16:9 desktop focus layout: desktop viewport scroll belongs to the lesson panel,
+   never to a clipped lesson or a hidden exercise. Mobile/tablet stay in normal flow. */
+@media (min-width:1100px) and (min-height:620px) {
+  html[data-layout="wide"] .top-inner{min-height:54px;padding:5px 16px;max-width:none;gap:12px}
+  html[data-layout="wide"] .brand strong{font-size:.96rem}
+  html[data-layout="wide"] .brand small{display:none}
+  html[data-layout="wide"] .navbar{gap:5px}
+  html[data-layout="wide"] .navlink,
+  html[data-layout="wide"] .control{min-height:32px;padding:5px 9px;font-size:.74rem}
+  html[data-layout="wide"] .page{
+    max-width:none;height:calc(100dvh - 54px);padding:9px 13px 8px;
+    display:flex;flex-direction:column;overflow:hidden
+  }
+  html[data-layout="wide"] .beginner-banner{flex:0 0 auto;margin-bottom:7px;padding:6px 11px;gap:9px}
+  html[data-layout="wide"] .beginner-banner strong{font-size:.76rem}
+  html[data-layout="wide"] .beginner-banner span{font-size:.71rem}
+  html[data-layout="wide"] .hero{flex:0 0 auto;margin:0 0 8px;align-items:center;gap:10px}
+  html[data-layout="wide"] .hero .kicker{font-size:.64rem}
+  html[data-layout="wide"] .hero h1{font-size:1.16rem;margin:1px 0}
+  html[data-layout="wide"] .hero p{font-size:.72rem;line-height:1.35;max-width:850px;margin:0}
+  html[data-layout="wide"] .stat{min-width:85px;padding:6px 9px}
+  html[data-layout="wide"] .stat strong{font-size:1rem}
+  html[data-layout="wide"] .stat span{font-size:.66rem}
+  html[data-layout="wide"] .layout{
+    flex:1;min-height:0;grid-template-columns:205px minmax(0,1fr);
+    gap:10px;align-items:stretch
+  }
+  html[data-layout="wide"] .sidebar{
+    position:static;top:auto;max-height:none;min-height:0;
+    padding:7px;overflow-y:auto;overscroll-behavior:contain
+  }
+  html[data-layout="wide"] .sidebar-title{padding:5px 6px 7px}
+  html[data-layout="wide"] .group-caption{margin:8px 5px 4px}
+  html[data-layout="wide"] .unit-btn{padding:6px 8px;font-size:.75rem}
+  html[data-layout="wide"] .panel{
+    min-height:0;min-width:0;overflow-y:auto;overscroll-behavior:contain
+  }
+  html[data-layout="wide"] .panel-head{padding:11px 16px 10px}
+  html[data-layout="wide"] .panel-head h2{font-size:1.08rem}
+  html[data-layout="wide"] .panel-head p{font-size:.74rem;margin-top:3px}
+  html[data-layout="wide"] .progress{margin-top:7px}
+  html[data-layout="wide"] .stage-tabs{padding:7px 12px}
+  html[data-layout="wide"] .tab{padding:6px 9px;font-size:.72rem}
+  html[data-layout="wide"] .split{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}
+  html[data-layout="wide"] .problem{padding:14px 16px}
+  html[data-layout="wide"] .workspace{padding:13px 15px}
+  html[data-layout="wide"] .section-heading{font-size:.95rem;margin-bottom:7px}
+  html[data-layout="wide"] .problem p,
+  html[data-layout="wide"] .workspace p{line-height:1.55}
+  html[data-layout="wide"] .CodeMirror{height:205px!important}
+  html[data-layout="wide"] textarea.code{min-height:205px}
+  html[data-layout="wide"] textarea.output{min-height:65px}
+  html[data-layout="wide"] .exam-intro{padding:22px}
+  html[data-layout="wide"] .rules{margin:15px 0}
+  html[data-layout="wide"] .rule{padding:11px}
+  html[data-layout="wide"] .page>.bottom-note{display:none}
+}
+/* Shrink the guide margins but never delete its teaching text. */
+@media (min-width:1100px) and (min-height:620px) {
+  html[data-layout="wide"] .tl-head{padding:12px 17px}
+  html[data-layout="wide"] .tl-steps{margin-top:9px}
+  html[data-layout="wide"] .tl-step{padding:5px 9px}
+  html[data-layout="wide"] .tl-body{padding:18px 21px;min-height:0}
+  html[data-layout="wide"] .tutor-revisit{padding:6px 12px}
+}
+/* On touch and narrow displays, standard vertical flow stays readable. */
