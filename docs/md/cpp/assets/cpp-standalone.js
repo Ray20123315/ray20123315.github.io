@@ -371,6 +371,7 @@
         activeId=ids.includes(last)?last:ids[0];
         activeStage=Math.min(baseState(activeId).done.length,data.lessons[activeId].stages.length-1);
         drawPractice();
+        $("go-first")?.addEventListener("click",()=>selectCourse(ids[0]));
       }else{
         session=readMock();drawExam();
         timer=setInterval(tick,1000);

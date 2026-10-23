@@ -36,3 +36,7 @@
 .tl-status.success{border-left-color:var(--success)}
 .tutor-revisit{padding:10px 26px;border-bottom:1px solid var(--border);margin:0}
 @media(max-width:650px){.tl-head{padding:17px}.tl-body{padding:20px}.tl-terms{grid-template-columns:1fr}.tl-step{font-size:.68rem;padding:6px}}
+
+.tl-actions>a.tl-btn{display:inline-block;text-decoration:none;text-align:center;line-height:1.45}.tl-highlight .tl-actions{margin:13px 0 0}.tl-highlight p{margin-top:8px}.tl-highlight .tl-actions .tl-btn{max-width:100%}
+
+.beginner-banner{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap;border:1px solid var(--border);background:var(--accentSoft);border-radius:12px;padding:12px 17px;margin-bottom:14px}.beginner-banner strong{font-size:.86rem;color:var(--accentText)}.beginner-banner span{flex:1;min-width:220px;color:var(--text);font-size:.77rem;line-height:1.6}

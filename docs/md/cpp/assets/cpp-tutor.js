@@ -41,6 +41,18 @@
           const row=$el("div","tl-term");row.append($el("code","",term),$el("p","",meaning));grid.append(row);
         }
         body.append(grid);
+        const tryIt=$el("div","tl-highlight");
+        tryIt.append($el("strong","","想親自試試？不用安裝 C++！"));
+        tryIt.append($el("p","","① 按「複製範例」② 開啟線上 C++ 編譯器 ③ 把程式貼進去 ④ 按 Run。若程式有 cin，請把下一頁的「範例輸入」放進輸入欄位。"));
+        const runButtons=$el("div","tl-actions");
+        runButtons.append(button("複製這支 C++ 範例",async()=>{
+          try{await navigator.clipboard.writeText(guide.code);alert("範例已複製！現在打開線上編譯器貼上程式即可。");}
+          catch(_){alert("瀏覽器無法自動複製，請手動選取上方程式碼。");}
+        }));
+        const open=$el("a","tl-btn tl-primary","開啟線上 C++ 編譯器 ↗");
+        open.href="https://www.programiz.com/cpp-programming/online-compiler/";
+        open.target="_blank";open.rel="noopener noreferrer";
+        runButtons.append(open);tryIt.append(runButtons);body.append(tryIt);
         body.append($el("p","tl-note","小技巧：先找出你看得懂的那一行，其他行以後會越看越熟。現在只記今天需要的關鍵字。"));
       }else if(page===2){
         body.append($el("div","tl-badge","第 3 步 / 4 · 把自己當成電腦"),$el("h4","","先不執行，用手想一次"));
