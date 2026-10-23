@@ -2,6 +2,7 @@
   "use strict";
   const MODE = document.body.dataset.app;
   const DATA = new URL("cpp-practice-data.json", document.currentScript.src).href;
+  const TUTOR_DATA = new URL("cpp-tutor-data.json", document.currentScript.src).href;
   const $ = id => document.getElementById(id);
   const dom = (tag, cls, txt) => {
     const x = document.createElement(tag);
@@ -22,6 +23,7 @@
   const STORAGE_MOCK = "cpp-mock-session-v1";
   const memo = new Map();
   let data = null;
+  let tutorData = null;
   let activeId = null;
   let activeStage = 0;
   let activeQuestion = 0;
@@ -122,7 +124,7 @@
     const items=total.map((id,i)=>{
       const d=baseState(id),stages=data.lessons[id].stages;
       let group = i < 6 ? "A｜語法基礎" : i < 10 ? "B｜資料處理" : i < 14 ? "C｜效率與搜尋" : i < 20 ? "D｜核心演算法" : i===20 ? "E｜競賽技能" : "分級實作";
-      return {id,title:(i<21?chapterId(i+1)+"｜":"")+data.lessons[id].title,meta:d.done.length+"/"+stages.length,group};
+      return {id,title:(i<21?chapterId(i+1)+"｜":"")+data.lessons[id].title,meta:i<21&&!window.CppTutor?.isDone(id)?"先看導學":d.done.length+"/"+stages.length,group};
     });
     sidebar(items,activeId,selectCourse);
     const item = data.lessons[activeId],s = baseState(activeId);
@@ -134,6 +136,24 @@
     head.append(dom("p","","完成 "+s.done.length+" / "+item.stages.length+" 關。通過前一關才解鎖後一關。"));
     const progress=dom("div","progress"),fill=dom("i");fill.style.width=(100*s.done.length/item.stages.length)+"%";progress.append(fill);head.append(progress);
     $("panel").append(head);
+    // New learners always meet the teacher before the existing test/quiz UI.
+    // Earlier completed stage records remain intact.
+    const guide=tutorData?.lessons[activeId.slice(0,2)];
+    if(guide && window.CppTutor?.shouldGuide(activeId)) {
+      window.CppTutor.render({host:$("panel"),id:activeId,guide,onFinish:()=>drawPractice()});
+      const done=total.reduce((n,id)=>n+baseState(id).done.length,0);
+      const max=total.reduce((n,id)=>n+data.lessons[id].stages.length,0);
+      setText("stat-count",done+" / "+max);
+      setText("stat-caption","已完成練習");
+      return;
+    }
+    if(guide) {
+      const revisit=dom("div","inline-buttons tutor-revisit");
+      revisit.append(act("🧑‍🏫 我還沒懂？重看逐步教學",()=>{
+        window.CppTutor.show(activeId);drawPractice();
+      }));
+      $("panel").append(revisit);
+    }
     const tabs=dom("div","stage-tabs");
     item.stages.forEach((x,i)=>{
       const b=dom("button","tab",(s.done.includes(i)?"✓ ":"")+(i+1)+"｜"+x.title);
@@ -165,7 +185,7 @@
         if(Number(value.value)===step.correct){result(notice,"答對！"+step.explain,true);pass()}
         else result(notice,"這題還沒答對，重新想一次。",false);
       },"primary"));
-      right.append(dom("h3","section-heading","這一關學什麼？"),dom("p","",step.explain));
+      right.append(dom("h3","section-heading","慢慢來，不需要猜答案"),dom("p","","如果不確定，可以按上方「重看逐步教學」，先把手算步驟看懂再試一次。答錯完全不扣分。"));
       right.append(dom("p","muted","選擇題在此瀏覽器內檢查；沒有線上 C++ 編譯。"));
     }else if(step.type==="fill"){
       const text=dom("input");text.type="text";text.placeholder="填入 ____ 的部分";text.setAttribute("aria-label","語法填空答案");
@@ -182,6 +202,14 @@
       right.append(dom("h3","section-heading","C++17 程式碼編輯器"));
       const index=String(current),source=s.drafts[index]??step.starter;
       right.append(makeEditor(source,value=>{s.drafts[index]=value;saveCourse(activeId,s)},true));
+      if(current===2 && guide){
+        const details=dom("details","beginner-example");
+        details.append(dom("summary","","不知道怎麼寫？展開完整小範例，照著打一遍"));
+        details.append(dom("p","muted","這是剛剛導學的簡單範例，不是本題現成答案；先照著寫，再嘗試修改輸入與運算。"));
+        details.append(dom("pre","sample",guide.code));
+        details.append(dom("p","muted","今天的超小任務："+guide.tiny));
+        right.append(details);
+      }
       const tools=dom("div","inline-buttons");
       tools.append(act("複製程式碼",()=>copy(editor.get(),notice)),
         act("下載 .cpp",()=>backup(activeId+"-"+(current+1)+".cpp",editor.get())));
@@ -327,6 +355,14 @@
       const response=await fetch(DATA,{cache:"no-cache"});
       if(!response.ok) throw Error("HTTP "+response.status);
       data=await response.json();
+      if(MODE==="practice"){
+        const lessonResponse=await fetch(TUTOR_DATA,{cache:"no-cache"});
+        if(!lessonResponse.ok) throw Error("導學內容載入失敗（HTTP "+lessonResponse.status+"）");
+        tutorData=await lessonResponse.json();
+        if(Object.keys(tutorData.lessons||{}).length!==21 || !window.CppTutor){
+          throw Error("零基礎導學資料或元件不完整");
+        }
+      }
       if(!data.lessons?.["23-模擬測驗"])throw Error("題庫不完整");
       if(MODE==="practice"){
         const ids=bankIds();
