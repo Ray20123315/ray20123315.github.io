@@ -31,6 +31,6 @@
 
 ## C++ 獨立 HTML 練習與模擬考
 
-Python 一樣使用 `docs/md/cpp/24-漸進式練習.html` 與 `docs/md/cpp/25-模擬考中心.html` 兩個完整、全頁式的獨立網頁。兩頁直接使用自己 HTML 的 header/sidebar/作答區，**不經 MkDocs Markdown 轉換**。`cpp-standalone.js` 與 `cpp-standalone.css` 提供載入題庫、進度兼容、題目切換、草稿、計時、交卷等功能；程式碼仍須在本機編譯，無網頁 C++ 編譯器。
+和原有 Python 的獨立練習網站一樣，C++ 現在使用 `docs/md/cpp/24-漸進式練習.html` 與 `docs/md/cpp/25-模擬考中心.html` 兩個完整、全頁式的獨立網頁。兩頁直接使用自己 HTML 的 header/sidebar/作答區，**不經 MkDocs Markdown 轉換**。`cpp-standalone.js` 與 `cpp-standalone.css` 提供載入題庫、進度兼容、題目切換、草稿、計時、交卷等功能；程式碼仍須在本機編譯，無網頁 C++ 編譯器。
 
 原有的 `24-漸進式練習.md`、`25-模擬考中心.md` 已由同名 `.html` 取代，因此公開網址保持不變；MkDocs 只負責原檔拷貝與導覽連結。
