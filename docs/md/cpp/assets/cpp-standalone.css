@@ -130,3 +130,6 @@ pre.sample-hidden{color:var(--muted);font:inherit;font-size:.8rem}
   html[data-layout="wide"] .tutor-revisit{padding:6px 12px}
 }
 /* On touch and narrow displays, standard vertical flow stays readable. */
+
+/* The viewport focus toggle is desktop-only; mobile content must remain scrollable. */
+@media (max-width:1099px), (max-height:619px){#layout-toggle{display:none}}

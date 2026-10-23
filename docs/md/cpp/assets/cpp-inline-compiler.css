@@ -28,7 +28,7 @@
 }
 .inline-compiler.ic-expanded{
   position:fixed;inset:0;margin:auto;z-index:100;
-  width:min(96vw,calc(92dvh * 16 / 9));max-width:none;
+  width:min(96vw,163.56dvh);max-width:none;
   height:auto;max-height:92dvh;aspect-ratio:16 / 9;
   display:flex;flex-direction:column;overflow:hidden;
   border:1px solid var(--border2,#555);

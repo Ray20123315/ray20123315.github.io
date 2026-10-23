@@ -19,6 +19,7 @@
   const trimmed = t => String(t ?? "").replace(/\r\n?/g,"\n").split("\n").map(x=>x.trimEnd()).join("\n").trim();
   const normalized = t => String(t ?? "").trim().replace(/；/g,";").replace(/;$/,"").trim();
   const STORAGE_THEME = "cpp-standalone-theme-v1";
+  const STORAGE_LAYOUT = "cpp-standalone-layout-v1";
   const STORAGE_CURRENT = "cpp-standalone-current-v1";
   const STORAGE_MOCK = "cpp-mock-session-v1";
   const memo = new Map();
@@ -44,6 +45,17 @@
     document.documentElement.dataset.theme = color;
     safeSave(STORAGE_THEME,color);
     $("theme-toggle").textContent = color === "dark" ? "☀ 淺色" : "☾ 深色";
+  }
+  function applyLayout(mode) {
+    const value=mode==="wide"?"wide":"standard";
+    document.documentElement.dataset.layout=value;
+    safeSave(STORAGE_LAYOUT,value);
+    const toggle=$("layout-toggle");
+    if(toggle) {
+      toggle.setAttribute("aria-pressed",String(value==="wide"));
+      toggle.textContent=value==="wide"?"▣ 16:9 模式已開啟":"▣ 啟用 16:9 模式";
+      toggle.title=value==="wide"?"點擊返回一般網頁排版":"點擊切換為 16:9 電腦螢幕集中排版";
+    }
   }
   function result(place, message, ok) {
     place.textContent = message;
@@ -365,6 +377,12 @@
   async function main() {
     theme(safeRead(STORAGE_THEME,"dark")==="light"?"light":"dark");
     $("theme-toggle").addEventListener("click",()=>theme(document.documentElement.dataset.theme==="dark"?"light":"dark"));
+    const savedLayout=safeRead(STORAGE_LAYOUT,null);
+    const desktop=window.matchMedia?.("(min-width:1100px) and (min-height:620px)").matches;
+    applyLayout(savedLayout==="wide"||savedLayout==="standard"?savedLayout:desktop?"wide":"standard");
+    $("layout-toggle")?.addEventListener("click",()=>applyLayout(
+      document.documentElement.dataset.layout==="wide"?"standard":"wide"
+    ));
     try {
       const response=await fetch(DATA,{cache:"no-cache"});
       if(!response.ok) throw Error("HTTP "+response.status);

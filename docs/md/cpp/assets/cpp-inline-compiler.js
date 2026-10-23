@@ -32,7 +32,39 @@
     const feedback = node("p", "ic-feedback", "按下「開啟編譯器」，就能直接在下方寫 C++、輸入測資和查看執行結果。");
     const slot = node("div", "ic-slot");
     let frame = null, loaded = false, lastEdit = 0, lastSync = 0;
-    let timer = null;
+    let timer = null, backdrop = null, savedOverflow = null;
+    function collapse() {
+      if(!card.classList.contains("ic-expanded")) return;
+      card.classList.remove("ic-expanded");
+      backdrop?.remove();
+      backdrop=null;
+      document.body.style.overflow=savedOverflow ?? "";
+      savedOverflow=null;
+      expand.textContent="⤢ 16:9 放大編譯器";
+      expand.setAttribute("aria-expanded","false");
+      document.removeEventListener("keydown",onEscape);
+      expand.focus();
+    }
+    function onEscape(event) {
+      if(event.key==="Escape") collapse();
+    }
+    function expandToggle() {
+      if(!frame)return;
+      if(card.classList.contains("ic-expanded")) {
+        collapse();
+        return;
+      }
+      savedOverflow=document.body.style.overflow;
+      backdrop=node("div","ic-backdrop");
+      backdrop.addEventListener("click",collapse);
+      document.body.append(backdrop);
+      card.classList.add("ic-expanded");
+      document.body.style.overflow="hidden";
+      expand.textContent="⤡ 返回頁內模式";
+      expand.setAttribute("aria-expanded","true");
+      document.addEventListener("keydown",onEscape);
+      expand.focus();
+    }
     function send(message) {
       if (!frame?.contentWindow || !loaded) return false;
       frame.contentWindow.postMessage(message, ORIGIN);
@@ -71,6 +103,7 @@
       launch.hidden = true;
       sync.hidden = false;
       run.hidden = false;
+      expand.hidden = false;
       feedback.textContent = "正在載入 C++ 編譯器……若看到輸入欄，請將題目的測資填入 STDIN。";
     }
     const launch = button("▶ 開啟內嵌 C++ 編譯器", start, "ic-primary");
@@ -83,8 +116,10 @@
       }, 350);
       feedback.textContent = "已向內嵌編譯器要求執行。執行結果及編譯錯誤會顯示在編譯器自己的 Result 區域。";
     }, "ic-primary");
-    sync.hidden = true; run.hidden = true;
-    actions.append(launch, sync, run);
+    const expand=button("⤢ 16:9 放大編譯器",expandToggle,"ic-expand");
+    expand.setAttribute("aria-expanded","false");
+    sync.hidden = true; run.hidden = true; expand.hidden=true;
+    actions.append(launch, sync, run, expand);
     panel.append(actions,feedback,slot);
     card.append(panel);
     host.append(card);
@@ -105,6 +140,7 @@
     // A detached panel cannot continue receiving user code from its old iframe.
     const observer = new MutationObserver(() => {
       if (!card.isConnected) {
+        if(card.classList.contains("ic-expanded"))collapse();
         window.removeEventListener("message", onMessage);
         observer.disconnect();
         if (timer !== null) clearTimeout(timer);
