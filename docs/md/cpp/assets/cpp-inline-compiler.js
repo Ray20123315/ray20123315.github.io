@@ -31,7 +31,7 @@
     const actions = node("div", "ic-actions");
     const feedback = node("p", "ic-feedback", "按下「開啟編譯器」，就能直接在下方寫 C++、輸入測資和查看執行結果。");
     const slot = node("div", "ic-slot");
-    let frame = null, loaded = false, lastEdit = 0;
+    let frame = null, loaded = false, lastEdit = 0, lastSync = 0;
     let timer = null;
     function send(message) {
       if (!frame?.contentWindow || !loaded) return false;
@@ -48,6 +48,7 @@
         feedback.textContent = "編譯器還在載入，請載入完成後再試一次。";
         return;
       }
+      lastSync = Date.now();
       feedback.textContent = "已將左側草稿送進下方編輯器。你可以在裡面修改程式、提供 STDIN，按 Run 執行。";
     }
     function start() {
@@ -55,7 +56,7 @@
       frame = node("iframe", "ic-frame");
       frame.title = "OneCompiler C++ 線上編譯器（嵌入本頁）";
       frame.src = EMBED;
-      frame.loading = "lazy";
+      frame.loading = "eager";
       frame.referrerPolicy = "strict-origin-when-cross-origin";
       frame.allow = "clipboard-read; clipboard-write";
       frame.addEventListener("load", () => {
@@ -94,6 +95,8 @@
       const files = Array.isArray(d.files) ? d.files : [];
       const source = files.find(f => f && typeof f.content === "string" && (/\.cpp$/.test(f.name || "") || files.length === 1));
       if (!source || source.content.length > 350000) return;
+      // Do not replace saved lesson code with the embed provider\u0027s default starter on load.
+      if (!loaded || Date.now() - lastSync < 1250) return;
       lastEdit = Date.now();
       // Never treat a code-change event as compilation output or a successful test.
       if (source.content !== getCode()) onCodeChange(source.content);
