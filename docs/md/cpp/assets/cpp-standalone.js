@@ -65,7 +65,7 @@
     text.spellcheck = false; text.value = source; text.readOnly = !editable;
     text.setAttribute("aria-label","C++17 原始程式碼");
     text.addEventListener("input",()=>onInput(text.value));
-    editor = { get:()=>text.value, focus:()=>text.focus() };
+    editor = { get:()=>text.value, focus:()=>text.focus(), set:v=>{if(text.value!==v){text.value=v;onInput(v)}} };
     if (window.CodeMirror && window.CodeMirror.fromTextArea) {
       const outer = dom("div");
       outer.append(text);
@@ -77,7 +77,7 @@
         });
         cm.on("change", ()=>onInput(cm.getValue()));
         cm.setValue(source);
-        editor = {get:()=>cm.getValue(),focus:()=>cm.focus()};
+        editor = {get:()=>cm.getValue(),focus:()=>cm.focus(),set:v=>{if(cm.getValue()!==v){cm.setValue(v);onInput(v)}}};
         cm.refresh();
       },0);
       return outer;
@@ -198,8 +198,8 @@
     }else{
       left.append(dom("h3","section-heading","公開範例輸入"),dom("pre","sample",step.input||"（無標準輸入）"));
       left.append(dom("h3","section-heading","公開範例輸出"),dom("pre","sample",step.output));
-      left.append(dom("p","muted","這裡只比較你貼上的輸出文字。程式碼須在本機編譯，不會得到真正的 AC。"));
-      right.append(dom("h3","section-heading","C++17 程式碼編輯器"));
+      left.append(dom("p","muted","現在可以直接在這頁開啟 C++ 編譯器，輸入測資、按 Run、看編譯錯誤或輸出。下方的比對仍只檢查公開範例，並非全部測資 AC。"));
+      right.append(dom("h3","section-heading","C++17 練習草稿"));
       const index=String(current),source=s.drafts[index]??step.starter;
       right.append(makeEditor(source,value=>{s.drafts[index]=value;saveCourse(activeId,s)},true));
       if(current===2 && guide){
@@ -214,14 +214,20 @@
       tools.append(act("複製程式碼",()=>copy(editor.get(),notice)),
         act("下載 .cpp",()=>backup(activeId+"-"+(current+1)+".cpp",editor.get())));
       right.append(tools);
-      const label=dom("label","field","本機執行後的實際輸出");
+      const compileSpace=dom("div","ic-space");
+      right.append(compileSpace);
+      window.CppInlineCompiler?.mount(compileSpace,{
+        getCode:()=>editor.get(),
+        onCodeChange:newCode=>{if(compileSpace.isConnected)editor.set(newCode)}
+      });
+      const label=dom("label","field","貼上上方編譯器 Result 的輸出（選填，可核對範例）");
       const observed=dom("textarea","output");
-      observed.placeholder="在自己電腦編譯與執行，再貼上真正的輸出";
+      observed.placeholder="在同一頁按 Run，把 Result 區的輸出複製到這裡；也能使用本機編譯結果";
       observed.value=s.outputs[index]||"";
       observed.addEventListener("input",()=>{s.outputs[index]=observed.value;saveCourse(activeId,s)});
       label.append(observed);right.append(label);
       feedbackRow.append(act("核對公開範例",()=>{
-        if(!trimmed(observed.value))return result(notice,"請先貼上你在本機取得的實際輸出。",false);
+        if(!trimmed(observed.value))return result(notice,"請先按上方內嵌編譯器的 Run，再把 Result 區的實際輸出貼到這裡。",false);
         if(trimmed(observed.value)===trimmed(step.output)){result(notice,"公開範例相符，但不是程式編譯或完整測資 AC。",true);pass()}
         else result(notice,"與公開範例不同，請重新除錯。",false);
       },"primary"));
@@ -293,7 +299,7 @@
       [["90 分鐘","從按下開始的時間連續計時"],["3 道題目","隨時切換，不強制解鎖"],["本機草稿","重新整理後可從同瀏覽器恢復"]].forEach(x=>{
         const el=dom("div","rule");el.append(dom("strong","",x[0]),dom("small","",x[1]));rules.append(el);
       });
-      box.append(rules,dom("p","muted","重要：瀏覽器不會編譯 C++，也沒有程式自動判題或正式分數。交卷後才顯示公開範例輸出供自行核對。"));
+      box.append(rules,dom("p","muted","作答頁可嵌入第三方 OneCompiler C++ 編譯器，直接輸入、編譯、執行；本站不提供完整自動判題或正式分數。交卷後才顯示題庫公開範例輸出。"));
       box.append(act("開始 90 分鐘模擬考",beginExam,"primary"));
       $("panel").append(box);return;
     }
@@ -320,13 +326,21 @@
     left.append(dom("p","muted","這是自編 C++17 練習題；正式比賽題目、配分與評測規則以當屆公告為準。"));
     if(ended)left.append(dom("div","hint","思路提示："+q.hint));
     const notice=dom("div","feedback",ended?"你可以核對本機輸出，但不會產生假的 AC 或分數。":"作答草稿會保存在此瀏覽器。");
-    right.append(dom("h3","section-heading",ended?"已交卷程式碼（唯讀）":"C++17 編輯器"));
+    right.append(dom("h3","section-heading",ended?"已交卷程式碼（唯讀）":"C++17 編輯器｜可在下方直接執行"));
     const code=session.answers[i]??q.starter;
     right.append(makeEditor(code,value=>{session.answers[i]=value;saveMock()},!ended));
     const actions=dom("div","inline-buttons");
     actions.append(act("複製程式",()=>copy(editor.get(),notice)),
       act("下載 .cpp",()=>backup("cpp-exam-q"+(i+1)+".cpp",editor.get())));
     right.append(actions);
+    if(!ended){
+      const examRunner=dom("div","ic-space");
+      right.append(examRunner);
+      window.CppInlineCompiler?.mount(examRunner,{
+        getCode:()=>editor.get(),
+        onCodeChange:newCode=>{if(examRunner.isConnected)editor.set(newCode)}
+      });
+    }
     if(ended){
       const label=dom("label","field","貼上你在本機執行的輸出");
       const observed=dom("textarea","output");observed.value=session.outputs[i]||"";

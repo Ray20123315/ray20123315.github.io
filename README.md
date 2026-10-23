@@ -43,3 +43,9 @@
 - 第三關提供『先看範例，再自己改』入口；練習不是直接考程式碼、也不提供假的自動 AC。
 
 零安裝嘗試：導學第 2 步提供範例程式碼複製與 Programiz 線上 C++ 編譯器連結；第 01 課有「從頭開始」按鈕（不刪除既有紀錄）。
+
+## 不離開本站的 C++ 編譯與執行
+
+- 在第 2 步零基礎導學、21 堂課程式實作及模擬考作答頁，點「開啟內嵌 C++ 編譯器」即可於本頁的 OneCompiler iframe 中編輯、提供 STDIN、執行與查看 Result，**不需另外開啟編譯器網站**。
+- `docs/md/cpp/assets/cpp-inline-compiler.js` 使用官方 postMessage `populateCode`、`triggerRun` 與選擇性的 `codeChangeEvent`，並驗證訊息的來源 origin 與 iframe 視窗；原本 localStorage 草稿仍可保留。
+- **編譯仍在 OneCompiler 第三方雲端執行**：使用者需自行確認第三方服務可連線，程式碼、標準輸入會交給第三方；不應貼入個資或密碼。內嵌輸出不會被冒稱完整 Online Judge AC；複製結果到公開範例比對欄屬手動比對。
