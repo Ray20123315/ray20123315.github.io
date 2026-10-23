@@ -49,3 +49,9 @@
 - 在第 2 步零基礎導學、21 堂課程式實作及模擬考作答頁，點「開啟內嵌 C++ 編譯器」即可於本頁的 OneCompiler iframe 中編輯、提供 STDIN、執行與查看 Result，**不需另外開啟編譯器網站**。
 - `docs/md/cpp/assets/cpp-inline-compiler.js` 使用官方 postMessage `populateCode`、`triggerRun` 與選擇性的 `codeChangeEvent`，並驗證訊息的來源 origin 與 iframe 視窗；原本 localStorage 草稿仍可保留。
 - **編譯仍在 OneCompiler 第三方雲端執行**：使用者需自行確認第三方服務可連線，程式碼、標準輸入會交給第三方；不應貼入個資或密碼。內嵌輸出不會被冒稱完整 Online Judge AC；複製結果到公開範例比對欄屬手動比對。
+
+## 16:9 集中式版面（桌面螢幕）
+
+- 兩個 C++ 獨立 HTML 網頁新增「16:9 集中模式」切換。桌面瀏覽器寬度 ≥1100px 且高度 ≥620px 時預設使用集中版面（記錄於 `cpp-standalone-layout-v1`）；頁面固定在視窗範圍，左側課程清單與右側作答面板可各自捲動，不裁切教材。
+- 內嵌 C++ 編譯器以 `aspect-ratio:16 / 9` 顯示；按「16:9 放大編譯器」會在本站內以 16:9 覆蓋視窗放大，按 Esc、點背景或按返回縮回。使用者的 C++ 草稿、試題狀態和計時皆保留。
+- 手機／平板及低矮視窗保留正常垂直捲動，避免畫面高度過窄。內嵌 OneCompiler 仍由第三方執行程式，沒有隱藏測資自動判題。
