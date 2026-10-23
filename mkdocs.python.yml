@@ -14,9 +14,11 @@ extra_css:
   - assets/pymdownx-extras/extra-8611f6c398.css
   - assets/pymdownx-extras/自定義.css?v=20260614-2
   - assets/cpp-practice.css
+  - assets/cpp-mock-exam.css
 extra_javascript:
   - assets/pymdownx-extras/conditional-loader.js?v=20261007-1
   - assets/cpp-practice.js
+  - assets/cpp-mock-exam.js
 
 # Restrict publication-specific plugins to Python content.
 # Theme, custom_dir, features, palette, markdown extensions and original hooks
@@ -91,32 +93,37 @@ nav:
               - "r489 航空拍照圖": "md/python/r489_航空拍照圖.html"
               - "r490 商品包裝地": "md/python/r490_商品包裝地.html"
   - C++:
-      - 學習地圖: md/cpp/00-學習地圖.md
-      - "A｜零基礎語法":
-          - "第一支程式": "md/cpp/01-第一支程式.md"
-          - "變數與型別": "md/cpp/02-變數與型別.md"
-          - "輸入輸出與運算": "md/cpp/03-輸入輸出與運算.md"
-          - "條件判斷": "md/cpp/04-條件判斷.md"
-          - "迴圈": "md/cpp/05-迴圈.md"
-          - "除錯與測資": "md/cpp/06-除錯與測資.md"
-      - "B｜資料處理":
-          - "vector陣列": "md/cpp/07-vector陣列.md"
-          - "字串": "md/cpp/08-字串.md"
-          - "函式": "md/cpp/09-函式.md"
-          - "二維陣列": "md/cpp/10-二維陣列.md"
-      - "C｜效率與搜尋":
-          - "時間複雜度": "md/cpp/11-時間複雜度.md"
-          - "排序": "md/cpp/12-排序.md"
-          - "二分搜尋": "md/cpp/13-二分搜尋.md"
-          - "前綴和": "md/cpp/14-前綴和.md"
-      - "D｜核心演算法":
-          - "遞迴": "md/cpp/15-遞迴.md"
-          - "常用容器": "md/cpp/16-常用容器.md"
-          - "DFS與BFS": "md/cpp/17-DFS與BFS.md"
-          - "貪心": "md/cpp/18-貪心.md"
-          - "動態規劃": "md/cpp/19-動態規劃.md"
-          - "最短路徑": "md/cpp/20-最短路徑.md"
-      - "E｜競賽訓練":
-          - "競賽解題流程": "md/cpp/21-競賽解題流程.md"
-      - 分級實作題庫: md/cpp/22-分級題庫.md
-      - 模擬測驗: md/cpp/23-模擬測驗.md
+      - 課程教學:
+        - 學習地圖: md/cpp/00-學習地圖.md
+        - "A｜零基礎語法":
+            - "第一支程式": "md/cpp/01-第一支程式.md"
+            - "變數與型別": "md/cpp/02-變數與型別.md"
+            - "輸入輸出與運算": "md/cpp/03-輸入輸出與運算.md"
+            - "條件判斷": "md/cpp/04-條件判斷.md"
+            - "迴圈": "md/cpp/05-迴圈.md"
+            - "除錯與測資": "md/cpp/06-除錯與測資.md"
+        - "B｜資料處理":
+            - "vector陣列": "md/cpp/07-vector陣列.md"
+            - "字串": "md/cpp/08-字串.md"
+            - "函式": "md/cpp/09-函式.md"
+            - "二維陣列": "md/cpp/10-二維陣列.md"
+        - "C｜效率與搜尋":
+            - "時間複雜度": "md/cpp/11-時間複雜度.md"
+            - "排序": "md/cpp/12-排序.md"
+            - "二分搜尋": "md/cpp/13-二分搜尋.md"
+            - "前綴和": "md/cpp/14-前綴和.md"
+        - "D｜核心演算法":
+            - "遞迴": "md/cpp/15-遞迴.md"
+            - "常用容器": "md/cpp/16-常用容器.md"
+            - "DFS與BFS": "md/cpp/17-DFS與BFS.md"
+            - "貪心": "md/cpp/18-貪心.md"
+            - "動態規劃": "md/cpp/19-動態規劃.md"
+            - "最短路徑": "md/cpp/20-最短路徑.md"
+        - "E｜競賽訓練":
+            - "競賽解題流程": "md/cpp/21-競賽解題流程.md"
+      - 漸進式練習:
+          - 練習中心: md/cpp/24-漸進式練習.md
+          - 分級實作題庫: md/cpp/22-分級題庫.md
+      - 模擬考:
+          - 模擬考中心（90 分鐘）: md/cpp/25-模擬考中心.md
+          - 三題循序練習: md/cpp/23-模擬測驗.md

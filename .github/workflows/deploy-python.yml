@@ -59,7 +59,7 @@ jobs:
           cp -a theme/assets/. _python_docs/assets/
           cp -a docs/md/cpp/assets/. _python_docs/assets/
           test "$(find _python_docs/md/python -type f -name '*.md' | wc -l)" -eq 20
-          test "$(find _python_docs/md/cpp -type f -name '*.md' | wc -l)" -eq 24
+          test "$(find _python_docs/md/cpp -type f -name '*.md' | wc -l)" -eq 26
           test "$(find _python_docs/md/python -type f -name '*.html' | wc -l)" -eq 33
 
       - name: Build using inherited forked template
@@ -74,6 +74,8 @@ jobs:
           test -f _python_public/md/cpp/00-學習地圖.html
           test -f _python_public/md/cpp/01-第一支程式.html
           test -f _python_public/md/cpp/23-模擬測驗.html
+          test -f _python_public/md/cpp/24-漸進式練習.html
+          test -f _python_public/md/cpp/25-模擬考中心.html
           test -f _python_public/search/search_index.json
           test ! -e _python_public/blog
           test ! -e _python_public/md/人工智慧
@@ -92,6 +94,7 @@ jobs:
       - name: Validate all progressive lessons and original C++ examples
         run: |
           node --check docs/md/cpp/assets/cpp-practice.js
+          node --check docs/md/cpp/assets/cpp-mock-exam.js
           python tools/verify_cpp_progression.py
           python - <<'PY'
           from pathlib import Path
@@ -100,7 +103,12 @@ jobs:
               matches=list(pages.glob(f'{i:02d}-*.html'))
               assert len(matches)==1,(i,matches)
               assert 'data-cpp-practice=' in matches[0].read_text(encoding='utf-8'),matches[0]
-          for name in ('cpp-practice.js','cpp-practice.css','cpp-practice-data.json'):
+          for name, marker in [
+              ('24-漸進式練習.html', 'data-cpp-overview'),
+              ('25-模擬考中心.html', 'data-cpp-mock-exam'),
+          ]:
+              assert marker in (pages / name).read_text(encoding='utf-8'),name
+          for name in ('cpp-practice.js','cpp-practice.css','cpp-practice-data.json','cpp-mock-exam.js','cpp-mock-exam.css'):
               assert Path('_python_public/assets',name).is_file(),name
           home=Path('_python_public/md/cpp/00-學習地圖.html').read_text(encoding='utf-8')
           assert 'data-cpp-overview' in home
