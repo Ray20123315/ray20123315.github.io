@@ -40,6 +40,9 @@
       if(returnParent?.isConnected){
         if(returnNext?.parentNode===returnParent)returnParent.insertBefore(card,returnNext);
         else returnParent.append(card);
+      } else if(returnParent) {
+        // Switching lessons while the compiler is maximized must not orphan it.
+        card.remove();
       }
       returnParent=null;returnNext=null;
       backdrop?.remove();
