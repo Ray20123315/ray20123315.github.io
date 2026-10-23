@@ -1,0 +1,22 @@
+.cpp-mock{border:1px solid var(--md-default-fg-color--lightest,#555);border-radius:12px;overflow:hidden;color:var(--md-default-fg-color);background:var(--md-default-bg-color);margin:1rem 0}
+.cpp-mock *{box-sizing:border-box}
+.cm-head{padding:1rem 1.2rem;border-bottom:1px solid var(--md-default-fg-color--lightest,#555)}
+.cm-head h2{margin:0;font-size:1.12rem}
+.cm-heading{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.cm-clock{font:700 1.1rem "Cascadia Mono",Consolas,monospace;white-space:nowrap}
+.cm-note{font-size:.78rem;opacity:.8;line-height:1.7}
+.cm-main{padding:1.2rem}
+.cm-main h3{font-size:1.02rem;margin:1rem 0 .7rem}
+.cm-tabs,.cm-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin:.85rem 0}
+.cpp-mock .cm-btn{cursor:pointer;border:1px solid var(--md-default-fg-color--lightest,#555);border-radius:7px;background:transparent;color:inherit;padding:.55rem .8rem;font:inherit;font-size:.78rem}
+.cpp-mock .cm-btn[aria-current=page]{border-color:var(--md-accent-fg-color,#0ac);font-weight:700}
+.cpp-mock .cm-btn.cm-primary{background:var(--md-primary-fg-color,#167);border-color:transparent;color:var(--md-primary-bg-color,#fff)}
+.cpp-mock .cm-btn.cm-danger{border-color:#bb4d4d;color:#d47a7a}
+.cpp-mock .cm-btn:focus-visible,.cpp-mock textarea:focus-visible{outline:2px solid var(--md-accent-fg-color,#0ac);outline-offset:2px}
+.cm-label{display:block;font-size:.82rem;margin:1rem 0}
+.cpp-mock textarea{display:block;width:100%;border:1px solid var(--md-default-fg-color--lightest,#555);border-radius:7px;padding:.8rem;margin-top:.4rem;background:var(--md-code-bg-color,#151515);color:var(--md-code-fg-color,#eee);font: .78rem/1.65 "Cascadia Mono",Consolas,monospace;resize:vertical}
+.cm-editor{min-height:270px}.cm-output{min-height:95px}
+.cm-pre{padding:.85rem;border-radius:7px;overflow:auto;white-space:pre-wrap;background:var(--md-code-bg-color,#151515);color:var(--md-code-fg-color,#eee)}
+.cm-message{font-size:.78rem;opacity:.85;min-height:1.2rem}
+.cm-footer{border-top:1px solid var(--md-default-fg-color--lightest,#555);padding-top:1rem;margin-top:1rem}
+@media(max-width:600px){.cm-head,.cm-main{padding:.9rem}.cm-editor{min-height:200px}.cm-heading{align-items:flex-start}}
