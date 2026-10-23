@@ -136,6 +136,16 @@ jobs:
           assert '.ic-expanded' in css and 'ic-backdrop' in runtime, 'Full-size compiler missing'
           assert 'data-layout="wide"' in layout, 'Compact desktop stylesheet missing'
           assert 'STORAGE_LAYOUT' in source and 'applyLayout(' in source, 'Persistent compact layout toggle missing'
+          tutor_js=Path('_python_public/assets/cpp-tutor.js').read_text(encoding='utf-8')
+          tutor_css=Path('_python_public/assets/cpp-tutor.css').read_text(encoding='utf-8')
+          assert 'function workbench(' in tutor_js, 'Tutor side-by-side layout missing'
+          assert 'body.append(workbench(' in tutor_js, 'Tutor steps not using workbench'
+          assert 'viewport.scrollTop=0' in tutor_js, 'Stage scroll reset missing'
+          assert '.tl-workbench' in tutor_css and 'grid-template-columns:' in tutor_css, 'Two-column CSS missing'
+          assert 'tl-explain-pane' in tutor_css and 'tl-code-pane' in tutor_css, 'Code/explanation panes missing'
+          assert '@media(max-width:950px)' in tutor_css, 'Small-screen single-column fallback missing'
+          assert 'openExpanded' in runtime and 'document.body.append(card)' in runtime, 'Editor overlay not reachable'
+          print('PASS: 16:9 side-by-side tutor, source pane, explainer pane, scroll reset and overlay')
           print('PASS: 16:9 desktop focus, compiler aspect ratio, expanded view, mobile fallback')
           home=Path('_python_public/md/cpp/00-學習地圖.html').read_text(encoding='utf-8')
           assert 'data-cpp-overview' in home

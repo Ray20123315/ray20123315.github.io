@@ -52,7 +52,8 @@
       expand.textContent="⤢ 16:9 放大編譯器";
       expand.setAttribute("aria-expanded","false");
       document.removeEventListener("keydown",onEscape);
-      expand.focus();
+      if(card.getClientRects().length)expand.focus();
+      else host.closest(".tl-code-tools")?.querySelector(".tl-code-actions button")?.focus();
     }
     function onEscape(event) {
       if(event.key==="Escape") collapse();
