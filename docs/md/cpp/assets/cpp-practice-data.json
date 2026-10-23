@@ -1,0 +1,1058 @@
+{
+  "schema": 1,
+  "language": "C++17",
+  "grading": "choice/fill are checked automatically; code stages compare user-reported local output only and do not compile C++ or award AC",
+  "lessons": {
+    "01-第一支程式": {
+      "title": "第一支程式",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "C++ 程式從哪個函式開始執行？",
+          "options": [
+            "print()",
+            "main()",
+            "start()"
+          ],
+          "correct": 1,
+          "explain": "main() 是程式入口。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`std::____ << \"Hi\";`",
+          "answer": "cout",
+          "explain": "std::cout 是輸出工具。",
+          "hint": "std::cout 是輸出工具。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "輸出 First 與 Second 兩行",
+          "input": "",
+          "output": "First\nSecond",
+          "hint": "使用 std::cout，兩行各加 \\n。",
+          "starter": "#include <iostream>\n\nint main() {\n    // TODO: 輸出 First 與 Second 兩行\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "輸出 C++、Practice、Ready 三行",
+          "input": "",
+          "output": "C++\nPractice\nReady",
+          "hint": "從 #include <iostream> 和 int main() 開始。",
+          "starter": "#include <iostream>\n\nint main() {\n    // TODO: 輸出 C++、Practice、Ready 三行\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "02-變數與型別": {
+      "title": "變數與型別",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "整數表達式 7/2 的結果為何？",
+          "options": [
+            "3",
+            "3.5",
+            "4"
+          ],
+          "correct": 0,
+          "explain": "整數除法會捨去小數部分。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`long ____ total = 0;`",
+          "answer": "long",
+          "explain": "long long 是較大整數型別。",
+          "hint": "long long 是較大整數型別。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "輸入整數 x，輸出 x+10",
+          "input": "5",
+          "output": "15",
+          "hint": "用 cin 讀 x，再 cout 輸出 x+10。",
+          "starter": "#include <iostream>\n\nint main() {\n    // TODO: 輸入整數 x，輸出 x+10\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "輸入兩個整數，輸出乘積",
+          "input": "6 7",
+          "output": "42",
+          "hint": "先宣告兩個變數，用 * 相乘。",
+          "starter": "#include <iostream>\n\nint main() {\n    // TODO: 輸入兩個整數，輸出乘積\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "03-輸入輸出與運算": {
+      "title": "輸入與運算",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "17%5 的結果是？",
+          "options": [
+            "3",
+            "2",
+            "12"
+          ],
+          "correct": 1,
+          "explain": "% 求整數餘數，17 除以 5 餘 2。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`std::____ >> a;`",
+          "answer": "cin",
+          "explain": "cin 用來讀標準輸入。",
+          "hint": "cin 用來讀標準輸入。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "讀入兩個整數，輸出兩數和",
+          "input": "4 8",
+          "output": "12",
+          "hint": "cin >> a >> b; 然後印出 a+b。",
+          "starter": "#include <iostream>\n\nint main() {\n    // TODO: 讀入兩個整數，輸出兩數和\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "輸入正整數 a、b（b>0），輸出整數商與餘數，各一行",
+          "input": "17 5",
+          "output": "3\n2",
+          "hint": "分別用 / 和 %。",
+          "starter": "#include <iostream>\n\nint main() {\n    // TODO: 輸入正整數 a、b（b>0），輸出整數商與餘數，各一行\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "04-條件判斷": {
+      "title": "條件判斷",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "原課程範例輸入分數 60，結果為？",
+          "options": [
+            "A",
+            "Pass",
+            "Retry"
+          ],
+          "correct": 1,
+          "explain": "60 未達 90，但已達 60。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`if (x ____ 0)`",
+          "answer": ">",
+          "explain": "比較是否大於 0 要用 >。",
+          "hint": "比較是否大於 0 要用 >。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "輸入整數，依正數、零、負數輸出 positive、zero、negative",
+          "input": "0",
+          "output": "zero",
+          "hint": "使用 if、else if、else。",
+          "starter": "#include <iostream>\n\nint main() {\n    // TODO: 輸入整數，依正數、零、負數輸出 positive、zero、negative\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "輸入整數 x；在 1 到 100（含）輸出 YES，否則 NO",
+          "input": "100",
+          "output": "YES",
+          "hint": "x>=1 && x<=100。",
+          "starter": "#include <iostream>\n\nint main() {\n    // TODO: 輸入整數 x；在 1 到 100（含）輸出 YES，否則 NO\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "05-迴圈": {
+      "title": "迴圈",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "1+2+3+4 等於？",
+          "options": [
+            "6",
+            "10",
+            "15"
+          ],
+          "correct": 1,
+          "explain": "計算總和為 10。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`for(int i=1; i ____ n; ++i)`",
+          "answer": "<=",
+          "explain": "加上等號才會走到 n。",
+          "hint": "加上等號才會走到 n。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "輸入 n（0≤n≤10000），輸出 1 到 n 的總和",
+          "input": "5",
+          "output": "15",
+          "hint": "sum 初始 0，再用 for 累加。",
+          "starter": "#include <iostream>\n\nint main() {\n    // TODO: 輸入 n（0≤n≤10000），輸出 1 到 n 的總和\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "輸入 n（0≤n≤12），輸出 n!（0! = 1）",
+          "input": "4",
+          "output": "24",
+          "hint": "階乘需要從 1 連乘到 n。",
+          "starter": "#include <iostream>\n\nint main() {\n    // TODO: 輸入 n（0≤n≤12），輸出 n!（0! = 1）\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "06-除錯與測資": {
+      "title": "除錯與測資",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "for(int i=0;i<5;++i) 會跑幾次？",
+          "options": [
+            "4",
+            "5",
+            "6"
+          ],
+          "correct": 1,
+          "explain": "i=0、1、2、3、4，共 5 次。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`count____;`",
+          "answer": "++",
+          "explain": "count++ 讓 count 加一。",
+          "hint": "count++ 讓 count 加一。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "輸入 n，輸出 1 到 n 的偶數數量",
+          "input": "6",
+          "output": "3",
+          "hint": "用 i%2==0 判定，記得測 n=1。",
+          "starter": "#include <iostream>\n\nint main() {\n    // TODO: 輸入 n，輸出 1 到 n 的偶數數量\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "輸入三個整數，輸出最大值；負數也要正確",
+          "input": "-3 -9 -4",
+          "output": "-3",
+          "hint": "不能把最大值初始化為 0。",
+          "starter": "#include <iostream>\n\nint main() {\n    // TODO: 輸入三個整數，輸出最大值；負數也要正確\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "07-vector陣列": {
+      "title": "vector 陣列",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "0-based vector 的第三個元素，索引是？",
+          "options": [
+            "1",
+            "2",
+            "3"
+          ],
+          "correct": 1,
+          "explain": "索引從 0 開始，第三個是 2。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`std::vector<int> a(____);`",
+          "answer": "n",
+          "explain": "n 是要配置的元素數量。",
+          "hint": "n 是要配置的元素數量。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "輸入 n 個整數，輸出總和",
+          "input": "4\n3 4 5 6",
+          "output": "18",
+          "hint": "迴圈輸入 a[i]，逐個累加。",
+          "starter": "#include <iostream>\n#include <vector>\n\nint main() {\n    // TODO: 輸入 n 個整數，輸出總和\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "輸入 n≥1 個整數，輸出最小值與最大值",
+          "input": "4\n9 -2 7 0",
+          "output": "-2 9",
+          "hint": "用第一個元素初始化兩個極值。",
+          "starter": "#include <iostream>\n#include <vector>\n\nint main() {\n    // TODO: 輸入 n≥1 個整數，輸出最小值與最大值\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "08-字串": {
+      "title": "字串",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "banana 中有幾個小寫字母 a？",
+          "options": [
+            "2",
+            "3",
+            "4"
+          ],
+          "correct": 1,
+          "explain": "banana 內的 a 有 3 個。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`if (s[____] == 'a')`",
+          "answer": "i",
+          "explain": "s[i] 讀取第 i 個字元。",
+          "hint": "s[i] 讀取第 i 個字元。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "輸入單字，輸出小寫 a 的出現次數",
+          "input": "banana",
+          "output": "3",
+          "hint": "對每個字元檢查是否等於 'a'。",
+          "starter": "#include <iostream>\n#include <string>\n\nint main() {\n    // TODO: 輸入單字，輸出小寫 a 的出現次數\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "輸入單字，是回文則輸出 YES，否則 NO",
+          "input": "level",
+          "output": "YES",
+          "hint": "比較左右對稱的字元。",
+          "starter": "#include <iostream>\n#include <string>\n\nint main() {\n    // TODO: 輸入單字，是回文則輸出 YES，否則 NO\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "09-函式": {
+      "title": "函式",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "square(4) 定義為 x*x，回傳什麼？",
+          "options": [
+            "8",
+            "16",
+            "4"
+          ],
+          "correct": 1,
+          "explain": "4*4=16。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`return x ____ x;`",
+          "answer": "*",
+          "explain": "兩個整數相乘用 *。",
+          "hint": "兩個整數相乘用 *。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "定義 absValue(int x)，讀入整數並輸出其絕對值",
+          "input": "-7",
+          "output": "7",
+          "hint": "負數就回傳 -x。",
+          "starter": "#include <iostream>\n\nint main() {\n    // TODO: 定義 absValue(int x)，讀入整數並輸出其絕對值\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "定義 maxOfTwo(a,b)，再用它找三個數的最大值",
+          "input": "2 9 3",
+          "output": "9",
+          "hint": "可先比較前兩個，再與第三個比較。",
+          "starter": "#include <iostream>\n\nint main() {\n    // TODO: 定義 maxOfTwo(a,b)，再用它找三個數的最大值\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "10-二維陣列": {
+      "title": "二維陣列",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "2×3 的矩陣按列放 1～6，a[1][2] 為？",
+          "options": [
+            "3",
+            "5",
+            "6"
+          ],
+          "correct": 2,
+          "explain": "第 2 列第 3 欄是 6。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`a[i][____]`",
+          "answer": "j",
+          "explain": "第二個索引通常表示欄。",
+          "hint": "第二個索引通常表示欄。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "讀入 r×c 矩陣，逐行輸出各列總和",
+          "input": "2 3\n1 2 3\n4 5 6",
+          "output": "6\n15",
+          "hint": "雙層迴圈，換列前重設 sum。",
+          "starter": "#include <iostream>\n#include <vector>\n\nint main() {\n    // TODO: 讀入 r×c 矩陣，逐行輸出各列總和\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "輸入 n×n 矩陣，輸出主對角線的和",
+          "input": "2\n1 2\n3 4",
+          "output": "5",
+          "hint": "主對角線取 a[i][i]。",
+          "starter": "#include <iostream>\n#include <vector>\n\nint main() {\n    // TODO: 輸入 n×n 矩陣，輸出主對角線的和\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "11-時間複雜度": {
+      "title": "時間複雜度",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "外層 n 次，內層 n 次，通常是？",
+          "options": [
+            "O(n)",
+            "O(n²)",
+            "O(log n)"
+          ],
+          "correct": 1,
+          "explain": "總次數約 n²。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`O(n * ____)`",
+          "answer": "n",
+          "explain": "n*n 就是 n²。",
+          "hint": "n*n 就是 n²。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "輸入 n，用一層迴圈執行 count++ 共 n 次，印出 count",
+          "input": "6",
+          "output": "6",
+          "hint": "時間複雜度 O(n)。",
+          "starter": "#include <iostream>\n\nint main() {\n    // TODO: 輸入 n，用一層迴圈執行 count++ 共 n 次，印出 count\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "輸入 n，用雙層迴圈計數 n×n 次，輸出次數",
+          "input": "4",
+          "output": "16",
+          "hint": "注意長度大時要用 long long。",
+          "starter": "#include <iostream>\n\nint main() {\n    // TODO: 輸入 n，用雙層迴圈計數 n×n 次，輸出次數\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "12-排序": {
+      "title": "排序",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "3、1、3 由小到大排序後為？",
+          "options": [
+            "1 3 3",
+            "3 1 3",
+            "3 3 1"
+          ],
+          "correct": 0,
+          "explain": "sort 預設升冪。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`std::____(a.begin(), a.end());`",
+          "answer": "sort",
+          "explain": "排序函式在 <algorithm>。",
+          "hint": "排序函式在 <algorithm>。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "輸入 n 個整數，升冪排序後以空白隔開印出",
+          "input": "4\n5 2 5 1",
+          "output": "1 2 5 5",
+          "hint": "先呼叫 sort，再逐個輸出。",
+          "starter": "#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n    // TODO: 輸入 n 個整數，升冪排序後以空白隔開印出\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "輸入 n、k（1≤k≤n）與 n 個數，輸出第 k 小",
+          "input": "5 2\n9 3 1 7 3",
+          "output": "3",
+          "hint": "sort 後輸出 a[k-1]。",
+          "starter": "#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n    // TODO: 輸入 n、k（1≤k≤n）與 n 個數，輸出第 k 小\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "13-二分搜尋": {
+      "title": "二分搜尋",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "二分搜尋需要什麼前提？",
+          "options": [
+            "排序或單調性",
+            "元素全部不同",
+            "只能正整數"
+          ],
+          "correct": 0,
+          "explain": "利用單調性才可以排除一半範圍。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`left = mid ____ 1;`",
+          "answer": "+",
+          "explain": "太小就移到 mid+1。",
+          "hint": "太小就移到 mid+1。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "輸入已排序的 n 個整數和 K，若含 K 輸出 YES，否則 NO",
+          "input": "5 4\n1 3 4 7 9",
+          "output": "YES",
+          "hint": "用 left、right、mid 縮小範圍。",
+          "starter": "#include <iostream>\n#include <vector>\n\nint main() {\n    // TODO: 輸入已排序的 n 個整數和 K，若含 K 輸出 YES，否則 NO\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "輸入已排序的 n 個整數與 K，輸出第一個 ≥K 的索引，無則 -1",
+          "input": "5 6\n1 3 6 6 9",
+          "output": "2",
+          "hint": "命中 ≥K 時記錄答案，繼續往左。",
+          "starter": "#include <iostream>\n#include <vector>\n\nint main() {\n    // TODO: 輸入已排序的 n 個整數與 K，輸出第一個 ≥K 的索引，無則 -1\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "14-前綴和": {
+      "title": "前綴和",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "2 3 5 7 的區間 [1,3] 總和為？",
+          "options": [
+            "15",
+            "17",
+            "10"
+          ],
+          "correct": 0,
+          "explain": "3+5+7=15。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`prefix[r+1]-prefix[____]`",
+          "answer": "l",
+          "explain": "prefix[k] 是前 k 項總和。",
+          "hint": "prefix[k] 是前 k 項總和。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "輸入 n 個整數與區間 [l,r]（0-based），輸出區間和",
+          "input": "4\n2 3 5 7\n1 3",
+          "output": "15",
+          "hint": "pre[r+1]-pre[l]。",
+          "starter": "#include <iostream>\n#include <vector>\n\nint main() {\n    // TODO: 輸入 n 個整數與區間 [l,r]（0-based），輸出區間和\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "輸入 n、q、n 個值與 q 組區間，逐筆輸出區間和",
+          "input": "5 2\n1 2 3 4 5\n1 3\n0 4",
+          "output": "9\n15",
+          "hint": "預處理 O(n)，查詢 O(1)。",
+          "starter": "#include <iostream>\n#include <vector>\n\nint main() {\n    // TODO: 輸入 n、q、n 個值與 q 組區間，逐筆輸出區間和\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "15-遞迴": {
+      "title": "遞迴",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "factorial(4) 回傳多少？",
+          "options": [
+            "12",
+            "24",
+            "16"
+          ],
+          "correct": 1,
+          "explain": "4*3*2*1=24。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`factorial(n ____ 1)`",
+          "answer": "-",
+          "explain": "每次讓 n 變小。",
+          "hint": "每次讓 n 變小。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "用遞迴求 1 到 n 的總和（0≤n≤10000）",
+          "input": "4",
+          "output": "10",
+          "hint": "sum(n)=n+sum(n-1)，sum(0)=0。",
+          "starter": "#include <iostream>\n\nint main() {\n    // TODO: 用遞迴求 1 到 n 的總和（0≤n≤10000）\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "遞迴求 Fibonacci F(n)，F(0)=0、F(1)=1（n≤25）",
+          "input": "6",
+          "output": "8",
+          "hint": "F(n)=F(n-1)+F(n-2)，要有兩個 Base Case。",
+          "starter": "#include <iostream>\n\nint main() {\n    // TODO: 遞迴求 Fibonacci F(n)，F(0)=0、F(1)=1（n≤25）\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "16-常用容器": {
+      "title": "常用容器",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "push 3、5 到 stack，top() 是？",
+          "options": [
+            "3",
+            "5",
+            "8"
+          ],
+          "correct": 1,
+          "explain": "stack 後進先出。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`q.____()`",
+          "answer": "front",
+          "explain": "queue.front() 取最前面元素。",
+          "hint": "queue.front() 取最前面元素。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "輸入 n 個整數，利用 stack 反向輸出",
+          "input": "4\n1 2 3 4",
+          "output": "4 3 2 1",
+          "hint": "先 push，再 top、pop。",
+          "starter": "#include <iostream>\n#include <stack>\n#include <queue>\n#include <set>\n#include <map>\n\nint main() {\n    // TODO: 輸入 n 個整數，利用 stack 反向輸出\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "輸入 n 個整數，輸出不重複的數量",
+          "input": "6\n1 1 2 3 3 7",
+          "output": "4",
+          "hint": "set<int> 可去除重複值。",
+          "starter": "#include <iostream>\n#include <stack>\n#include <queue>\n#include <set>\n#include <map>\n\nint main() {\n    // TODO: 輸入 n 個整數，輸出不重複的數量\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "17-DFS與BFS": {
+      "title": "DFS／BFS",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "無權圖 0—1—2，0 到 2 最少幾條邊？",
+          "options": [
+            "1",
+            "2",
+            "3"
+          ],
+          "correct": 1,
+          "explain": "經 0→1→2，共 2 條。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`q.____(v);`",
+          "answer": "push",
+          "explain": "queue.push 將新節點入列。",
+          "hint": "queue.push 將新節點入列。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "輸入無權無向圖，輸出 0 到 n-1 的最短邊數或 -1",
+          "input": "4 3\n0 1\n1 2\n2 3",
+          "output": "3",
+          "hint": "用 queue BFS，dist 初始 -1。",
+          "starter": "#include <iostream>\n#include <vector>\n#include <queue>\n\nint main() {\n    // TODO: 輸入無權無向圖，輸出 0 到 n-1 的最短邊數或 -1\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "輸入無向圖，輸出連通分量個數",
+          "input": "5 2\n0 1\n3 4",
+          "output": "3",
+          "hint": "每遇到未拜訪點就開始新一次 BFS/DFS。",
+          "starter": "#include <iostream>\n#include <vector>\n#include <queue>\n\nint main() {\n    // TODO: 輸入無向圖，輸出連通分量個數\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "18-貪心": {
+      "title": "貪心法",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "選最多不重疊活動時，應優先選？",
+          "options": [
+            "最晚開始",
+            "最早結束",
+            "最長活動"
+          ],
+          "correct": 1,
+          "explain": "最早結束保留最多後續時間。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`std::____(a.begin(), a.end());`",
+          "answer": "sort",
+          "explain": "pairs {end,start} 排序後先按 end。",
+          "hint": "pairs {end,start} 排序後先按 end。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "輸入 n 個非負開始時間活動，輸出最多可安排幾個",
+          "input": "4\n1 3\n2 5\n3 4\n4 6",
+          "output": "3",
+          "hint": "按結束時間排序，遇到可接上的就選。",
+          "starter": "#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <utility>\n#include <climits>\n\nint main() {\n    // TODO: 輸入 n 個非負開始時間活動，輸出最多可安排幾個\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "活動開始時間可能為負數，輸出最多不重疊活動數",
+          "input": "3\n-5 -1\n-1 2\n1 4",
+          "output": "2",
+          "hint": "lastEnd 要小於所有可能開始時間。",
+          "starter": "#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <utility>\n#include <climits>\n\nint main() {\n    // TODO: 活動開始時間可能為負數，輸出最多不重疊活動數\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "19-動態規劃": {
+      "title": "動態規劃",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "走 1 或 2 階，登上第 4 階的方式數？",
+          "options": [
+            "3",
+            "5",
+            "8"
+          ],
+          "correct": 1,
+          "explain": "dp[4]=dp[3]+dp[2]=5。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`dp[i]=dp[i-1]+dp[i-____];`",
+          "answer": "2",
+          "explain": "上一階或上兩階轉移。",
+          "hint": "上一階或上兩階轉移。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "輸入 n（0≤n≤90），輸出走 1/2 階的方式數",
+          "input": "5",
+          "output": "8",
+          "hint": "dp[0]=1，dp[1]=1。",
+          "starter": "#include <iostream>\n#include <vector>\n\nint main() {\n    // TODO: 輸入 n（0≤n≤90），輸出走 1/2 階的方式數\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "輸入 n，允許步長 1、3、5，求到第 n 階最少步數",
+          "input": "7",
+          "output": "3",
+          "hint": "以 dp[i] 記最少步數，找合法的前三種轉移。",
+          "starter": "#include <iostream>\n#include <vector>\n\nint main() {\n    // TODO: 輸入 n，允許步長 1、3、5，求到第 n 階最少步數\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "20-最短路徑": {
+      "title": "Dijkstra 最短路徑",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "0→2 成本 10、0→1 成本 2、1→2 成本 3，最短為？",
+          "options": [
+            "10",
+            "5",
+            "3"
+          ],
+          "correct": 1,
+          "explain": "走 0→1→2 成本 5。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`if (d != dist[u]) ____;`",
+          "answer": "continue",
+          "explain": "跳過過期的 priority_queue 距離。",
+          "hint": "跳過過期的 priority_queue 距離。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "輸入非負有向圖，輸出 0 到 n-1 的最小成本或 -1",
+          "input": "3 3\n0 2 10\n0 1 2\n1 2 3",
+          "output": "5",
+          "hint": "優先佇列＋ long long dist。",
+          "starter": "#include <iostream>\n#include <vector>\n#include <queue>\n#include <utility>\n#include <functional>\n\nint main() {\n    // TODO: 輸入非負有向圖，輸出 0 到 n-1 的最小成本或 -1\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "測試終點不可達情況，輸出最短成本或 -1",
+          "input": "3 1\n0 1 4",
+          "output": "-1",
+          "hint": "終點仍是 INF 時輸出 -1。",
+          "starter": "#include <iostream>\n#include <vector>\n#include <queue>\n#include <utility>\n#include <functional>\n\nint main() {\n    // TODO: 測試終點不可達情況，輸出最短成本或 -1\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "21-競賽解題流程": {
+      "title": "競賽解題流程",
+      "stages": [
+        {
+          "type": "choice",
+          "title": "觀念識讀",
+          "prompt": "計算正數個數時，0 算正數嗎？",
+          "options": [
+            "算",
+            "不算",
+            "僅最後一筆算"
+          ],
+          "correct": 1,
+          "explain": "正數必須 >0。",
+          "hint": "先重新閱讀本課的核心原理，找出對應規則。"
+        },
+        {
+          "type": "fill",
+          "title": "語法填空",
+          "prompt": "補齊 ____：`if (x ____ 0) answer++;`",
+          "answer": ">",
+          "explain": "不要把 0 包含進來。",
+          "hint": "不要把 0 包含進來。"
+        },
+        {
+          "type": "code",
+          "title": "引導實作",
+          "prompt": "輸入 n 個整數，輸出正數的數量，不必儲存陣列",
+          "input": "5\n-2 0 3 1 -1",
+          "output": "2",
+          "hint": "讀入時就判斷 x>0。",
+          "starter": "#include <iostream>\n\nint main() {\n    // TODO: 輸入 n 個整數，輸出正數的數量，不必儲存陣列\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "獨立挑戰",
+          "prompt": "輸入 n 個整數，輸出最長連續正數區段長度",
+          "input": "7\n1 2 -1 3 4 5 0",
+          "output": "3",
+          "hint": "遇非正數重設 current，維護 best。",
+          "starter": "#include <iostream>\n\nint main() {\n    // TODO: 輸入 n 個整數，輸出最長連續正數區段長度\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "22-分級題庫": {
+      "title": "分級題庫（全部十題）",
+      "stages": [
+        {
+          "type": "code",
+          "title": "A1 加法器",
+          "prompt": "讀入兩個整數，輸出它們的和。",
+          "input": "3 8",
+          "output": "11",
+          "hint": "用 cin 讀兩數。",
+          "starter": "#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n    // TODO: 讀入兩個整數，輸出它們的和。\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "A2 奇數計數",
+          "prompt": "讀入 n，輸出 1～n 的奇數個數。",
+          "input": "7",
+          "output": "4",
+          "hint": "用 i%2 判斷。",
+          "starter": "#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n    // TODO: 讀入 n，輸出 1～n 的奇數個數。\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "A3 最大公因數",
+          "prompt": "輸入兩個正整數，求最大公因數。",
+          "input": "12 18",
+          "output": "6",
+          "hint": "先試從 1 到 min(a,b) 列舉因數。",
+          "starter": "#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n    // TODO: 輸入兩個正整數，求最大公因數。\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "B1 極值",
+          "prompt": "輸入 n 個整數，輸出最小與最大。",
+          "input": "5\n8 -1 4 7 2",
+          "output": "-1 8",
+          "hint": "從第一個數初始化。",
+          "starter": "#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n    // TODO: 輸入 n 個整數，輸出最小與最大。\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "B2 反轉單字",
+          "prompt": "輸入一個單字，反向輸出。",
+          "input": "coding",
+          "output": "gnidoc",
+          "hint": "從末尾倒序走訪。",
+          "starter": "#include <iostream>\n#include <string>\n\nint main() {\n    // TODO: 輸入一個單字，反向輸出。\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "B3 各列加總",
+          "prompt": "輸入 r×c 矩陣，逐列輸出總和。",
+          "input": "2 3\n1 2 3\n4 5 6",
+          "output": "6\n15",
+          "hint": "每列重新設 sum=0。",
+          "starter": "#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n    // TODO: 輸入 r×c 矩陣，逐列輸出總和。\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "C1 區間總和",
+          "prompt": "輸入 n、q、n 個值與 q 組 [l,r]，逐筆輸出區間和。",
+          "input": "5 2\n1 2 3 4 5\n1 3\n0 4",
+          "output": "9\n15",
+          "hint": "前綴和 pre[r+1]-pre[l]。",
+          "starter": "#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n    // TODO: 輸入 n、q、n 個值與 q 組 [l,r]，逐筆輸出區間和。\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "C2 二分索引",
+          "prompt": "輸入已排序數字與 K，輸出第一個 ≥K 的 0-based 索引。",
+          "input": "5 6\n1 3 6 6 9",
+          "output": "2",
+          "hint": "保存符合條件的 mid，往左繼續。",
+          "starter": "#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n    // TODO: 輸入已排序數字與 K，輸出第一個 ≥K 的 0-based 索引。\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "D1 圖最短路",
+          "prompt": "輸入無向圖，輸出 0 到 n-1 的最少邊數或 -1。",
+          "input": "4 3\n0 1\n1 2\n2 3",
+          "output": "3",
+          "hint": "使用 BFS。",
+          "starter": "#include <iostream>\n#include <vector>\n#include <queue>\n\nint main() {\n    // TODO: 輸入無向圖，輸出 0 到 n-1 的最少邊數或 -1。\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "D2 爬樓梯",
+          "prompt": "輸入 n，輸出一次走 1 或 2 階的方式數。",
+          "input": "4",
+          "output": "5",
+          "hint": "動態規劃 dp[i]=dp[i-1]+dp[i-2]。",
+          "starter": "#include <iostream>\n#include <vector>\n\nint main() {\n    // TODO: 輸入 n，輸出一次走 1 或 2 階的方式數。\n    return 0;\n}\n"
+        }
+      ]
+    },
+    "23-模擬測驗": {
+      "title": "自編模擬測驗（三題）",
+      "stages": [
+        {
+          "type": "code",
+          "title": "第 1 題 庫存",
+          "prompt": "初始庫存 0，輸入 n 次增減量，輸出最後庫存與過程最高庫存。",
+          "input": "5\n5 -2 4 -10 6",
+          "output": "3 7",
+          "hint": "最高庫存包含初始庫存 0。",
+          "starter": "#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n    // TODO: 初始庫存 0，輸入 n 次增減量，輸出最後庫存與過程最高庫存。\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "第 2 題 兩數和",
+          "prompt": "輸入 n、K、n 個整數，判斷有否不同索引的兩個數相加等於 K。",
+          "input": "5 11\n2 7 4 9 1",
+          "output": "YES",
+          "hint": "排序＋雙指標，數字用 long long。",
+          "starter": "#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n    // TODO: 輸入 n、K、n 個整數，判斷有否不同索引的兩個數相加等於 K。\n    return 0;\n}\n"
+        },
+        {
+          "type": "code",
+          "title": "第 3 題 迷宮",
+          "prompt": "輸入 S、T、#、. 組成的地圖，求 S 到 T 四方向移動的最少步數或 -1。",
+          "input": "3 4\nS...\n.##.\n...T",
+          "output": "5",
+          "hint": "BFS 逐層擴展。",
+          "starter": "#include <iostream>\n#include <vector>\n#include <queue>\n#include <string>\n\nint main() {\n    // TODO: 輸入 S、T、#、. 組成的地圖，求 S 到 T 四方向移動的最少步數或 -1。\n    return 0;\n}\n"
+        }
+      ]
+    }
+  }
+}
