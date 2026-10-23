@@ -1,0 +1,15 @@
+/* Integrated third-party compiler surface; OneCompiler provides actual compilation. */
+.inline-compiler{margin:20px 0 12px;border:1px solid var(--border2,#444);border-radius:12px;overflow:hidden;background:var(--surface,#111);color:var(--text,#eee)}
+.ic-heading{padding:15px 17px;background:var(--accentSoft,#151515);border-bottom:1px solid var(--border,#444)}
+.ic-heading strong{display:block;color:var(--accentText,#5cf);font-size:.9rem}
+.ic-heading p{font-size:.75rem;margin:5px 0 0;line-height:1.65;opacity:.85}
+.ic-panel{padding:13px 16px 15px}
+.ic-actions{display:flex;gap:8px;flex-wrap:wrap}
+.ic-btn{border:1px solid var(--border2,#555);background:var(--surface2,#191919);color:var(--text,#eee);padding:10px 13px;border-radius:9px;font-size:.77rem;font-weight:700;cursor:pointer}
+.ic-btn.ic-primary{background:var(--accentText,#31b2ce);color:var(--bg,#fff);border-color:transparent}
+.ic-btn:focus-visible{outline:2px solid var(--accent,#06c);outline-offset:2px}
+.ic-btn[hidden]{display:none}
+.ic-feedback{margin:10px 0!important;color:var(--muted,#aaa);font-size:.76rem!important;line-height:1.65}
+.ic-slot{min-width:0}
+.ic-frame{display:block;width:100%;height:570px;border:1px solid var(--border,#444);border-radius:10px;background:#131313}
+@media(max-width:650px){.ic-panel{padding:10px}.ic-frame{height:650px}.ic-btn{width:100%}}
